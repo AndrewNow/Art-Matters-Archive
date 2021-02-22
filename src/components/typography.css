@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "at_surt_regular";
+  src: url(./fonts/at_surt.woff2) format("woff2");
+  font-display: fallback;
+} 
+
+@font-face {
+  font-family: "at_surt_italic";
+  src: url(./fonts/at_surt_italic.woff2) format("woff2");
+  font-display: fallback;
+} 
+
+@font-face {
+  font-family: "NeueMontreal";
+  src: url(./fonts/NeueMontreal-Regular.woff2) format("woff2");
+  font-display: fallback;
+}
+
+* {
+  font-family: "NeueMontreal";
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p,
+h1,
+h3,
+h4,
+h5,
+h6 {
+  color: #202020;
+}
+
+
+h1 {
+  font-family: "at_surt_regular";
+}
+
+h2 {
+  font-family: "NeueMontreal";
+}
+
+::selection {
+  background: rgba(89, 0, 255, 0.74);
+}
+
+strong {
+  font-weight: 700;
+}
