@@ -16,6 +16,8 @@
   font-display: fallback;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
 * {
   font-family: "NeueMontreal";
   font-weight: normal;

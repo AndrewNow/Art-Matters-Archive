@@ -12,6 +12,15 @@ import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./typography.css"
 
+export const breakpoints = {
+  xs: 375,
+  s: 576,
+  m: 768,
+  l: 992,
+  xl: 1290,
+  xxl: 1400,
+}
+
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -35,3 +44,4 @@ Layout.propTypes = {
 }
 
 export default Layout
+
