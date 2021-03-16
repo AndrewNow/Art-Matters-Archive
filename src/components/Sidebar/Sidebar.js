@@ -8,7 +8,7 @@ const sidebarOpenAnimation = {
     x: "30vw",
     transition: {
       staggerChildren: 0.1,
-      duration: 0.35,
+      duration: 0.45,
       ease: "easeIn",
     },
   },
@@ -54,11 +54,16 @@ const yearHoverEffect = {
 const Sidebar = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
+  
+  const [yearId, setYearId] = useState(2021)
 
-  const handleClick = () => (
-    setOpenSidebar(!openSidebar), setModalOpen(!modalOpen)
+  const handleClick = e => (
+    setOpenSidebar(!openSidebar),
+    setModalOpen(!modalOpen),
+    setYearId(e.target.value)
   )
-  // ----- below is a "modal" element which prevents scrolling when an archive is open -----
+
+  // -----below is a "modal" element to prevent scrolling when archive sidebar opens-----
 
   const useLockBodyScroll = () => {
     useLayoutEffect(() => {
@@ -74,41 +79,130 @@ const Sidebar = () => {
   }
 
   // ----- the "Past Editions" section map, which renders an archive for each year -----
-  const Years = [
-    2021,
-    2020,
-    2019,
-    2018,
-    2017,
-    2016,
-    2015,
-    2014,
-    2013,
-    2012,
-    2011,
-    2010,
-    2009,
-    2008,
-    2007,
-    2006,
-    2005,
-    2004,
-    2003,
-    2002,
-    2001,
-    2000,
+  // const Years = [
+  //   2021,
+  //   2020,
+  //   2019,
+  //   2018,
+  //   2017,
+  //   2016,
+  //   2015,
+  //   2014,
+  //   2013,
+  //   2012,
+  //   2011,
+  //   2010,
+  //   2009,
+  //   2008,
+  //   2007,
+  //   2006,
+  //   2005,
+  //   2004,
+  //   2003,
+  //   2002,
+  //   2001,
+  //   2000,
+  // ]
+
+  // console.log(archive2021.team)
+  // const archive2021 = {
+  //   team:
+  //     "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
+  // }
+  // console.log(archive2021.team)
+
+  const ArchiveData = [
+    {
+      id: "2021",
+      team:
+        "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
+    },
+    {
+      id: "2020",
+      team: "Example name",
+    },
+    {
+      id: "2019",
+        team: "Example name",
+    },
+    {
+      id: "2018",
+        team: "Example name",
+    },
+    {
+      id: "2017",
+        team: "Example name",
+    },
+    {
+      id: "2016",
+    },
+    {
+      id: "2015",
+    },
+    {
+      id: "2014",
+    },
+    {
+      id: "2013",
+    },
+    {
+      id: "2012",
+    },
+    {
+      id: "2011",
+    },
+    {
+      id: "2010",
+    },
+    {
+      id: "2009",
+    },
+    {
+      id: "2008",
+    },
+    {
+      id: "2007",
+    },
+    {
+      id: "2006",
+    },
+    {
+      id: "2005",
+    },
+    {
+      id: "2004",
+    },
+    {
+      id: "2003",
+    },
+    {
+      id: "2002",
+    },
+    {
+      id: "2001",
+    },
+    {
+      id: "2000",
+    },
   ]
-  const allYears = Years.map(year => (
+
+  const archive = ArchiveData.find(({ id }) => id === yearId)
+  
+  console.log(yearId)
+  console.log(archive)
+
+  const allYears = ArchiveData.map(archiveYear => (
     <Year
       variants={yearHoverEffect}
       whileHover="hover"
       initial="normal"
+      type="submit"
+      key={archiveYear.id}
+      value={archiveYear.id}
       onClick={handleClick}
-    >
-      {year}
-    </Year>
+    />
   ))
-
+  
   return (
     <>
       <ArchiveYearList>
@@ -125,10 +219,14 @@ const Sidebar = () => {
       >
         <MainContent>
           <Header>
-            <PrevButton></PrevButton>
-            <h2>EDITION 20</h2>
-            <NextButton></NextButton>
+            <PrevButton>Prev</PrevButton>
+            <h2>EDITION {yearId}</h2>
+            <NextButton>Next</NextButton>
           </Header>
+          {/* <p>{archive.team}</p> */}
+          {/* <p>{[archive]}</p> */}
+          {/* <p>{archive[id].team}</p> */}
+          {/* <p>{archive.team}</p> */}
         </MainContent>
       </SidebarDiv>
 
@@ -175,18 +273,19 @@ const YearGrid = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
     grid-auto-flow: row;
-    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 `
-const Year = styled(motion.div)`
+const Year = styled(motion.input)`
   padding: 1rem;
   color: #636363;
   font-family: "Space Mono", monospace;
   font-size: 20px;
   cursor: pointer;
-  
-  
+
+  border: none;
+  background-color: transparent;
 `
 
 const SidebarDiv = styled(motion.div)`
@@ -204,10 +303,9 @@ const SidebarDiv = styled(motion.div)`
   box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
 
   @media (max-width: ${breakpoints.m}px) {
-
     -webkit-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
-       -moz-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
-            box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
+    -moz-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
+    box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
   }
 `
 

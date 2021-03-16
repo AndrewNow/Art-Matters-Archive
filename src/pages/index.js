@@ -22,7 +22,7 @@ const IndexPage = () => {
           and a reminder that hard work can leave a lasting mark.
         </Bio>
         <NewEditionBanner />
-        <Sidebar />
+        <Sidebar /> 
         
       
       
