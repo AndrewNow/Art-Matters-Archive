@@ -54,13 +54,16 @@ const yearHoverEffect = {
 const Sidebar = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
-  
-  const [yearId, setYearId] = useState(2021)
+  const [yearId, setYearId] = useState("2021")
 
   const handleClick = e => (
     setOpenSidebar(!openSidebar),
     setModalOpen(!modalOpen),
     setYearId(e.target.value)
+  )
+
+  const handleClickOut = () => (
+    setOpenSidebar(!openSidebar), setModalOpen(!modalOpen)
   )
 
   // -----below is a "modal" element to prevent scrolling when archive sidebar opens-----
@@ -78,39 +81,8 @@ const Sidebar = () => {
     return <></>
   }
 
-  // ----- the "Past Editions" section map, which renders an archive for each year -----
-  // const Years = [
-  //   2021,
-  //   2020,
-  //   2019,
-  //   2018,
-  //   2017,
-  //   2016,
-  //   2015,
-  //   2014,
-  //   2013,
-  //   2012,
-  //   2011,
-  //   2010,
-  //   2009,
-  //   2008,
-  //   2007,
-  //   2006,
-  //   2005,
-  //   2004,
-  //   2003,
-  //   2002,
-  //   2001,
-  //   2000,
-  // ]
-
-  // console.log(archive2021.team)
-  // const archive2021 = {
-  //   team:
-  //     "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
-  // }
-  // console.log(archive2021.team)
-
+  // ----- the "Past Editions" section data, which renders an archive button for each year -----
+  // ----- this also holds all the actual archive data for each page! -----
   const ArchiveData = [
     {
       id: "2021",
@@ -123,15 +95,15 @@ const Sidebar = () => {
     },
     {
       id: "2019",
-        team: "Example name",
+      team: "Example name",
     },
     {
       id: "2018",
-        team: "Example name",
+      team: "Example name",
     },
     {
       id: "2017",
-        team: "Example name",
+      team: "Example name",
     },
     {
       id: "2016",
@@ -186,11 +158,6 @@ const Sidebar = () => {
     },
   ]
 
-  const archive = ArchiveData.find(({ id }) => id === yearId)
-  
-  console.log(yearId)
-  console.log(archive)
-
   const allYears = ArchiveData.map(archiveYear => (
     <Year
       variants={yearHoverEffect}
@@ -201,8 +168,16 @@ const Sidebar = () => {
       value={archiveYear.id}
       onClick={handleClick}
     />
+    // 1. Create one <Year /> component for every year in ArchiveData.
+    // 2. We set <Year /> as an <input> with a value={} of the associated year.
+    // 3. When any <Year /> is clicked, {handleClick} updates the state of yearId
   ))
-  
+
+  const archive = ArchiveData.find(({ id }) => id === yearId)
+  // All data needed for the sidebar is now contained in const {archive}
+  // When the <Year /> component is clicked, render the content from that specific year.
+  // yearId holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value.
+
   return (
     <>
       <ArchiveYearList>
@@ -223,10 +198,8 @@ const Sidebar = () => {
             <h2>EDITION {yearId}</h2>
             <NextButton>Next</NextButton>
           </Header>
-          {/* <p>{archive.team}</p> */}
-          {/* <p>{[archive]}</p> */}
-          {/* <p>{archive[id].team}</p> */}
-          {/* <p>{archive.team}</p> */}
+
+          {archive ? <p>{archive.team}</p> : null}
         </MainContent>
       </SidebarDiv>
 
@@ -236,7 +209,7 @@ const Sidebar = () => {
         initial="hidden"
         animate={openSidebar ? "visible" : "hidden"}
         exit="hidden"
-        onClick={handleClick}
+        onClick={handleClickOut}
       />
     </>
   )
