@@ -1,15 +1,16 @@
 import React, { useState, useLayoutEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, useDeprecatedInvertedScale } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
+import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 
 const sidebarOpenAnimation = {
   visible: {
     x: "30vw",
     transition: {
       staggerChildren: 0.1,
-      duration: 0.45,
-      ease: "easeIn",
+      duration: 0.4,
+      ease: "easeOut",
     },
   },
   hidden: {
@@ -22,7 +23,7 @@ const sidebarOpenAnimation = {
   },
 }
 
-const clickout = {
+const clickOut = {
   visible: {
     visibility: "visible",
     opacity: 1,
@@ -37,37 +38,22 @@ const clickout = {
   },
 }
 
-const yearHoverEffect = {
-  hover: {
-    skew: 30,
-    color: "#5200ff",
-    transition: {
-      ease: "easeInOut",
-      duration: 0.1,
-    },
-  },
-  normal: {
-    skew: 0,
-  },
-}
-
 const Sidebar = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
-  const [yearId, setYearId] = useState("2021")
+  const [yearId, setYearId] = useState(2021)
 
   const handleClick = e => (
     setOpenSidebar(!openSidebar),
     setModalOpen(!modalOpen),
-    setYearId(e.target.value)
+    setYearId(+e.target.value)
   )
 
   const handleClickOut = () => (
     setOpenSidebar(!openSidebar), setModalOpen(!modalOpen)
   )
 
-  // -----below is a "modal" element to prevent scrolling when archive sidebar opens-----
-
+  //below is a "modal" element to prevent scrolling when archive sidebar opens
   const useLockBodyScroll = () => {
     useLayoutEffect(() => {
       const originalStyle = window.getComputedStyle(document.body).overflow
@@ -85,88 +71,89 @@ const Sidebar = () => {
   // ----- this also holds all the actual archive data for each page! -----
   const ArchiveData = [
     {
-      id: "2021",
+      id: 2021,
       team:
         "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
     },
     {
-      id: "2020",
+      id: 2020,
       team: "Example name",
     },
     {
-      id: "2019",
-      team: "Example name",
+      id: 2019,
+      team: "Example name number two",
     },
     {
-      id: "2018",
-      team: "Example name",
+      id: 2018,
+      team: "Example name number three",
     },
     {
-      id: "2017",
-      team: "Example name",
+      id: 2017,
+      team: "Example name number four ",
     },
     {
-      id: "2016",
+      id: 2016,
     },
     {
-      id: "2015",
+      id: 2015,
     },
     {
-      id: "2014",
+      id: 2014,
     },
     {
-      id: "2013",
+      id: 2013,
     },
     {
-      id: "2012",
+      id: 2012,
     },
     {
-      id: "2011",
+      id: 2011,
     },
     {
-      id: "2010",
+      id: 2010,
     },
     {
-      id: "2009",
+      id: 2009,
     },
     {
-      id: "2008",
+      id: 2008,
     },
     {
-      id: "2007",
+      id: 2007,
     },
     {
-      id: "2006",
+      id: 2006,
     },
     {
-      id: "2005",
+      id: 2005,
     },
     {
-      id: "2004",
+      id: 2004,
     },
     {
-      id: "2003",
+      id: 2003,
     },
     {
-      id: "2002",
+      id: 2002,
     },
     {
-      id: "2001",
+      id: 2001,
     },
     {
-      id: "2000",
+      id: 2000,
     },
   ]
 
   const allYears = ArchiveData.map(archiveYear => (
     <Year
-      variants={yearHoverEffect}
       whileHover="hover"
       initial="normal"
       type="submit"
       key={archiveYear.id}
       value={archiveYear.id}
       onClick={handleClick}
+      whileHover={{ scale: 1.1, color: "#5200ff" }}
+      whileTap={{ scale: 0.9 }}
     />
     // 1. Create one <Year /> component for every year in ArchiveData.
     // 2. We set <Year /> as an <input> with a value={} of the associated year.
@@ -176,7 +163,25 @@ const Sidebar = () => {
   const archive = ArchiveData.find(({ id }) => id === yearId)
   // All data needed for the sidebar is now contained in const {archive}
   // When the <Year /> component is clicked, render the content from that specific year.
-  // yearId holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value.
+  // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value.
+
+  // If year is smaller than 2000, go back to the most recent year archive
+  const decrementArchiveCount = () => {
+    if (yearId === 2000) {
+      setYearId(2021)
+    } else {
+      setYearId(prevYear => prevYear - 1)
+    }
+  }
+
+  // If year is greater than 2021, go back to the oldest year archive
+  const incrementArchiveCount = () => {
+    if (yearId === 2021) {
+      setYearId(2000)
+    } else {
+      setYearId(prevYear => prevYear + 1)
+    }
+  }
 
   return (
     <>
@@ -194,20 +199,26 @@ const Sidebar = () => {
       >
         <MainContent>
           <Header>
-            <PrevButton>Prev</PrevButton>
+            <PrevButton onClick={decrementArchiveCount}>
+              {" "}
+              <BiLeftArrowAlt />
+            </PrevButton>
             <h2>EDITION {yearId}</h2>
-            <NextButton>Next</NextButton>
+            <NextButton onClick={incrementArchiveCount}>
+              {" "}
+              <BiRightArrowAlt />
+            </NextButton>
           </Header>
-
           {archive ? <p>{archive.team}</p> : null}
+          {/* Check to see if {archive} exists, if it does, render the component data */}
         </MainContent>
       </SidebarDiv>
 
       {/* ----- empty background div to close the sidebar menu -----  */}
       <ClickOut
-        variants={clickout}
-        initial="hidden"
+        variants={clickOut}
         animate={openSidebar ? "visible" : "hidden"}
+        initial="hidden"
         exit="hidden"
         onClick={handleClickOut}
       />
@@ -251,11 +262,11 @@ const YearGrid = styled.div`
   }
 `
 const Year = styled(motion.input)`
+  cursor: pointer;
   padding: 1rem;
   color: #636363;
-  font-family: "Space Mono", monospace;
   font-size: 20px;
-  cursor: pointer;
+  font-family: "Space Mono", monospace;
 
   border: none;
   background-color: transparent;
@@ -285,33 +296,66 @@ const SidebarDiv = styled(motion.div)`
 const MainContent = styled.div`
   margin: 0 auto;
   padding-right: 10vw;
+  padding-left: 4vw;
   width: 100%;
 `
 const Header = styled.div`
   padding-top: 3rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   & h2 {
     text-align: center;
-    font-size: 48px;
+    font-size: 100px;
     letter-spacing: 0.1rem;
     color: white;
     text-shadow: 0px 0px 8px #ffffff;
   }
 `
 
-const PrevButton = styled.div`
-  width: 70px;
-  height: 70px;
+const PrevButton = styled.button`
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
   border: 1px solid white;
   border-radius: 50%;
+  text-align: center;
+  background-color: #ffffff10;
+  transition: 0.2s all ease;
+
+  & :hover {
+    background-color: #ffffff90;
+  }
+  & svg {
+    padding-top: 0.3rem;
+    margin-left: .1rem;
+    color: white;
+    width: 35px;
+    height: 35px;
+  }
 `
-const NextButton = styled.div`
-  width: 70px;
-  height: 70px;
+const NextButton = styled.button`
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
   border: 1px solid white;
   border-radius: 50%;
+  text-align: center;
+  background-color: #ffffff10;
+  transition: 0.2s all ease;
+
+  & :hover {
+    background-color: #ffffff90;
+  }
+
+  & svg {
+    padding-top: 0.3rem;
+    color: white;
+    width: 35px;
+    height: 35px;
+    margin-left: -0.1rem;
+  }
 `
 const ClickOut = styled(motion.div)`
   width: 100vw;
