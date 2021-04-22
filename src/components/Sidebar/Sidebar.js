@@ -1,8 +1,15 @@
 import React, { useState, useLayoutEffect } from "react"
-import { motion, useDeprecatedInvertedScale } from "framer-motion"
+import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
+import NewEditionBanner from "../Marquee/NewEditionBanner"
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
+
+import pdf2019 from "../pdfs/2019_Catalog.pdf"
+
+import ArchivePDF from './ArchivePDF'
+
 
 const sidebarOpenAnimation = {
   visible: {
@@ -74,6 +81,7 @@ const Sidebar = () => {
       id: 2021,
       team:
         "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
+      pdf: `${pdf2019}`,
     },
     {
       id: 2020,
@@ -183,8 +191,30 @@ const Sidebar = () => {
     }
   }
 
+  // -----react-pdf setup content for the sidebar, -----
+  // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
+  const [numPages, setNumPages] = useState(null)
+  const [pageNumber, setPageNumber] = useState(1)
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages)
+    setPageNumber(1)
+  }
+  const changePage = offset => {
+    setPageNumber(prevPageNumber => prevPageNumber + offset)
+  }
+  const previousPage = () => {
+    changePage(-1)
+  }
+  const nextPage = () => {
+    changePage(1)
+  }
+
   return (
     <>
+      <BannerButton onClick={handleClickOut}>
+        <NewEditionBanner />
+      </BannerButton>
       <ArchiveYearList>
         <h2>Past Editions</h2>
         <YearGrid>{allYears}</YearGrid>
@@ -210,6 +240,48 @@ const Sidebar = () => {
             </NextButton>
           </Header>
           {archive ? <p>{archive.team}</p> : null}
+
+          {archive ? (
+            <>
+              <PDFContainer>
+                <PDFPrevButton
+                  type="button"
+                  disabled={pageNumber <= 1}
+                  onClick={previousPage}
+                  whileHover={{ color: "#5200ff" }}
+                  whileTap={{ scale: 0.95 }}
+                  >
+                  Prev
+                </PDFPrevButton>
+                
+                <PDFDocument
+                  file={archive.pdf}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  >
+                  <Page pageNumber={pageNumber} />
+                </PDFDocument>
+
+                <PDFNextButton
+                  type="button"
+                  disabled={pageNumber >= numPages}
+                  onClick={nextPage}
+                  whileHover={{ color: "#5200ff" }}
+                  whileTap={{ scale: 0.95 }}
+                  >
+                  Next
+                </PDFNextButton>
+              </PDFContainer>
+              
+              <PDFPageNumber>
+                {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
+              </PDFPageNumber>
+            </>
+          ) : null}
+
+          <ArchivePDF archive={archive} />
+
+
+
           {/* Check to see if {archive} exists, if it does, render the component data */}
         </MainContent>
       </SidebarDiv>
@@ -225,6 +297,10 @@ const Sidebar = () => {
     </>
   )
 }
+
+const BannerButton = styled.button`
+  border: none;
+`
 
 const ArchiveYearList = styled.div`
   width: 100%;
@@ -298,6 +374,10 @@ const MainContent = styled.div`
   padding-right: 10vw;
   padding-left: 4vw;
   width: 100%;
+
+  & p {
+    color: white;
+  }
 `
 const Header = styled.div`
   padding-top: 3rem;
@@ -329,7 +409,7 @@ const PrevButton = styled.button`
   }
   & svg {
     padding-top: 0.3rem;
-    margin-left: .1rem;
+    margin-left: 0.1rem;
     color: white;
     width: 35px;
     height: 35px;
@@ -363,6 +443,45 @@ const ClickOut = styled(motion.div)`
   z-index: 1000;
   position: fixed;
   top: 0;
+`
+
+
+const PDFContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const PDFDocument = styled(Document)`
+  display: flex;
+  justify-content: center;
+  width: 630px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
+`
+const PDFPrevButton = styled(motion.button)`
+  width: 140px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  float: left;
+`
+const PDFNextButton = styled(motion.button)`
+  width: 140px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  float: right;
+`
+
+const PDFPageNumber = styled.p`
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  padding-top: 1rem; 
+  margin: 0 auto;
+  text-align: center;
 `
 
 export default Sidebar

@@ -3,12 +3,10 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
 import Marquee from "../components/Marquee/Marquee"
-import NewEditionBanner from "../components/Marquee/NewEditionBanner"
 import { breakpoints } from "../components/layout"
-import Sidebar from '../components/Sidebar/Sidebar'
+import Sidebar from "../components/Sidebar/Sidebar"
 
 const IndexPage = () => {
-
   return (
     <Layout>
       <SEO title="Archive" />
@@ -21,11 +19,8 @@ const IndexPage = () => {
           our history. This website is an ode to the past, a nod to the future,
           and a reminder that hard work can leave a lasting mark.
         </Bio>
-        <NewEditionBanner />
-        <Sidebar /> 
-        
-      
-      
+        <Sidebar />
+        {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
       </MainPage>
     </Layout>
   )
@@ -76,7 +71,7 @@ const Bio = styled.h2`
   width: 90%;
   margin: 0 auto;
   padding-bottom: 10rem;
-  
+
   @media (max-width: ${breakpoints.m}px) {
     font-size: 28px;
     padding-bottom: 5rem;

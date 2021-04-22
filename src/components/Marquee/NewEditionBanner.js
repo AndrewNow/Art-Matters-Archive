@@ -6,8 +6,7 @@ import {
   useViewportScroll,
   useSpring,
 } from "framer-motion"
-
-import {breakpoints} from '../../components/layout'
+import { breakpoints } from "../../components/layout"
 
 const NewEditionBanner = () => {
   // ---------- ANIMATE ON SCROLL LOGIC ----------
@@ -28,11 +27,13 @@ const NewEditionBanner = () => {
   return (
     <NewEdtionBanner>
       <NewEditionBannerContent style={{ x: scrollRight }}>
-        EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION{" "}
+        <a>
+          EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION{" "}
+        </a>
       </NewEditionBannerContent>
       <br />
       <NewEditionBannerContent style={{ x: scrollLeft }}>
-        EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION{" "}
+        <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
       </NewEditionBannerContent>
     </NewEdtionBanner>
   )
@@ -47,6 +48,14 @@ const NewEdtionBanner = styled(motion.div)`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: white;
+  cursor: pointer;
+  text-shadow: 1px 1px 5px rgba(188, 188, 188, 0.48);
+
+  transition: 0.3s text-shadow ease;
+  & :hover {
+    text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.80);
+    /* background-color: #33333302; */
+  }
 
   @media (max-width: ${breakpoints.m}px) {
     height: 270px;
@@ -59,7 +68,8 @@ const NewEditionBannerContent = styled(motion.div)`
   left: -1800px;
   color: white;
   font-size: 210px;
-  text-shadow: 1px 1px 5px rgba(188, 188, 188, 0.48);
+  
+
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 100px;
