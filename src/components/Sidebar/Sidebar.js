@@ -4,12 +4,27 @@ import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
 
 import pdf2019 from "../pdfs/2019_Catalog.pdf"
-
-import ArchivePDF from './ArchivePDF'
-
+import pdf2018 from "../pdfs/2018_Catalog.pdf"
+import pdf2017 from "../pdfs/2017_Catalog.pdf"
+import pdf2016 from "../pdfs/2016_Catalog.pdf"
+import pdf2015 from "../pdfs/2015_Catalog.pdf"
+// import pdf2014 from "../pdfs/2014_Catalog.pdf"
+// import pdf2013 from "../pdfs/2013_Catalog.pdf"
+import pdf2012 from "../pdfs/2012_Catalog.pdf"
+import pdf2011 from "../pdfs/2011_Catalog.pdf"
+import pdf2010 from "../pdfs/2010_Catalog.pdf"
+import pdf2009 from "../pdfs/2009_Catalog.pdf"
+import pdf2008 from "../pdfs/2008_Catalog.pdf"
+import pdf2007 from "../pdfs/2007_Catalog.pdf"
+import pdf2006 from "../pdfs/2006_Catalog.pdf"
+import pdf2005 from "../pdfs/2005_Catalog.pdf"
+import pdf2004 from "../pdfs/2004_Catalog.pdf"
+import pdf2003 from "../pdfs/2003_Catalog.pdf"
+import pdf2002 from "../pdfs/2002_Catalog.pdf"
+import pdf2001 from "../pdfs/2001_Catalog.pdf"
+import ArchivePDF from "./ArchivePDF"
 
 const sidebarOpenAnimation = {
   visible: {
@@ -86,66 +101,86 @@ const Sidebar = () => {
     {
       id: 2020,
       team: "Example name",
+      pdf: `${pdf2019}`,
     },
     {
       id: 2019,
       team: "Example name number two",
+      pdf: `${pdf2019}`,
     },
     {
       id: 2018,
       team: "Example name number three",
+      pdf: `${pdf2018}`,
     },
     {
       id: 2017,
       team: "Example name number four ",
+      pdf: `${pdf2017}`,
     },
     {
       id: 2016,
+      pdf: `${pdf2016}`,
     },
     {
       id: 2015,
+      pdf: `${pdf2015}`,
     },
     {
       id: 2014,
+      // pdf: `${pdf2014}`,
     },
     {
       id: 2013,
+      // pdf: `${pdf2013}`,
     },
     {
       id: 2012,
+      pdf: `${pdf2012}`,
     },
     {
       id: 2011,
+      pdf: `${pdf2011}`,
     },
     {
       id: 2010,
+      pdf: `${pdf2010}`,
     },
     {
       id: 2009,
+      pdf: `${pdf2009}`,
     },
     {
       id: 2008,
+      pdf: `${pdf2008}`,
     },
     {
       id: 2007,
+      pdf: `${pdf2007}`,
     },
     {
       id: 2006,
+      pdf: `${pdf2006}`,
     },
     {
       id: 2005,
+      pdf: `${pdf2005}`,
     },
     {
       id: 2004,
+      pdf: `${pdf2004}`,
     },
     {
       id: 2003,
+      pdf: `${pdf2003}`,
     },
     {
       id: 2002,
+      pdf: `${pdf2002}`,
     },
     {
       id: 2001,
+      pdf: `${pdf2001}`,
     },
     {
       id: 2000,
@@ -191,25 +226,6 @@ const Sidebar = () => {
     }
   }
 
-  // -----react-pdf setup content for the sidebar, -----
-  // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
-  const [numPages, setNumPages] = useState(null)
-  const [pageNumber, setPageNumber] = useState(1)
-
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages)
-    setPageNumber(1)
-  }
-  const changePage = offset => {
-    setPageNumber(prevPageNumber => prevPageNumber + offset)
-  }
-  const previousPage = () => {
-    changePage(-1)
-  }
-  const nextPage = () => {
-    changePage(1)
-  }
-
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -239,48 +255,18 @@ const Sidebar = () => {
               <BiRightArrowAlt />
             </NextButton>
           </Header>
+          <Title>Catalogue</Title>
+          {archive ? <ArchivePDF archive={archive} /> : null}
+          <br />
+          <br />
+          <Title>Team</Title>
           {archive ? <p>{archive.team}</p> : null}
-
-          {archive ? (
-            <>
-              <PDFContainer>
-                <PDFPrevButton
-                  type="button"
-                  disabled={pageNumber <= 1}
-                  onClick={previousPage}
-                  whileHover={{ color: "#5200ff" }}
-                  whileTap={{ scale: 0.95 }}
-                  >
-                  Prev
-                </PDFPrevButton>
-                
-                <PDFDocument
-                  file={archive.pdf}
-                  onLoadSuccess={onDocumentLoadSuccess}
-                  >
-                  <Page pageNumber={pageNumber} />
-                </PDFDocument>
-
-                <PDFNextButton
-                  type="button"
-                  disabled={pageNumber >= numPages}
-                  onClick={nextPage}
-                  whileHover={{ color: "#5200ff" }}
-                  whileTap={{ scale: 0.95 }}
-                  >
-                  Next
-                </PDFNextButton>
-              </PDFContainer>
-              
-              <PDFPageNumber>
-                {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
-              </PDFPageNumber>
-            </>
-          ) : null}
-
-          <ArchivePDF archive={archive} />
-
-
+          <br />
+          <br />
+          <Title>Gallery</Title>
+          {archive ? <p>{archive.team}</p> : null}
+          <br />
+          <br />
 
           {/* Check to see if {archive} exists, if it does, render the component data */}
         </MainContent>
@@ -351,6 +337,7 @@ const Year = styled(motion.input)`
 const SidebarDiv = styled(motion.div)`
   z-index: 2000;
   position: fixed;
+  overflow-y: scroll;
   top: 0;
   /* right: 0; */
   background-color: #5200ff;
@@ -372,7 +359,7 @@ const SidebarDiv = styled(motion.div)`
 const MainContent = styled.div`
   margin: 0 auto;
   padding-right: 10vw;
-  padding-left: 4vw;
+  /* padding-left: 4vw; */
   width: 100%;
 
   & p {
@@ -380,10 +367,19 @@ const MainContent = styled.div`
   }
 `
 const Header = styled.div`
-  padding-top: 3rem;
+  padding-top: 2rem;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  background-color: #5200ff;
+
+  -webkit-box-shadow: 0px 0px 40px 35px rgba(81, 0, 255, 1);
+  -moz-box-shadow: 0px 0px 40px 35px rgba(81, 0, 255, 1);
+  box-shadow: 0px 0px 40px 35px rgba(81, 0, 255, 1);
 
   & h2 {
     text-align: center;
@@ -445,43 +441,14 @@ const ClickOut = styled(motion.div)`
   top: 0;
 `
 
-
-const PDFContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const PDFDocument = styled(Document)`
-  display: flex;
-  justify-content: center;
-  width: 630px;
-  margin: 0 auto;
-  box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
-`
-const PDFPrevButton = styled(motion.button)`
-  width: 140px;
-  height: 40px;
-  background-color: white;
-  border: 1px solid black;
-  cursor: pointer;
-  float: left;
-`
-const PDFNextButton = styled(motion.button)`
-  width: 140px;
-  height: 40px;
-  background-color: white;
-  border: 1px solid black;
-  cursor: pointer;
-  float: right;
-`
-
-const PDFPageNumber = styled.p`
-  font-family: "Space Mono", monospace;
-  font-size: 14px;
-  padding-top: 1rem; 
-  margin: 0 auto;
-  text-align: center;
+const Title = styled.h6`
+  color: white;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
 `
 
 export default Sidebar
