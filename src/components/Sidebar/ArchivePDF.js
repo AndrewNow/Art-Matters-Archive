@@ -6,24 +6,24 @@ import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
 
+
+
 const ArchivePDF = ({ archive }) => {
-  
-  
   const fadeButtons = {
     opaque: {
-      opacity: 1
+      opacity: 1,
     },
     faded: {
-      opacity: 0.2
-    }
-
+      opacity: 0.2,
+    },
   }
-  
+
   // -----react-pdf setup content for the sidebar, -----
   // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [zoomIn, setZoomIn] = useState(false)
+  const [noDataFade, setNoDataFade] = useState(false)
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
@@ -42,6 +42,7 @@ const ArchivePDF = ({ archive }) => {
     setZoomIn(!zoomIn)
   }
 
+
   return (
     <>
       <PDFContainer>
@@ -56,7 +57,7 @@ const ArchivePDF = ({ archive }) => {
         >
           Prev
         </PDFPrevButton>
-
+        {/* PDFDocument and PDFPage components below are from the react-pdf library */}
         <PDFDocument
           file={archive.pdf}
           loading={<LoadingSpinner />}
@@ -79,7 +80,7 @@ const ArchivePDF = ({ archive }) => {
           onClick={nextPage}
           whileHover={{ color: "#5200ff", opacity: 1 }}
           whileTap={{ scale: 0.95 }}
-          animate={zoomIn ? "faded" : "opaque"}
+          animate={(zoomIn || noDataFade) ? "faded" : "opaque"}
           variants={fadeButtons}
         >
           Next
@@ -106,11 +107,10 @@ const PDFDocument = styled(Document)`
   cursor: zoom-in;
 
   /* box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48); */
-  `
+`
 
 const PDFPage = styled(Page)`
   box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
-
 `
 
 const PDFPrevButton = styled(motion.button)`

@@ -26,9 +26,26 @@ import pdf2002 from "../pdfs/2002_Catalog.pdf"
 import pdf2001 from "../pdfs/2001_Catalog.pdf"
 import ArchivePDF from "./ArchivePDF"
 
+// hooks to make sure that the side bar animation changes depending on DOM width
+const mobile = window.matchMedia(`(max-width: 600px)`).matches
+const tablet = window.matchMedia(`(min-width: 601px) and (max-width: 800px)`)
+  .matches
+const desktop = window.matchMedia(`(min-width: 801px)`).matches
+
+const checkMQ = () => {
+  if (mobile) return "-7.5vw"
+  if (tablet) return "0vw"
+  if (desktop) return "30vw"
+}
+const checkMQ2 = () => {
+  if (mobile) return "100vw"
+  if (tablet) return "99vw"
+  if (desktop) return "96vw"
+}
+
 const sidebarOpenAnimation = {
   visible: {
-    x: "30vw",
+    x: checkMQ(),
     transition: {
       staggerChildren: 0.1,
       duration: 0.4,
@@ -36,7 +53,7 @@ const sidebarOpenAnimation = {
     },
   },
   hidden: {
-    x: "96vw",
+    x: checkMQ2(),
     transition: {
       staggerChildren: 0.1,
       duration: 0.25,
@@ -244,14 +261,18 @@ const Sidebar = () => {
         exit="hidden"
       >
         <MainContent>
+          <MobileClickOutButton onClick={handleClickOut}>
+            <p>
+              Close Archive
+            </p>
+          </MobileClickOutButton>
           <Header>
             <PrevButton onClick={decrementArchiveCount}>
-              {" "}
               <BiLeftArrowAlt />
             </PrevButton>
             <h2>EDITION {yearId}</h2>
+
             <NextButton onClick={incrementArchiveCount}>
-              {" "}
               <BiRightArrowAlt />
             </NextButton>
           </Header>
@@ -353,6 +374,9 @@ const SidebarDiv = styled(motion.div)`
     -webkit-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
     -moz-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
     box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
+
+    /* maybe delete below */
+    width: 100%;
   }
 `
 
@@ -361,9 +385,13 @@ const MainContent = styled.div`
   padding-right: 10vw;
   /* padding-left: 4vw; */
   width: 100%;
-
   & p {
     color: white;
+  }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 90%;
+    padding-right: 0;
   }
 `
 const Header = styled.div`
@@ -388,6 +416,22 @@ const Header = styled.div`
     color: white;
     text-shadow: 0px 0px 8px #ffffff;
   }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    margin-bottom: 2rem;
+
+    & h2 {
+      font-size: 50px;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    padding-top: 4rem;
+    margin-bottom: 2rem;
+
+    & h2 {
+      font-size: 30px;
+    }
+  }
 `
 
 const PrevButton = styled.button`
@@ -409,6 +453,16 @@ const PrevButton = styled.button`
     color: white;
     width: 35px;
     height: 35px;
+  }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 50px;
+    height: 50px;
+  
+    & svg {
+      width: 25px;
+      height: 25px;
+    }
   }
 `
 const NextButton = styled.button`
@@ -432,6 +486,16 @@ const NextButton = styled.button`
     height: 35px;
     margin-left: -0.1rem;
   }
+
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 50px;
+    height: 50px;
+
+    & svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
 `
 const ClickOut = styled(motion.div)`
   width: 100vw;
@@ -439,6 +503,20 @@ const ClickOut = styled(motion.div)`
   z-index: 1000;
   position: fixed;
   top: 0;
+`
+
+const MobileClickOutButton = styled.div`
+  visibility: hidden;
+  
+  @media (max-width: ${breakpoints.m}px) {
+    visibility: visible;
+    position: fixed;
+    right: 5%;
+    z-index: 801;
+    color: white;
+    margin: 0 auto;
+    border: 1px solid white;
+  }
 `
 
 const Title = styled.h6`
