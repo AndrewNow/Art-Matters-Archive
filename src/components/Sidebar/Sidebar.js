@@ -4,6 +4,7 @@ import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
+import useWindowSize from "../utils/useWindowSize"
 
 import pdf2019 from "../pdfs/2019_Catalog.pdf"
 import pdf2018 from "../pdfs/2018_Catalog.pdf"
@@ -26,48 +27,28 @@ import pdf2002 from "../pdfs/2002_Catalog.pdf"
 import pdf2001 from "../pdfs/2001_Catalog.pdf"
 import ArchivePDF from "./ArchivePDF"
 
-import useWindowSize from "../utils/useWindowSize"
+
 
 const Sidebar = () => {
+    
+  // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
-
-  console.log(width)
-
-
-  const checkMQ = () => {
+  const checkWidth = () => {
     if (width < 600) return "-7.5vw"
     if (width < 800 && width > 601) return "0vw"
     if (width > 801) return "30vw"
   }
 
-  const checkMQ2 = () => {
+  const checkWidth2 = () => {
     if (width < 600) return "100vw"
     if (width < 800 && width > 601) return "99vw"
     if (width > 801) return "96vw"
   }
 
-  // hooks to make sure that the side bar animation changes depending on DOM width
-
-  // const mobile = window.matchMedia(`(max-width: 600px)`).matches
-  // const tablet = window.matchMedia(`(min-width: 601px) and (max-width: 800px)`)
-  //   .matches
-  // const desktop = window.matchMedia(`(min-width: 801px)`).matches
-
-  // const checkMQ = () => {
-  //   if (mobile) return "-7.5vw"
-  //   if (tablet) return "0vw"
-  //   if (desktop) return "30vw"
-  // }
-
-  // const checkMQ2 = () => {
-  //   if (mobile) return "100vw"
-  //   if (tablet) return "99vw"
-  //   if (desktop) return "96vw"
-  // }
-
+  //Framer animation variables
   const sidebarOpenAnimation = {
     visible: {
-      x: checkMQ(),
+      x: checkWidth(),
       transition: {
         staggerChildren: 0.1,
         duration: 0.4,
@@ -75,7 +56,7 @@ const Sidebar = () => {
       },
     },
     hidden: {
-      x: checkMQ2(),
+      x: checkWidth2(),
       transition: {
         staggerChildren: 0.1,
         duration: 0.25,

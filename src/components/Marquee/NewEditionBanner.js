@@ -68,8 +68,6 @@ const NewEditionBannerContent = styled(motion.div)`
   left: -1800px;
   color: white;
   font-size: 210px;
-  
-
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 100px;
