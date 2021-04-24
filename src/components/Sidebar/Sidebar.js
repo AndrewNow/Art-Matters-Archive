@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react"
+import React, { useState, useLayoutEffect, useEffect } from "react"
 import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
@@ -26,58 +26,79 @@ import pdf2002 from "../pdfs/2002_Catalog.pdf"
 import pdf2001 from "../pdfs/2001_Catalog.pdf"
 import ArchivePDF from "./ArchivePDF"
 
-// hooks to make sure that the side bar animation changes depending on DOM width
-const mobile = window.matchMedia(`(max-width: 600px)`).matches
-const tablet = window.matchMedia(`(min-width: 601px) and (max-width: 800px)`)
-  .matches
-const desktop = window.matchMedia(`(min-width: 801px)`).matches
-
-const checkMQ = () => {
-  if (mobile) return "-7.5vw"
-  if (tablet) return "0vw"
-  if (desktop) return "30vw"
-}
-const checkMQ2 = () => {
-  if (mobile) return "100vw"
-  if (tablet) return "99vw"
-  if (desktop) return "96vw"
-}
-
-const sidebarOpenAnimation = {
-  visible: {
-    x: checkMQ(),
-    transition: {
-      staggerChildren: 0.1,
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  },
-  hidden: {
-    x: checkMQ2(),
-    transition: {
-      staggerChildren: 0.1,
-      duration: 0.25,
-      ease: "easeOut",
-    },
-  },
-}
-
-const clickOut = {
-  visible: {
-    visibility: "visible",
-    opacity: 1,
-    transition: {
-      delay: 0,
-      duration: 0.4,
-    },
-  },
-  hidden: {
-    visibility: "hidden",
-    opacity: 0,
-  },
-}
+import useWindowSize from "../utils/useWindowSize"
 
 const Sidebar = () => {
+  const { width } = useWindowSize()
+
+  console.log(width)
+
+
+  const checkMQ = () => {
+    if (width < 600) return "-7.5vw"
+    if (width < 800 && width > 601) return "0vw"
+    if (width > 801) return "30vw"
+  }
+
+  const checkMQ2 = () => {
+    if (width < 600) return "100vw"
+    if (width < 800 && width > 601) return "99vw"
+    if (width > 801) return "96vw"
+  }
+
+  // hooks to make sure that the side bar animation changes depending on DOM width
+
+  // const mobile = window.matchMedia(`(max-width: 600px)`).matches
+  // const tablet = window.matchMedia(`(min-width: 601px) and (max-width: 800px)`)
+  //   .matches
+  // const desktop = window.matchMedia(`(min-width: 801px)`).matches
+
+  // const checkMQ = () => {
+  //   if (mobile) return "-7.5vw"
+  //   if (tablet) return "0vw"
+  //   if (desktop) return "30vw"
+  // }
+
+  // const checkMQ2 = () => {
+  //   if (mobile) return "100vw"
+  //   if (tablet) return "99vw"
+  //   if (desktop) return "96vw"
+  // }
+
+  const sidebarOpenAnimation = {
+    visible: {
+      x: checkMQ(),
+      transition: {
+        staggerChildren: 0.1,
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    hidden: {
+      x: checkMQ2(),
+      transition: {
+        staggerChildren: 0.1,
+        duration: 0.25,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const clickOut = {
+    visible: {
+      visibility: "visible",
+      opacity: 1,
+      transition: {
+        delay: 0,
+        duration: 0.4,
+      },
+    },
+    hidden: {
+      visibility: "hidden",
+      opacity: 0,
+    },
+  }
+
   const [modalOpen, setModalOpen] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
   const [yearId, setYearId] = useState(2021)
@@ -262,9 +283,7 @@ const Sidebar = () => {
       >
         <MainContent>
           <MobileClickOutButton onClick={handleClickOut}>
-            <p>
-              Close Archive
-            </p>
+            <p>Close Archive</p>
           </MobileClickOutButton>
           <Header>
             <PrevButton onClick={decrementArchiveCount}>
@@ -458,7 +477,7 @@ const PrevButton = styled.button`
   @media (max-width: ${breakpoints.xl}px) {
     width: 50px;
     height: 50px;
-  
+
     & svg {
       width: 25px;
       height: 25px;
@@ -507,7 +526,7 @@ const ClickOut = styled(motion.div)`
 
 const MobileClickOutButton = styled.div`
   visibility: hidden;
-  
+
   @media (max-width: ${breakpoints.m}px) {
     visibility: visible;
     position: fixed;
