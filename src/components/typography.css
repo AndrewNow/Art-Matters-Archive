@@ -41,6 +41,9 @@ h6 {
   color: #202020;
 }
 
+button {
+  font-family: "Space Mono", monospace;
+}
 
 h1 {
   font-family: "at_surt_regular";

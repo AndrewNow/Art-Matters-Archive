@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from "react"
 import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
-import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
+import { BiRightArrowAlt, BiLeftArrowAlt, BiRotateLeft } from "react-icons/bi"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
 
@@ -27,16 +27,17 @@ import pdf2002 from "../pdfs/2002_Catalog.pdf"
 import pdf2001 from "../pdfs/2001_Catalog.pdf"
 import ArchivePDF from "./ArchivePDF"
 
-
+import CloseSVG from "../utils/closeSVG"
+import PrevLongArrowSVG from "../utils/prevLongArrowSVG"
+import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 
 const Sidebar = () => {
-    
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
   const checkWidth = () => {
     if (width < 600) return "-7.5vw"
     if (width < 800 && width > 601) return "0vw"
-    if (width > 801) return "30vw"
+    if (width > 801) return "20vw"
   }
 
   const checkWidth2 = () => {
@@ -264,7 +265,7 @@ const Sidebar = () => {
       >
         <MainContent>
           <MobileClickOutButton onClick={handleClickOut}>
-            <p>Close Archive</p>
+            <CloseSVG />
           </MobileClickOutButton>
           <Header>
             <PrevButton onClick={decrementArchiveCount}>
@@ -290,6 +291,18 @@ const Sidebar = () => {
           <br />
 
           {/* Check to see if {archive} exists, if it does, render the component data */}
+
+          {/* mobile layout nav buttons below  */}
+          <MobileArchiveNavButtons>
+            <button onClick={decrementArchiveCount}>
+              <PrevLongArrowSVG />
+              Prev edition
+            </button>
+            <button onClick={incrementArchiveCount}>
+              Next edition
+              <NextLongArrowSVG />
+            </button>
+          </MobileArchiveNavButtons>
         </MainContent>
       </SidebarDiv>
 
@@ -330,12 +343,15 @@ const ArchiveYearList = styled.div`
   }
 `
 const YearGrid = styled.div`
-  width: 45%;
+  width: 40%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr auto; */
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-flow: column;
+  /* grid-auto-flow: row; */
 
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
@@ -364,7 +380,7 @@ const SidebarDiv = styled(motion.div)`
   background-color: #5200ff;
 
   display: flex;
-  width: 70vw;
+  width: 80vw;
   height: 100vh;
   -webkit-box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
   -moz-box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
@@ -424,12 +440,18 @@ const Header = styled.div`
       font-size: 50px;
     }
   }
+
   @media (max-width: ${breakpoints.m}px) {
-    padding-top: 4rem;
+    padding-top: 0rem;
     margin-bottom: 2rem;
 
+    -webkit-box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
+    -moz-box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
+    box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
+
     & h2 {
-      font-size: 30px;
+      font-size: 40px;
+      margin: 0 auto;
     }
   }
 `
@@ -464,6 +486,9 @@ const PrevButton = styled.button`
       height: 25px;
     }
   }
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
+  }
 `
 const NextButton = styled.button`
   cursor: pointer;
@@ -496,7 +521,21 @@ const NextButton = styled.button`
       height: 25px;
     }
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    display: none;
+  }
 `
+const Title = styled.h6`
+  color: white;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+`
+
 const ClickOut = styled(motion.div)`
   width: 100vw;
   height: 100vh;
@@ -510,23 +549,40 @@ const MobileClickOutButton = styled.div`
 
   @media (max-width: ${breakpoints.m}px) {
     visibility: visible;
-    position: fixed;
-    right: 5%;
+    position: sticky;
     z-index: 801;
     color: white;
+    padding: 1rem 0.5rem;
     margin: 0 auto;
-    border: 1px solid white;
+    cursor: pointer;
+
+    & svg {
+      width: 19px;
+      height: 19px;
+    }
   }
 `
 
-const Title = styled.h6`
-  color: white;
-  font-size: 20px;
-  letter-spacing: 0.03em;
-  width: 100%;
-  border-bottom: 1px solid white;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
+const MobileArchiveNavButtons = styled.div`
+  display: none;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+
+    & button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      width: 40%;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
 `
 
 export default Sidebar

@@ -5,8 +5,9 @@ import styled from "styled-components"
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
-
-
+import useWindowSize from "../utils/useWindowSize"
+import NextArrowSVG from "../utils/nextArrowSVG"
+import PrevArrowSVG from "../utils/prevArrowSVG"
 
 const ArchivePDF = ({ archive }) => {
   const fadeButtons = {
@@ -18,12 +19,19 @@ const ArchivePDF = ({ archive }) => {
     },
   }
 
+  const { width } = useWindowSize()
+  const checkWidth = () => {
+    if (width < 600) return "300"
+    if (width < 900 && width > 601) return "350"
+    if (width < 1600 && width > 901) return "500"
+    if (width > 1601) return "600"
+  }
+
   // -----react-pdf setup content for the sidebar, -----
   // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [zoomIn, setZoomIn] = useState(false)
-  const [noDataFade, setNoDataFade] = useState(false)
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
@@ -42,7 +50,6 @@ const ArchivePDF = ({ archive }) => {
     setZoomIn(!zoomIn)
   }
 
-
   return (
     <>
       <PDFContainer>
@@ -55,7 +62,8 @@ const ArchivePDF = ({ archive }) => {
           animate={zoomIn ? "faded" : "opaque"}
           variants={fadeButtons}
         >
-          Prev
+          <PrevArrowSVG />
+          <p>Prev</p>
         </PDFPrevButton>
         {/* PDFDocument and PDFPage components below are from the react-pdf library */}
         <PDFDocument
@@ -68,9 +76,9 @@ const ArchivePDF = ({ archive }) => {
         >
           <PDFPage
             pageNumber={pageNumber}
-            scale={zoomIn ? 1.15 : 1}
+            scale={zoomIn ? 1.2 : 1}
             onClick={handleClick}
-            height="600"
+            height={checkWidth()}
           />
         </PDFDocument>
 
@@ -80,10 +88,11 @@ const ArchivePDF = ({ archive }) => {
           onClick={nextPage}
           whileHover={{ color: "#5200ff", opacity: 1 }}
           whileTap={{ scale: 0.95 }}
-          animate={(zoomIn || noDataFade) ? "faded" : "opaque"}
+          animate={zoomIn ? "faded" : "opaque"}
           variants={fadeButtons}
         >
-          Next
+          <p>Next</p>
+          <NextArrowSVG />
         </PDFNextButton>
       </PDFContainer>
       <PDFPageNumber>
@@ -98,15 +107,20 @@ const PDFContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   min-height: 600px;
+
+  @media (max-width: ${breakpoints.m}px) {
+    min-height: 300px;
+    max-height: 500px;
+  }
 `
 
 const PDFDocument = styled(Document)`
   display: flex;
   justify-content: center;
+  align-items: center;
   max-width: 630px;
   margin: 0 auto;
   cursor: zoom-in;
-
   /* box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48); */
 `
 
@@ -122,6 +136,15 @@ const PDFPrevButton = styled(motion.button)`
   border: 1px solid black;
   cursor: pointer;
   float: left;
+
+  @media (max-width: ${breakpoints.m}px) {
+    background-color: transparent;
+    border: none;
+
+    & p {
+      display: none;
+    }
+  }
 `
 const PDFNextButton = styled(motion.button)`
   z-index: 100;
@@ -131,6 +154,15 @@ const PDFNextButton = styled(motion.button)`
   border: 1px solid black;
   cursor: pointer;
   float: right;
+
+  @media (max-width: ${breakpoints.m}px) {
+    background-color: transparent;
+    border: none;
+
+    & p {
+      display: none;
+    }
+  }
 `
 
 const PDFPageNumber = styled.p`
@@ -149,6 +181,10 @@ const PDFNoData = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
+
+  @media (max-width: ${breakpoints.m}px) {
+    height: 300px;
+  }
 `
 
 export default ArchivePDF
