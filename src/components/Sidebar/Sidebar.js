@@ -1,8 +1,8 @@
-import React, { useState, useLayoutEffect, useEffect } from "react"
+import React, { useState, useLayoutEffect } from "react"
 import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
-import { BiRightArrowAlt, BiLeftArrowAlt, BiRotateLeft } from "react-icons/bi"
+import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
 
@@ -246,6 +246,8 @@ const Sidebar = () => {
     }
   }
 
+
+
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -437,13 +439,15 @@ const Header = styled.div`
     margin-bottom: 2rem;
 
     & h2 {
+      padding-top: 1rem;
       font-size: 50px;
     }
   }
 
   @media (max-width: ${breakpoints.m}px) {
+    position: relative;
     padding-top: 0rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 
     -webkit-box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
     -moz-box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
@@ -550,6 +554,7 @@ const MobileClickOutButton = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     visibility: visible;
     position: sticky;
+    top: 1rem;
     z-index: 801;
     color: white;
     padding: 1rem 0.5rem;
@@ -559,6 +564,7 @@ const MobileClickOutButton = styled.div`
     & svg {
       width: 19px;
       height: 19px;
+
     }
   }
 `
@@ -570,7 +576,7 @@ const MobileArchiveNavButtons = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1rem;
+    padding-bottom: 5rem;
 
     & button {
       display: flex;

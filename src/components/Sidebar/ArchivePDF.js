@@ -78,7 +78,7 @@ const ArchivePDF = ({ archive }) => {
             pageNumber={pageNumber}
             scale={zoomIn ? 1.2 : 1}
             onClick={handleClick}
-            height={checkWidth()}
+            width={checkWidth()}
           />
         </PDFDocument>
 
@@ -137,6 +137,10 @@ const PDFPrevButton = styled(motion.button)`
   cursor: pointer;
   float: left;
 
+  & p {
+    color: #3a3a3a !important;
+  }
+
   @media (max-width: ${breakpoints.m}px) {
     background-color: transparent;
     border: none;
@@ -154,6 +158,10 @@ const PDFNextButton = styled(motion.button)`
   border: 1px solid black;
   cursor: pointer;
   float: right;
+
+  & p {
+    color: #3a3a3a!important;
+  }
 
   @media (max-width: ${breakpoints.m}px) {
     background-color: transparent;

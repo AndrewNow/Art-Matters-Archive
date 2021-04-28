@@ -65,7 +65,7 @@ const ArchiveTitle = styled.h1`
     text-align: left;
     width: 90%;
     padding-top: 2rem;
-    font-size: 72px;
+    font-size: 62px;
     color: #ffffff95;
     text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff;
   }
