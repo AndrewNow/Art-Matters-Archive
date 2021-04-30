@@ -27,9 +27,7 @@ const NewEditionBanner = () => {
   return (
     <NewEdtionBanner>
       <NewEditionBannerContent style={{ x: scrollRight }}>
-        <a>
-          EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION{" "}
-        </a>
+        <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
       </NewEditionBannerContent>
       <br />
       <NewEditionBannerContent style={{ x: scrollLeft }}>
@@ -53,7 +51,7 @@ const NewEdtionBanner = styled(motion.div)`
 
   transition: 0.3s text-shadow ease;
   & :hover {
-    text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.80);
+    text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.8);
     /* background-color: #33333302; */
   }
 

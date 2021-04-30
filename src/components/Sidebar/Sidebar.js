@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimateSharedLayout, useAnimation } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
@@ -95,7 +95,7 @@ const Sidebar = () => {
     setOpenSidebar(!openSidebar), setModalOpen(!modalOpen)
   )
 
-  //below is a "modal" element to prevent scrolling when archive sidebar opens
+  //below is a "modal" element to prevent scrolling on background when archive sidebar opens
   const useLockBodyScroll = () => {
     useLayoutEffect(() => {
       const originalStyle = window.getComputedStyle(document.body).overflow
@@ -229,6 +229,7 @@ const Sidebar = () => {
   // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value.
 
   // If year is smaller than 2000, go back to the most recent year archive
+
   const decrementArchiveCount = () => {
     if (yearId === 2000) {
       setYearId(2021)
@@ -246,8 +247,28 @@ const Sidebar = () => {
     }
   }
 
+  //handler for the increment/decrement counters, which also trigger a Framer opacity animation
+  const controls = useAnimation()
 
+  const handleDecrement = () => {
+    decrementArchiveCount()
+    controls.start({
+      opacity: [1, 0.2, 1],
+      transition: {
+        duration: 1.5,
+      },
+    })
+  }
 
+  const handleIncrement = () => {
+    incrementArchiveCount()
+    controls.start({
+      opacity: [1, 0.2, 1],
+      transition: {
+        duration: 1.5,
+      },
+    })
+  }
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -258,64 +279,85 @@ const Sidebar = () => {
         <YearGrid>{allYears}</YearGrid>
       </ArchiveYearList>
       {modalOpen && <Modal />}
+      <AnimateSharedLayout>
+        <SidebarDiv
+          variants={sidebarOpenAnimation}
+          initial="hidden"
+          animate={openSidebar ? "visible" : "hidden"}
+          exit="hidden"
+        >
+          <MainContent>
+            <MobileClickOutButton onClick={handleClickOut}>
+              <CloseSVG />
+            </MobileClickOutButton>
+            <Header>
+              <PrevButton onClick={handleDecrement}>
+                <BiLeftArrowAlt />
+              </PrevButton>
+              <motion.h2 layout animate={controls}>
+                EDITION {yearId}
+              </motion.h2>
+              <NextButton onClick={handleIncrement} layout animate={controls}>
+                <BiRightArrowAlt />
+              </NextButton>
 
-      <SidebarDiv
-        variants={sidebarOpenAnimation}
-        initial="hidden"
-        animate={openSidebar ? "visible" : "hidden"}
-        exit="hidden"
-      >
-        <MainContent>
-          <MobileClickOutButton onClick={handleClickOut}>
-            <CloseSVG />
-          </MobileClickOutButton>
-          <Header>
-            <PrevButton onClick={decrementArchiveCount}>
-              <BiLeftArrowAlt />
-            </PrevButton>
-            <h2>EDITION {yearId}</h2>
+              {/* mobile layout nav buttons below  */}
+              <MobileArchiveNavButtons>
+                <motion.button
+                  layout
+                  onClick={handleDecrement}
+                  animate={controls}
+                  whileHover={{ scale: 1.5 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  <PrevLongArrowSVG />
+                  Prev edition
+                </motion.button>
+                <motion.button
+                  layout
+                  onClick={handleIncrement}
+                  animate={controls}
+                  whileHover={{ scale: 1.5 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  Next edition
+                  <NextLongArrowSVG />
+                </motion.button>
+              </MobileArchiveNavButtons>
+            </Header>
+            <Title layout animate={controls}>
+              Catalogue
+            </Title>
+            {/* Check to see if {archive} exists, if it does, render the component data */}
+            {archive ? (
+              <ArchivePDF archive={archive} layout animate={controls} />
+            ) : null}
+            <br />
+            <br />
+            <Title layout animate={controls}>
+              Team
+            </Title>
+            {archive ? <p>{archive.team}</p> : null}
+            <br />
+            <br />
+            <Title layout animate={controls}>
+              Gallery
+            </Title>
+            {archive ? <p>{archive.team}</p> : null}
+            <br />
+            <br />
+          </MainContent>
+        </SidebarDiv>
 
-            <NextButton onClick={incrementArchiveCount}>
-              <BiRightArrowAlt />
-            </NextButton>
-          </Header>
-          <Title>Catalogue</Title>
-          {archive ? <ArchivePDF archive={archive} /> : null}
-          <br />
-          <br />
-          <Title>Team</Title>
-          {archive ? <p>{archive.team}</p> : null}
-          <br />
-          <br />
-          <Title>Gallery</Title>
-          {archive ? <p>{archive.team}</p> : null}
-          <br />
-          <br />
-
-          {/* Check to see if {archive} exists, if it does, render the component data */}
-
-          {/* mobile layout nav buttons below  */}
-          <MobileArchiveNavButtons>
-            <button onClick={decrementArchiveCount}>
-              <PrevLongArrowSVG />
-              Prev edition
-            </button>
-            <button onClick={incrementArchiveCount}>
-              Next edition
-              <NextLongArrowSVG />
-            </button>
-          </MobileArchiveNavButtons>
-        </MainContent>
-      </SidebarDiv>
-
-      {/* ----- empty background div to close the sidebar menu -----  */}
-      <ClickOut
-        variants={clickOut}
-        animate={openSidebar ? "visible" : "hidden"}
-        initial="hidden"
-        exit="hidden"
-        onClick={handleClickOut}
-      />
+        {/* ----- empty background div to close the sidebar menu -----  */}
+        <ClickOut
+          variants={clickOut}
+          animate={openSidebar ? "visible" : "hidden"}
+          initial="hidden"
+          exit="hidden"
+          onClick={handleClickOut}
+        />
+      </AnimateSharedLayout>
     </>
   )
 }
@@ -323,7 +365,6 @@ const Sidebar = () => {
 const BannerButton = styled.button`
   border: none;
 `
-
 const ArchiveYearList = styled.div`
   width: 100%;
   text-align: center;
@@ -336,8 +377,9 @@ const ArchiveYearList = styled.div`
     rgba(234, 231, 231, 0) 68.19%,
     rgba(255, 255, 255, 0.75) 100%
   );
+
   & h2 {
-    padding-bottom: 3rem;
+    margin-bottom: 3rem;
   }
 
   @media (max-width: ${breakpoints.m}px) {
@@ -349,17 +391,17 @@ const YearGrid = styled.div`
   margin: 0 auto;
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   /* grid-template-rows: 1fr auto; */
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-auto-flow: column;
+  grid-auto-flow: row;
   /* grid-auto-flow: row; */
 
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
     grid-auto-flow: row;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr auto;
   }
 `
 const Year = styled(motion.input)`
@@ -371,6 +413,10 @@ const Year = styled(motion.input)`
 
   border: none;
   background-color: transparent;
+
+  @media (max-width: ${breakpoints.m}px) {
+    font-size: 18px;
+  }
 `
 
 const SidebarDiv = styled(motion.div)`
@@ -412,8 +458,8 @@ const MainContent = styled.div`
     padding-right: 0;
   }
 `
-const Header = styled.div`
-  padding-top: 2rem;
+const Header = styled(motion.div)`
+  margin-top: 2rem;
   margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
@@ -433,6 +479,7 @@ const Header = styled.div`
     letter-spacing: 0.1rem;
     color: white;
     text-shadow: 0px 0px 8px #ffffff;
+    flex-basis: 2;
   }
 
   @media (max-width: ${breakpoints.xl}px) {
@@ -445,8 +492,9 @@ const Header = styled.div`
   }
 
   @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column;
     position: relative;
-    padding-top: 0rem;
+    margin-top: 0rem;
     margin-bottom: 3rem;
 
     -webkit-box-shadow: 0px 0px 20px 35px rgba(81, 0, 255, 1);
@@ -456,6 +504,7 @@ const Header = styled.div`
     & h2 {
       font-size: 40px;
       margin: 0 auto;
+      padding-bottom: 1.25rem;
     }
   }
 `
@@ -494,7 +543,7 @@ const PrevButton = styled.button`
     display: none;
   }
 `
-const NextButton = styled.button`
+const NextButton = styled(motion.button)`
   cursor: pointer;
   width: 75px;
   height: 75px;
@@ -530,7 +579,7 @@ const NextButton = styled.button`
     display: none;
   }
 `
-const Title = styled.h6`
+const Title = styled(motion.h6)`
   color: white;
   font-size: 20px;
   letter-spacing: 0.03em;
@@ -553,7 +602,8 @@ const MobileClickOutButton = styled.div`
 
   @media (max-width: ${breakpoints.m}px) {
     visibility: visible;
-    position: sticky;
+    position: relative;
+    /* was sticky */
     top: 1rem;
     z-index: 801;
     color: white;
@@ -564,7 +614,6 @@ const MobileClickOutButton = styled.div`
     & svg {
       width: 19px;
       height: 19px;
-
     }
   }
 `
@@ -576,7 +625,7 @@ const MobileArchiveNavButtons = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 5rem;
+    padding-bottom: 0.25rem;
 
     & button {
       display: flex;

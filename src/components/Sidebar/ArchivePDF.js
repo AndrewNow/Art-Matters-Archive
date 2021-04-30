@@ -143,7 +143,15 @@ const PDFPrevButton = styled(motion.button)`
 
   @media (max-width: ${breakpoints.m}px) {
     background-color: transparent;
+    position: absolute;
+    left: 0;
     border: none;
+    height: 200px;
+    width: 50px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     & p {
       display: none;
@@ -165,7 +173,15 @@ const PDFNextButton = styled(motion.button)`
 
   @media (max-width: ${breakpoints.m}px) {
     background-color: transparent;
+    position: absolute;
+    right: 0;
     border: none;
+    height: 200px;
+    width: 50px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     & p {
       display: none;
