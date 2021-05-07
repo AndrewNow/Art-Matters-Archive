@@ -50,6 +50,8 @@ const ArchivePDF = ({ archive }) => {
     setZoomIn(!zoomIn)
   }
 
+
+
   return (
     <>
       <PDFContainer>
@@ -95,7 +97,7 @@ const ArchivePDF = ({ archive }) => {
           <NextArrowSVG />
         </PDFNextButton>
       </PDFContainer>
-      <PDFPageNumber>
+      <PDFPageNumber noData={<div>Potato</div>}>
         {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
       </PDFPageNumber>
     </>

@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from "react"
-import { motion, AnimateSharedLayout, useAnimation } from "framer-motion"
+import { motion, AnimateSharedLayout, useAnimation, animate } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
@@ -34,6 +34,7 @@ import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 const Sidebar = () => {
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
+
   const checkWidth = () => {
     if (width < 600) return "-7.5vw"
     if (width < 800 && width > 601) return "0vw"
@@ -46,7 +47,7 @@ const Sidebar = () => {
     if (width > 801) return "96vw"
   }
 
-  //Framer animation variables
+  //Framer Motion animation variables
   const sidebarOpenAnimation = {
     visible: {
       x: checkWidth(),
@@ -81,6 +82,7 @@ const Sidebar = () => {
     },
   }
 
+  // Logic for opening the archive sidebar
   const [modalOpen, setModalOpen] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
   const [yearId, setYearId] = useState(2021)
@@ -109,8 +111,8 @@ const Sidebar = () => {
     return <></>
   }
 
-  // ----- the "Past Editions" section data, which renders an archive button for each year -----
-  // ----- this also holds all the actual archive data for each page! -----
+  // ----- the "Past Editions" section data, which renders an archive button for each year on homepage -----
+  // ----- this also holds all the actual archive data for each page -----
   const ArchiveData = [
     {
       id: 2021,
@@ -208,6 +210,9 @@ const Sidebar = () => {
   ]
 
   const allYears = ArchiveData.map(archiveYear => (
+    // 1. Create one <Year /> component for every year in ArchiveData.
+    // 2. We set <Year /> as an <input> with a value={} of the associated year.
+    // 3. When any <Year /> is clicked, {handleClick} updates the state of yearId
     <Year
       whileHover="hover"
       initial="normal"
@@ -218,19 +223,16 @@ const Sidebar = () => {
       whileHover={{ scale: 1.1, color: "#5200ff" }}
       whileTap={{ scale: 0.9 }}
     />
-    // 1. Create one <Year /> component for every year in ArchiveData.
-    // 2. We set <Year /> as an <input> with a value={} of the associated year.
-    // 3. When any <Year /> is clicked, {handleClick} updates the state of yearId
   ))
 
   const archive = ArchiveData.find(({ id }) => id === yearId)
   // All data needed for the sidebar is now contained in const {archive}
-  // When the <Year /> component is clicked, render the content from that specific year.
-  // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value.
+  // When the <Year /> component on the homepage is clicked, render the content from that specific year in the sidebar.
+  // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value to select only that year's data in the sidebar.
 
-  // If year is smaller than 2000, go back to the most recent year archive
-
+  // functions for the next and previous navigation buttons within the sidebar
   const decrementArchiveCount = () => {
+    // If year is smaller than 2000, go back to the most recent year archive
     if (yearId === 2000) {
       setYearId(2021)
     } else {
@@ -238,8 +240,8 @@ const Sidebar = () => {
     }
   }
 
-  // If year is greater than 2021, go back to the oldest year archive
   const incrementArchiveCount = () => {
+    // If year is greater than 2021, go back to the oldest year archive
     if (yearId === 2021) {
       setYearId(2000)
     } else {
@@ -247,7 +249,9 @@ const Sidebar = () => {
     }
   }
 
-  //handler for the increment/decrement counters, which also trigger a Framer opacity animation
+  // handler for the increment/decrement counters, which also trigger a Framer opacity animation
+  // useAnimation() & "controls" are from Framer, this allows us to animate whenever the handler functions are clicked
+  // more info here: https://www.framer.com/api/motion/animation/#starting-an-animation
   const controls = useAnimation()
 
   const handleDecrement = () => {
@@ -255,7 +259,7 @@ const Sidebar = () => {
     controls.start({
       opacity: [1, 0.2, 1],
       transition: {
-        duration: 1.5,
+        duration: 1,
       },
     })
   }
@@ -265,19 +269,42 @@ const Sidebar = () => {
     controls.start({
       opacity: [1, 0.2, 1],
       transition: {
-        duration: 1.5,
+        duration: 1,
       },
     })
   }
+
+
+
+  // const sequence = async () => {
+  //   await controls.start({
+  //     opacity: [0],
+  //     transition: {
+  //       duration: 1.5,
+  //     }
+  //   })
+  //   return await controls.start({
+  //     opacity: [1],
+  //     transition: {
+  //       duration: 1.5,
+  //     },
+  //   })
+  // }
+
   return (
     <>
       <BannerButton onClick={handleClickOut}>
         <NewEditionBanner />
       </BannerButton>
+
       <ArchiveYearList>
         <h2>Past Editions</h2>
         <YearGrid>{allYears}</YearGrid>
       </ArchiveYearList>
+      {/* 
+    <BannerButton> and <ArchiveYearList> are on the homepage.
+    the rest of the content below is for the sidebar
+    */}
       {modalOpen && <Modal />}
       <AnimateSharedLayout>
         <SidebarDiv
@@ -287,9 +314,13 @@ const Sidebar = () => {
           exit="hidden"
         >
           <MainContent>
+            <WipeAnimation />
             <MobileClickOutButton onClick={handleClickOut}>
               <CloseSVG />
             </MobileClickOutButton>
+            {/* 
+              mobile "close sidebar" button above ^ 
+            */}
             <Header>
               <PrevButton onClick={handleDecrement}>
                 <BiLeftArrowAlt />
@@ -300,8 +331,9 @@ const Sidebar = () => {
               <NextButton onClick={handleIncrement} layout animate={controls}>
                 <BiRightArrowAlt />
               </NextButton>
-
-              {/* mobile layout nav buttons below  */}
+              {/* 
+                mobile layout nav buttons below 
+              */}
               <MobileArchiveNavButtons>
                 <motion.button
                   layout
@@ -325,6 +357,9 @@ const Sidebar = () => {
                 </motion.button>
               </MobileArchiveNavButtons>
             </Header>
+            {/* 
+              finally, the contents of each archive taken from {archive} below
+            */}
             <Title layout animate={controls}>
               Catalogue
             </Title>
@@ -348,7 +383,6 @@ const Sidebar = () => {
             <br />
           </MainContent>
         </SidebarDiv>
-
         {/* ----- empty background div to close the sidebar menu -----  */}
         <ClickOut
           variants={clickOut}
@@ -458,6 +492,11 @@ const MainContent = styled.div`
     padding-right: 0;
   }
 `
+
+const WipeAnimation = styled(motion.div)`
+  
+`
+
 const Header = styled(motion.div)`
   margin-top: 2rem;
   margin-bottom: 3rem;

@@ -5,6 +5,7 @@ import styled from "styled-components"
 import Marquee from "../components/Marquee/Marquee"
 import { breakpoints } from "../components/layout"
 import Sidebar from "../components/Sidebar/Sidebar"
+import HomepageAnimation from "../components/homepageAnimation"
 
 const IndexPage = () => {
   return (
@@ -12,6 +13,7 @@ const IndexPage = () => {
       <SEO title="Archive" />
       <Marquee />
       <MainPage>
+        <HomepageAnimation />
         <ArchiveTitle>ARCHIVE</ArchiveTitle>
         <Bio>
           Art Matters has been running for more than 20 years now. Thanks to
@@ -40,7 +42,6 @@ const MainPage = styled.div`
   background-color: #ece9e3;
   border-left: 1px solid black;
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
-
 
   @media (max-width: ${breakpoints.m}px) {
     /* right: auto; */

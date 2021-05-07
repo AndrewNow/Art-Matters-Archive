@@ -4,6 +4,7 @@
   font-family: "ATSurtRegular";
 }
 
+::-webkit-scrollbar {display:none;}
 
 strong {
   font-weight: bold;
