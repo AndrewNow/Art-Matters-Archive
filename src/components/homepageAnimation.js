@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from "react"
 import { motion } from "framer-motion"
 import styled from "styled-components"
+import { breakpoints } from "../components/layout"
+
 
 const HomepageAnimation = () => {
   const [modalOpen, setModalOpen] = useState(true)
@@ -20,7 +22,6 @@ const HomepageAnimation = () => {
     }, [])
   }
 
-  console.log(modalOpen)
 
   const Modal = () => {
     useLockBodyScroll()
@@ -38,11 +39,11 @@ const HomepageAnimation = () => {
 
   const letterAnimation = {
     initial: {
-      y: 400,
+      top: 400,
       opacity: 0,
     },
     animate: {
-      y: 0,
+      top: 0,
       opacity: 1,
       transition: {
         ease: [0.6, 0.01, -0.05, 0.95],
@@ -86,6 +87,10 @@ const SpanWrapper = styled(motion.span)`
   font-size: 2rem;
   margin-left: 37vw;
   word-wrap: nowrap;
+
+  @media (max-width: ${breakpoints.m}px) {
+    margin-left: 15vw;
+  }
 `
 
 export default HomepageAnimation

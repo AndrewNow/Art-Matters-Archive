@@ -6,15 +6,53 @@ import Marquee from "../components/Marquee/Marquee"
 import { breakpoints } from "../components/layout"
 import Sidebar from "../components/Sidebar/Sidebar"
 import HomepageAnimation from "../components/homepageAnimation"
+import { AnimatePresence, motion } from "framer-motion"
 
 const IndexPage = () => {
+  const banner = {
+
+    animate: {
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const letterAnimation = {
+    initial: {
+      top: 200,
+      opacity: 0,
+    },
+    animate: {
+      top: 0,
+      opacity: 1,
+      transition: {
+        ease: [0.6, 0.01, -0.05, 0.95],
+        duration: 1,
+        delay: 2.5,
+      },
+    },
+  }
+
+  const Archive = "ARCHIVE"
+  console.log([...Archive])
   return (
     <Layout>
       <SEO title="Archive" />
       <Marquee />
       <MainPage>
         <HomepageAnimation />
-        <ArchiveTitle>ARCHIVE</ArchiveTitle>
+        <AnimatePresence>
+          <ArchiveTitleWrapper variants={banner} initial="initial" animate="animate">
+            {[...Archive].map((text, index) => (
+              <ArchiveTitle key={index} variants={letterAnimation}>
+                {text}
+              </ArchiveTitle>
+            ))}
+          </ArchiveTitleWrapper>
+        </AnimatePresence>
+        {/* <ArchiveTitle>ARCHIVE</ArchiveTitle> */}
         <Bio>
           Art Matters has been running for more than 20 years now. Thanks to
           community contributions, we have been able to preserve and document
@@ -47,24 +85,31 @@ const MainPage = styled.div`
     /* right: auto; */
   }
 `
+const ArchiveTitleWrapper = styled(motion.div)`
+  /* margin: 0 auto; */
+  display: flex;
+  justify-content: center;
+`
 
-const ArchiveTitle = styled.h1`
+const ArchiveTitle = styled(motion.span)`
   position: relative;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   font-size: 312px;
   text-align: center;
   color: #ffffff95;
   -webkit-text-stroke: 1px solid rgba(255, 255, 255, 0.56);
   text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 26px #fff;
+  font-family: "at_surt_regular";
+  letter-spacing: -0.1rem;
 
   /* alt color below */
   /* text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff; */
   /* filter: blur(.5px); */
 
   @media (max-width: ${breakpoints.m}px) {
-    margin: 0 auto;
-    text-align: left;
-    width: 90%;
+    /* margin: 0 auto; */
+    /* text-align: left; */
+    /* width: 90%; */
     padding-top: 2rem;
     font-size: 62px;
     color: #ffffff95;

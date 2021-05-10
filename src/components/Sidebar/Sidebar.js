@@ -325,9 +325,9 @@ const Sidebar = () => {
               <PrevButton onClick={handleDecrement}>
                 <BiLeftArrowAlt />
               </PrevButton>
-              <motion.h2 layout animate={controls}>
+              <h2>
                 EDITION {yearId}
-              </motion.h2>
+              </h2>
               <NextButton onClick={handleIncrement} layout animate={controls}>
                 <BiRightArrowAlt />
               </NextButton>
