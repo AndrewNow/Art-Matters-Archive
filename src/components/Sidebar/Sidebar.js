@@ -1,10 +1,20 @@
-import React, { useState, useLayoutEffect } from "react"
-import { motion, AnimateSharedLayout, useAnimation, animate } from "framer-motion"
+import React, { useState, useLayoutEffect, useEffect } from "react"
+import {
+  motion,
+  AnimateSharedLayout,
+  useAnimation,
+  animate,
+} from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
+import { useInView } from "react-intersection-observer"
+
+import CloseSVG from "../utils/closeSVG"
+import PrevLongArrowSVG from "../utils/prevLongArrowSVG"
+import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 
 import pdf2019 from "../pdfs/2019_Catalog.pdf"
 import pdf2018 from "../pdfs/2018_Catalog.pdf"
@@ -26,10 +36,6 @@ import pdf2003 from "../pdfs/2003_Catalog.pdf"
 import pdf2002 from "../pdfs/2002_Catalog.pdf"
 import pdf2001 from "../pdfs/2001_Catalog.pdf"
 import ArchivePDF from "./ArchivePDF"
-
-import CloseSVG from "../utils/closeSVG"
-import PrevLongArrowSVG from "../utils/prevLongArrowSVG"
-import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 
 const Sidebar = () => {
   // functions to make sure that the side bar animation changes depending on DOM width
@@ -81,6 +87,56 @@ const Sidebar = () => {
       opacity: 0,
     },
   }
+
+
+  const animateInView = {
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+        staggerChildren: 0.06,
+        delayChildren: 0.4,
+        staggerDirection: -.5,
+      },
+    },
+    hidden: {
+      opacity: 0,
+    },
+  }
+
+  const animateYearList = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      x: 20
+    }
+  }
+
+
+  const { ref, inView } = useInView()
+  // const animation = useAnimation()
+  console.log(inView)
+
+
+  // useEffect(() => {
+  //   if (inView) {
+  //     animation.start({
+  //       opacity: 1,
+  //       transition: { 
+  //         duration: 1
+  //       }
+  //     })
+  //   }
+  //   if (!inView) {
+  //     animation.start{{}}
+  //   }
+  // }, [inView])
+
 
   // Logic for opening the archive sidebar
   const [modalOpen, setModalOpen] = useState(false)
@@ -222,6 +278,7 @@ const Sidebar = () => {
       onClick={handleClick}
       whileHover={{ scale: 1.1, color: "#5200ff" }}
       whileTap={{ scale: 0.9 }}
+      variants={animateYearList}
     />
   ))
 
@@ -274,32 +331,27 @@ const Sidebar = () => {
     })
   }
 
-
-
-  // const sequence = async () => {
-  //   await controls.start({
-  //     opacity: [0],
-  //     transition: {
-  //       duration: 1.5,
-  //     }
-  //   })
-  //   return await controls.start({
-  //     opacity: [1],
-  //     transition: {
-  //       duration: 1.5,
-  //     },
-  //   })
-  // }
-
   return (
     <>
       <BannerButton onClick={handleClickOut}>
         <NewEditionBanner />
       </BannerButton>
 
-      <ArchiveYearList>
+      <ArchiveYearList
+        ref={ref}
+        initial="hidden"
+        variants={animateInView}
+        animate={inView ? "visible" : "hidden"}
+      >
         <h2>Past Editions</h2>
-        <YearGrid>{allYears}</YearGrid>
+        <YearGrid
+          ref={ref}
+          initial="hidden"
+          variants={animateInView}
+          animate={inView ? "visible" : "hidden"}
+        >
+          {allYears}
+        </YearGrid>
       </ArchiveYearList>
       {/* 
     <BannerButton> and <ArchiveYearList> are on the homepage.
@@ -325,9 +377,7 @@ const Sidebar = () => {
               <PrevButton onClick={handleDecrement}>
                 <BiLeftArrowAlt />
               </PrevButton>
-              <h2>
-                EDITION {yearId}
-              </h2>
+              <h2>EDITION {yearId}</h2>
               <NextButton onClick={handleIncrement} layout animate={controls}>
                 <BiRightArrowAlt />
               </NextButton>
@@ -399,7 +449,7 @@ const Sidebar = () => {
 const BannerButton = styled.button`
   border: none;
 `
-const ArchiveYearList = styled.div`
+const ArchiveYearList = styled(motion.div)`
   width: 100%;
   text-align: center;
   margin-top: 15rem;
@@ -408,8 +458,8 @@ const ArchiveYearList = styled.div`
   border-bottom: 1px solid black;
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(234, 231, 231, 0) 68.19%,
-    rgba(255, 255, 255, 0.75) 100%
+    rgba(234, 231, 231, 0) 78.19%,
+    rgba(255, 255, 255, 0.95) 100%
   );
 
   & h2 {
@@ -420,7 +470,7 @@ const ArchiveYearList = styled.div`
     margin-top: 5rem;
   }
 `
-const YearGrid = styled.div`
+const YearGrid = styled(motion.div)`
   width: 40%;
   margin: 0 auto;
   display: grid;
@@ -493,9 +543,7 @@ const MainContent = styled.div`
   }
 `
 
-const WipeAnimation = styled(motion.div)`
-  
-`
+const WipeAnimation = styled(motion.div)``
 
 const Header = styled(motion.div)`
   margin-top: 2rem;

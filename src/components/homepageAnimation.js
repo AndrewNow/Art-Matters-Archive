@@ -10,7 +10,7 @@ const HomepageAnimation = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setModalOpen(!modalOpen)
-    }, 2800)
+    }, 3800)
     return () => clearTimeout(timer)
   }, [])
 
