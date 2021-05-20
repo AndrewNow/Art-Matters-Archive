@@ -40,7 +40,6 @@ const letterAnimation = {
 
 const IndexPage = () => {
   const Archive = "ARCHIVE"
-  console.log([...Archive])
   return (
     <Layout>
       <SEO title="Archive" />

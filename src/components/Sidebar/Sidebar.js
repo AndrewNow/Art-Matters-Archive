@@ -1,41 +1,27 @@
-import React, { useState, useLayoutEffect, useEffect } from "react"
+import React, { useState, useLayoutEffect } from "react"
 import {
   motion,
   AnimateSharedLayout,
   useAnimation,
-  animate,
+  AnimatePresence,
 } from "framer-motion"
-import { breakpoints } from "../../components/layout"
+import { wrap } from "@popmotion/popcorn"
 import styled from "styled-components"
+import { useInView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
+
+import { breakpoints } from "../../components/layout"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
-import { useInView } from "react-intersection-observer"
-
 import CloseSVG from "../utils/closeSVG"
 import PrevLongArrowSVG from "../utils/prevLongArrowSVG"
 import NextLongArrowSVG from "../utils/nextLongArrowSVG"
-
-import pdf2019 from "../pdfs/2019_Catalog.pdf"
-import pdf2018 from "../pdfs/2018_Catalog.pdf"
-import pdf2017 from "../pdfs/2017_Catalog.pdf"
-import pdf2016 from "../pdfs/2016_Catalog.pdf"
-import pdf2015 from "../pdfs/2015_Catalog.pdf"
-// import pdf2014 from "../pdfs/2014_Catalog.pdf"
-// import pdf2013 from "../pdfs/2013_Catalog.pdf"
-import pdf2012 from "../pdfs/2012_Catalog.pdf"
-import pdf2011 from "../pdfs/2011_Catalog.pdf"
-import pdf2010 from "../pdfs/2010_Catalog.pdf"
-import pdf2009 from "../pdfs/2009_Catalog.pdf"
-import pdf2008 from "../pdfs/2008_Catalog.pdf"
-import pdf2007 from "../pdfs/2007_Catalog.pdf"
-import pdf2006 from "../pdfs/2006_Catalog.pdf"
-import pdf2005 from "../pdfs/2005_Catalog.pdf"
-import pdf2004 from "../pdfs/2004_Catalog.pdf"
-import pdf2003 from "../pdfs/2003_Catalog.pdf"
-import pdf2002 from "../pdfs/2002_Catalog.pdf"
-import pdf2001 from "../pdfs/2001_Catalog.pdf"
+import NextArrowSVG from "../utils/nextArrowSVG"
+import PrevArrowSVG from "../utils/prevArrowSVG"
 import ArchivePDF from "./ArchivePDF"
+
+import { ArchiveData } from "../ArchiveData"
+
 
 const Sidebar = () => {
   // functions to make sure that the side bar animation changes depending on DOM width
@@ -88,7 +74,6 @@ const Sidebar = () => {
     },
   }
 
-
   const animateInView = {
     visible: {
       opacity: 1,
@@ -96,7 +81,7 @@ const Sidebar = () => {
         duration: 1,
         staggerChildren: 0.06,
         delayChildren: 0.4,
-        staggerDirection: -.5,
+        staggerDirection: -0.5,
       },
     },
     hidden: {
@@ -108,35 +93,16 @@ const Sidebar = () => {
     visible: {
       opacity: 1,
       y: 0,
-      x: 0
+      x: 0,
     },
     hidden: {
       opacity: 0,
       y: 20,
-      x: 20
-    }
+      x: 20,
+    },
   }
 
-
   const { ref, inView } = useInView()
-  // const animation = useAnimation()
-  console.log(inView)
-
-
-  // useEffect(() => {
-  //   if (inView) {
-  //     animation.start({
-  //       opacity: 1,
-  //       transition: { 
-  //         duration: 1
-  //       }
-  //     })
-  //   }
-  //   if (!inView) {
-  //     animation.start{{}}
-  //   }
-  // }, [inView])
-
 
   // Logic for opening the archive sidebar
   const [modalOpen, setModalOpen] = useState(false)
@@ -167,107 +133,9 @@ const Sidebar = () => {
     return <></>
   }
 
-  // ----- the "Past Editions" section data, which renders an archive button for each year on homepage -----
-  // ----- this also holds all the actual archive data for each page -----
-  const ArchiveData = [
-    {
-      id: 2021,
-      team:
-        "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
-      pdf: `${pdf2019}`,
-    },
-    {
-      id: 2020,
-      team: "Example name",
-      pdf: `${pdf2019}`,
-    },
-    {
-      id: 2019,
-      team: "Example name number two",
-      pdf: `${pdf2019}`,
-    },
-    {
-      id: 2018,
-      team: "Example name number three",
-      pdf: `${pdf2018}`,
-    },
-    {
-      id: 2017,
-      team: "Example name number four ",
-      pdf: `${pdf2017}`,
-    },
-    {
-      id: 2016,
-      pdf: `${pdf2016}`,
-    },
-    {
-      id: 2015,
-      pdf: `${pdf2015}`,
-    },
-    {
-      id: 2014,
-      // pdf: `${pdf2014}`,
-    },
-    {
-      id: 2013,
-      // pdf: `${pdf2013}`,
-    },
-    {
-      id: 2012,
-      pdf: `${pdf2012}`,
-    },
-    {
-      id: 2011,
-      pdf: `${pdf2011}`,
-    },
-    {
-      id: 2010,
-      pdf: `${pdf2010}`,
-    },
-    {
-      id: 2009,
-      pdf: `${pdf2009}`,
-    },
-    {
-      id: 2008,
-      pdf: `${pdf2008}`,
-    },
-    {
-      id: 2007,
-      pdf: `${pdf2007}`,
-    },
-    {
-      id: 2006,
-      pdf: `${pdf2006}`,
-    },
-    {
-      id: 2005,
-      pdf: `${pdf2005}`,
-    },
-    {
-      id: 2004,
-      pdf: `${pdf2004}`,
-    },
-    {
-      id: 2003,
-      pdf: `${pdf2003}`,
-    },
-    {
-      id: 2002,
-      pdf: `${pdf2002}`,
-    },
-    {
-      id: 2001,
-      pdf: `${pdf2001}`,
-    },
-    {
-      id: 2000,
-    },
-  ]
-
   const allYears = ArchiveData.map(archiveYear => (
     // 1. Create one <Year /> component for every year in ArchiveData.
-    // 2. We set <Year /> as an <input> with a value={} of the associated year.
+    // 2. We set <Year /> as an <input /> with a value={} of the associated year.
     // 3. When any <Year /> is clicked, {handleClick} updates the state of yearId
     <Year
       whileHover="hover"
@@ -331,12 +199,21 @@ const Sidebar = () => {
     })
   }
 
+  // content for the image carousels
+  const [[page, direction], setPage] = useState([0, 0])
+  const imageIndex = wrap(0, archive.images.length, page)
+
+  const paginate = newDirection => {
+    setPage([page + newDirection, newDirection])
+  }
+
+  console.log(archive.images.length)
+
   return (
     <>
       <BannerButton onClick={handleClickOut}>
         <NewEditionBanner />
       </BannerButton>
-
       <ArchiveYearList
         ref={ref}
         initial="hidden"
@@ -389,7 +266,7 @@ const Sidebar = () => {
                   layout
                   onClick={handleDecrement}
                   animate={controls}
-                  whileHover={{ scale: 1.5 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.96 }}
                 >
                   <PrevLongArrowSVG />
@@ -399,7 +276,7 @@ const Sidebar = () => {
                   layout
                   onClick={handleIncrement}
                   animate={controls}
-                  whileHover={{ scale: 1.5 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.96 }}
                 >
                   Next edition
@@ -428,7 +305,45 @@ const Sidebar = () => {
             <Title layout animate={controls}>
               Gallery
             </Title>
-            {archive ? <p>{archive.team}</p> : null}
+            {archive ? (
+              <AnimatePresence initial={false} custom={direction}>
+                <GalleryContainer>
+                  <GallerySlide>
+                    <GalleryButton
+                      whileHover={{ color: "#5200ff", opacity: 1 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => paginate(-1)}
+                    >
+                      <PrevArrowSVG />
+                      <p>Prev</p>
+                    </GalleryButton>
+                    <motion.img
+                      src={archive.images[imageIndex]}
+                      key={page}
+                      custom={direction}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        x: { type: "spring", stiffness: 300, damping: 300 },
+                        opacity: { duration: 0.2 },
+                      }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={1}
+                    />
+                    <GalleryButton
+                      whileHover={{ color: "#5200ff", opacity: 1 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => paginate(1)}
+                    >
+                      <p>Next</p>
+                      <NextArrowSVG />
+                    </GalleryButton>
+                  </GallerySlide>
+                </GalleryContainer>
+              </AnimatePresence>
+            ) : null}
             <br />
             <br />
           </MainContent>
@@ -723,6 +638,60 @@ const MobileArchiveNavButtons = styled.div`
       border: none;
       background-color: transparent;
       cursor: pointer;
+    }
+  }
+`
+
+// const Gallery = styled(motion.div)`
+//   border: 1px solid red;
+//   margin: 0 auto;
+// `
+
+const GalleryContainer = styled(motion.div)`
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 600px;
+  padding: 2rem 0;
+`
+const GallerySlide = styled(motion.div)`
+  width: 100%;
+  display: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & img {
+    box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
+    object-fit: cover;
+    max-height: 600px;
+  }
+`
+
+const GalleryButton = styled(motion.button)`
+  z-index: 100;
+  width: 140px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+
+  & p {
+    color: #3a3a3a !important;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    background-color: transparent;
+    border: none;
+    height: 200px;
+    width: 50px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & p {
+      display: none;
     }
   }
 `
