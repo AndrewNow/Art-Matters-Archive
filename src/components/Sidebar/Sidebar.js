@@ -651,7 +651,7 @@ const GalleryContainer = styled(motion.div)`
   position: relative;
   display: inline-block;
   width: 100%;
-  height: 600px;
+  min-height: 600px;
   padding: 2rem 0;
 `
 const GallerySlide = styled(motion.div)`
@@ -664,6 +664,7 @@ const GallerySlide = styled(motion.div)`
   & img {
     box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
     object-fit: cover;
+    min-height: 600px;
     max-height: 600px;
   }
 `
