@@ -22,8 +22,10 @@ import ArchivePDF from "./ArchivePDF"
 
 import { ArchiveData } from "../ArchiveData"
 
+import { GatsbyImage } from 'gatsby'
 
-const Sidebar = () => {
+
+const Sidebar = ({ pageQuery }) => {
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
 
@@ -207,7 +209,13 @@ const Sidebar = () => {
     setPage([page + newDirection, newDirection])
   }
 
-  console.log(archive.images.length)
+  const gallery = pageQuery.slideshow.edges.map(({ node }) => (
+    <GatsbyImage
+      image={node.childImageSharp.gatsbyImageData}
+      alt={node.base}
+      key={node.id}
+    />
+  ))
 
   return (
     <>
@@ -299,6 +307,10 @@ const Sidebar = () => {
             <Title layout animate={controls}>
               Team
             </Title>
+
+            {gallery}
+            
+
             {archive ? <p>{archive.team}</p> : null}
             <br />
             <br />
@@ -317,6 +329,7 @@ const Sidebar = () => {
                       <PrevArrowSVG />
                       <p>Prev</p>
                     </GalleryButton>
+
                     <motion.img
                       src={archive.images[imageIndex]}
                       key={page}
@@ -332,6 +345,7 @@ const Sidebar = () => {
                       dragConstraints={{ left: 0, right: 0 }}
                       dragElastic={1}
                     />
+
                     <GalleryButton
                       whileHover={{ color: "#5200ff", opacity: 1 }}
                       whileTap={{ scale: 0.95 }}
@@ -358,8 +372,36 @@ const Sidebar = () => {
         />
       </AnimateSharedLayout>
     </>
-  )
+  ) 
 }
+
+const pageQuery = graphql`
+  query($archive: String) {
+    slideshow: allFile(
+      filter: { relativeDirectory: { eq: $archive } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          relativeDirectory
+          relativePath
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+  }
+`
+
+
 
 const BannerButton = styled.button`
   border: none;

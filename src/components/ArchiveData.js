@@ -1,3 +1,5 @@
+import React from "react"
+
 import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
 import pdf2018 from "../components/pdfs/2018_Catalog.pdf"
 import pdf2017 from "../components/pdfs/2017_Catalog.pdf"
@@ -245,6 +247,8 @@ import image_11_2021 from "../images/2021/11.jpg"
 import image_12_2021 from "../images/2021/12.jpg"
 import image_13_2021 from "../images/2021/13.jpg"
 
+import { graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 export const ArchiveData = [
   {
@@ -272,8 +276,7 @@ export const ArchiveData = [
     id: 2020,
     team: "Example name",
     // pdf: `${}`,
-    images: [
-    ],
+    images: [],
   },
   {
     id: 2019,
@@ -547,7 +550,18 @@ export const ArchiveData = [
   {
     id: 2003,
     pdf: `${pdf2003}`,
-    images: [
+    images:
+    // {
+    //   data.slideshow2003.edges.map(({ node }) => (
+    //     <GatsbyImage
+    //       image={node.childImageSharp.gatsbyImageData}
+    //       alt={node.base}
+    //       key={node.id}
+    //     />
+    //   ))
+    // }
+
+      [
       image_01_2003,
       image_02_2003,
       image_03_2003,
