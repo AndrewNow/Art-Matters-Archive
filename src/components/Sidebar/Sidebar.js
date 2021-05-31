@@ -10,7 +10,7 @@ import styled from "styled-components"
 import { useInView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 
-import { breakpoints } from "../../components/layout"
+import { breakpoints } from "../layout"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
 import CloseSVG from "../utils/closeSVG"
@@ -19,13 +19,12 @@ import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 import NextArrowSVG from "../utils/nextArrowSVG"
 import PrevArrowSVG from "../utils/prevArrowSVG"
 import ArchivePDF from "./ArchivePDF"
-
 import { ArchiveData } from "../ArchiveData"
 
-import { GatsbyImage } from 'gatsby'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { graphql } from "gatsby"
 
-
-const Sidebar = ({ pageQuery }) => {
+const Sidebar = () => {
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
 
@@ -209,13 +208,17 @@ const Sidebar = ({ pageQuery }) => {
     setPage([page + newDirection, newDirection])
   }
 
-  const gallery = pageQuery.slideshow.edges.map(({ node }) => (
-    <GatsbyImage
-      image={node.childImageSharp.gatsbyImageData}
-      alt={node.base}
-      key={node.id}
-    />
-  ))
+  // const gallery = () => data.slideshow.edges.map(({ node }) => (
+  //   <GatsbyImage
+  //     image={node.childImageSharp.gatsbyImageData}
+  //     alt={node.base}
+  //     key={node.id}
+  //   />
+  // ))
+
+  // const getimage = getImage(node.childImageSharp.gatsbyImageData)
+
+  // console.log(getimage)
 
   return (
     <>
@@ -308,8 +311,13 @@ const Sidebar = ({ pageQuery }) => {
               Team
             </Title>
 
-            {gallery}
-            
+            {/* {data.slideshow.edges.map(({ node }) => (
+              <GatsbyImage
+                image={node.childImageSharp.gatsbyImageData}
+                alt={node.base}
+                key={node.id}
+              />
+            ))} */}
 
             {archive ? <p>{archive.team}</p> : null}
             <br />
@@ -329,7 +337,6 @@ const Sidebar = ({ pageQuery }) => {
                       <PrevArrowSVG />
                       <p>Prev</p>
                     </GalleryButton>
-
                     <motion.img
                       src={archive.images[imageIndex]}
                       key={page}
@@ -338,14 +345,9 @@ const Sidebar = ({ pageQuery }) => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{
-                        x: { type: "spring", stiffness: 300, damping: 300 },
                         opacity: { duration: 0.2 },
                       }}
-                      drag="x"
-                      dragConstraints={{ left: 0, right: 0 }}
-                      dragElastic={1}
                     />
-
                     <GalleryButton
                       whileHover={{ color: "#5200ff", opacity: 1 }}
                       whileTap={{ scale: 0.95 }}
@@ -372,36 +374,32 @@ const Sidebar = ({ pageQuery }) => {
         />
       </AnimateSharedLayout>
     </>
-  ) 
+  )
 }
 
-const pageQuery = graphql`
-  query($archive: String) {
-    slideshow: allFile(
-      filter: { relativeDirectory: { eq: $archive } }
-      sort: { fields: base, order: ASC }
-    ) {
-      edges {
-        node {
-          id
-          relativeDirectory
-          relativePath
-          base
-          childImageSharp {
-            gatsbyImageData(
-              width: 600
-              placeholder: BLURRED
-              quality: 70
-              blurredOptions: { width: 100 }
-            )
-          }
-        }
-      }
-    }
-  }
-`
-
-
+// export const pageQuery = graphql`
+//   query($archive: String!) {
+//     slideshow: allFile(
+//       filter: { relativeDirectory: { eq: $archive } }
+//       sort: { fields: base, order: ASC }
+//     ) {
+//       edges {
+//         node {
+//           id
+//           base
+//           childImageSharp {
+//             gatsbyImageData(
+//               width: 600
+//               placeholder: BLURRED
+//               quality: 70
+//               blurredOptions: { width: 100 }
+//             )
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 const BannerButton = styled.button`
   border: none;
@@ -691,10 +689,16 @@ const MobileArchiveNavButtons = styled.div`
 
 const GalleryContainer = styled(motion.div)`
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   width: 100%;
   min-height: 600px;
   padding: 2rem 0;
+
+  @media (max-width: ${breakpoints.m}px) {
+    /* min-height: 300px; */
+    padding: 1rem 0;
+    min-height: 450px;
+  }
 `
 const GallerySlide = styled(motion.div)`
   width: 100%;
@@ -704,9 +708,15 @@ const GallerySlide = styled(motion.div)`
   align-items: center;
 
   & img {
+    @media (max-width: ${breakpoints.m}px) {
+      min-width: 300px;
+      max-height: 500px;
+    }
+  }
+
+  & img {
     box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
     object-fit: cover;
-    min-height: 600px;
     max-height: 600px;
   }
 `

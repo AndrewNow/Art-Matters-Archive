@@ -61,8 +61,8 @@ const HomepageAnimation = () => {
         animate={{ y: -2000, transition: { duration: 1, delay: 2.1 } }}
       >
         <SpanWrapper variants={banner} initial="initial" animate="animate">
-          {[...text].map(letters => (
-            <motion.span variants={letterAnimation}>{letters}</motion.span>
+          {[...text].map((letters, index) => (
+            <motion.span variants={letterAnimation} key={index}>{letters}</motion.span>
           ))}
         </SpanWrapper>
       </AnimationWipe>

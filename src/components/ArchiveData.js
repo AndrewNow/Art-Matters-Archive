@@ -1,5 +1,3 @@
-import React from "react"
-
 import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
 import pdf2018 from "../components/pdfs/2018_Catalog.pdf"
 import pdf2017 from "../components/pdfs/2017_Catalog.pdf"
@@ -246,9 +244,6 @@ import image_10_2021 from "../images/2021/10.jpg"
 import image_11_2021 from "../images/2021/11.jpg"
 import image_12_2021 from "../images/2021/12.jpg"
 import image_13_2021 from "../images/2021/13.jpg"
-
-import { graphql } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
 
 export const ArchiveData = [
   {
