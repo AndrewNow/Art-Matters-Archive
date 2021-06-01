@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
+import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
 import useWindowSize from "../utils/useWindowSize"
@@ -51,7 +51,8 @@ const ArchivePDF = ({ archive }) => {
   }
 
 
-
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+  
   return (
     <>
       <PDFContainer>
@@ -71,6 +72,7 @@ const ArchivePDF = ({ archive }) => {
         <PDFDocument
           file={archive.pdf}
           loading={<LoadingSpinner />}
+          // renderMode={"svg"}
           noData={
             <PDFNoData>No catalogue archived for this year, sorry! ⛏</PDFNoData>
           }
