@@ -517,9 +517,9 @@ export const ArchiveData = [
     ],
   },
   {
-    id: 2005,
-    pdf: `${pdf2005}`,
-    images: [
+      id: 2005,
+      pdf: `${pdf2005}`,
+      images: [
       image_01_2005,
       image_02_2005,
       image_03_2005,

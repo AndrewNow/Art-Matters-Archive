@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
-import { Document, Page } from "react-pdf"
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
 import useWindowSize from "../utils/useWindowSize"
