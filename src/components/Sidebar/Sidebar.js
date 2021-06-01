@@ -28,22 +28,24 @@ const Sidebar = () => {
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
 
-  const checkWidth = () => {
+  const checkWidthOpen = () => {
     if (width < 600) return "-7.5vw"
     if (width < 800 && width > 601) return "0vw"
-    if (width > 801) return "20vw"
+    if (width < 1280 && width > 801) return "13vw"
+    if (width > 1281) return "20vw"
   }
 
-  const checkWidth2 = () => {
+  const checkWidthHidden = () => {
     if (width < 600) return "100vw"
-    if (width < 800 && width > 601) return "99vw"
-    if (width > 801) return "96vw"
+    if (width < 800 && width > 601) return "96vw"
+    if (width < 1280 && width > 801) return "99vw"
+    if (width > 1281) return "96vw"
   }
 
   //Framer Motion animation variables
   const sidebarOpenAnimation = {
     visible: {
-      x: checkWidth(),
+      x: checkWidthOpen(),
       transition: {
         staggerChildren: 0.1,
         duration: 0.4,
@@ -51,7 +53,7 @@ const Sidebar = () => {
       },
     },
     hidden: {
-      x: checkWidth2(),
+      x: checkWidthHidden(),
       transition: {
         staggerChildren: 0.1,
         duration: 0.25,
@@ -492,8 +494,12 @@ const MainContent = styled.div`
     color: white;
   }
 
-  @media (max-width: ${breakpoints.xl}px) {
+  @media (max-width: ${breakpoints.l}px) {
     width: 90%;
+    padding-right: 1rem;
+  }
+
+  @media (max-width: 600px) {
     padding-right: 0;
   }
 `
@@ -528,8 +534,8 @@ const Header = styled(motion.div)`
     margin-bottom: 2rem;
 
     & h2 {
-      padding-top: 1rem;
-      font-size: 50px;
+      /* padding-top: 1rem; */
+      font-size: 60px;
     }
   }
 
