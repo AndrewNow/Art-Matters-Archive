@@ -21,10 +21,12 @@ import PrevArrowSVG from "../utils/prevArrowSVG"
 import ArchivePDF from "./ArchivePDF"
 import { ArchiveData } from "../ArchiveData"
 
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 
-const Sidebar = () => {
+import {galleryQuery2021} from '../utils/ArchiveDataGalleryQueries/GalleryQuery2021'
+
+const Sidebar = ({ data }) => {
   // functions to make sure that the side bar animation changes depending on DOM width
   const { width } = useWindowSize()
 
@@ -153,7 +155,7 @@ const Sidebar = () => {
     />
   ))
 
-  const archive = ArchiveData.find(({ id }) => id === yearId)
+  let archive = ArchiveData.find(({ id }) => id === yearId)
   // All data needed for the sidebar is now contained in const {archive}
   // When the <Year /> component on the homepage is clicked, render the content from that specific year in the sidebar.
   // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value to select only that year's data in the sidebar.
@@ -210,17 +212,7 @@ const Sidebar = () => {
     setPage([page + newDirection, newDirection])
   }
 
-  // const gallery = () => data.slideshow.edges.map(({ node }) => (
-  //   <GatsbyImage
-  //     image={node.childImageSharp.gatsbyImageData}
-  //     alt={node.base}
-  //     key={node.id}
-  //   />
-  // ))
-
-  // const getimage = getImage(node.childImageSharp.gatsbyImageData)
-
-  // console.log(getimage)
+  console.log(archive)
 
   return (
     <>
@@ -313,13 +305,15 @@ const Sidebar = () => {
               Team
             </Title>
 
-            {/* {data.slideshow.edges.map(({ node }) => (
+            {data[archive.images].edges.map(({ node }) => (
               <GatsbyImage
                 image={node.childImageSharp.gatsbyImageData}
                 alt={node.base}
                 key={node.id}
               />
-            ))} */}
+            ))}
+
+            
 
             {archive ? <p>{archive.team}</p> : null}
             <br />
@@ -402,6 +396,9 @@ const Sidebar = () => {
 //     }
 //   }
 // `
+
+
+
 
 const BannerButton = styled.button`
   border: none;

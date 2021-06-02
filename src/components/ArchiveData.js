@@ -1,3 +1,10 @@
+import React from "react"
+import { graphql, StaticQuery } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
+import { archive } from "./Sidebar/Sidebar"
+import { galleryQuery2021 } from "./utils/ArchiveDataGalleryQueries/GalleryQuery2021"
+
+
 import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
 import pdf2018 from "../components/pdfs/2018_Catalog.pdf"
 import pdf2017 from "../components/pdfs/2017_Catalog.pdf"
@@ -135,11 +142,11 @@ import image_09_2012 from "../images/2012/09.jpg"
 import image_10_2012 from "../images/2012/10.jpg"
 import image_11_2012 from "../images/2012/11.jpg"
 // //                   2013
-// import image_01_2013 from "../images/2013/01.jpg"
-// import image_02_2013 from "../images/2013/02.jpg"
-// import image_03_2013 from "../images/2013/03.jpg"
-// import image_04_2013 from "../images/2013/04.jpg"
-// import image_05_2013 from "../images/2013/05.jpg"
+// import image_01_2013 from "../images/2013/01.JPG"
+// import image_02_2013 from "../images/2013/02.JPG"
+// import image_03_2013 from "../images/2013/03.JPG"
+// import image_04_2013 from "../images/2013/04.JPG"
+// import image_05_2013 from "../images/2013/05.JPG"
 // import image_06_2013 from "../images/2013/06.jpg"
 // import image_07_2013 from "../images/2013/07.jpg"
 // import image_08_2013 from "../images/2013/08.jpg"
@@ -245,55 +252,59 @@ import image_11_2021 from "../images/2021/11.jpg"
 import image_12_2021 from "../images/2021/12.jpg"
 import image_13_2021 from "../images/2021/13.jpg"
 
+
+
 export const ArchiveData = [
   {
     id: 2021,
     team:
       "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
     // pdf: `${}`,
-    images: [
-      image_01_2021,
-      image_02_2021,
-      image_03_2021,
-      image_04_2021,
-      image_05_2021,
-      image_06_2021,
-      image_07_2021,
-      image_08_2021,
-      image_09_2021,
-      image_10_2021,
-      image_11_2021,
-      image_12_2021,
-      image_13_2021,
-    ],
+    images: "slideshow2021"
+    //   [
+    //   image_01_2021,
+    //   image_02_2021,
+    //   image_03_2021,
+    //   image_04_2021,
+    //   image_05_2021,
+    //   image_06_2021,
+    //   image_07_2021,
+    //   image_08_2021,
+    //   image_09_2021,
+    //   image_10_2021,
+    //   image_11_2021,
+    //   image_12_2021,
+    //   image_13_2021,
+    // ],
   },
   {
     id: 2020,
     team: "Example name",
     // pdf: `${}`,
-    images: [],
+    images: "slideshow2020",
   },
   {
     id: 2019,
     team: "Example name number two",
     pdf: `${pdf2019}`,
-    images: [
-      image_01_2019,
-      image_02_2019,
-      image_03_2019,
-      image_04_2019,
-      image_05_2019,
-      image_06_2019,
-      image_07_2019,
-      image_08_2019,
-      image_09_2019,
-      image_10_2019,
-      image_11_2019,
-      image_12_2019,
-      image_13_2019,
-      image_14_2019,
-      image_15_2019,
-    ],
+    images: "slideshow2019",
+    //   [
+    //   image_01_2019,
+    //   image_02_2019,
+    //   image_03_2019,
+    //   image_04_2019,
+    //   image_05_2019,
+    //   image_06_2019,
+    //   image_07_2019,
+    //   image_08_2019,
+    //   image_09_2019,
+    //   image_10_2019,
+    //   image_11_2019,
+    //   image_12_2019,
+    //   image_13_2019,
+    //   image_14_2019,
+    //   image_15_2019,
+    // ],
   },
   {
     id: 2018,
@@ -517,9 +528,10 @@ export const ArchiveData = [
     ],
   },
   {
-      id: 2005,
-      pdf: `${pdf2005}`,
-      images: [
+    id: 2005,
+    pdf: `${pdf2005}`,
+    images: 
+    [
       image_01_2005,
       image_02_2005,
       image_03_2005,
@@ -535,7 +547,7 @@ export const ArchiveData = [
       image_13_2005,
       image_14_2005,
       image_15_2005,
-    ],
+    ]
   },
   {
     id: 2004,
@@ -545,31 +557,67 @@ export const ArchiveData = [
   {
     id: 2003,
     pdf: `${pdf2003}`,
-    images:
-    // {
-    //   data.slideshow2003.edges.map(({ node }) => (
-    //     <GatsbyImage
-    //       image={node.childImageSharp.gatsbyImageData}
-    //       alt={node.base}
-    //       key={node.id}
-    //     />
-    //   ))
-    // }
-
-      [
-      image_01_2003,
-      image_02_2003,
-      image_03_2003,
-      image_04_2003,
-      image_05_2003,
-      image_06_2003,
-      image_07_2003,
-      image_08_2003,
-      image_09_2003,
-      image_10_2003,
-      image_11_2003,
-      image_12_2003,
-    ],
+    images: (
+      
+      <StaticQuery
+      query={graphql`
+          query {
+            slideshow2003: allFile(
+              filter: { relativeDirectory: { eq: "2003" } }
+              sort: { fields: base, order: ASC }
+            ) {
+              edges {
+                node {
+                  id
+                  base
+                  childImageSharp {
+                    gatsbyImageData(
+                      width: 600
+                      placeholder: BLURRED
+                      quality: 70
+                      blurredOptions: { width: 100 }
+                    )
+                  }
+                }
+              }
+            }
+          }
+        `}
+        render={data =>
+          data.slideshow2003.edges.map(({ node }) => (
+            <GatsbyImage
+            image={node.childImageSharp.gatsbyImageData}
+            alt={node.base}
+            key={node.id}
+            />
+            ))
+          }
+          />
+          ),
+          // `${
+          //   data.slideshow2003.edges.map(({ node }) => (
+          //     <GatsbyImage
+          //       image={node.childImageSharp.gatsbyImageData}
+          //       alt={node.base}
+          //       key={node.id}
+          //     />
+          //   ))
+          // }`
+          
+          // [
+    //   image_01_2003,
+    //   image_02_2003,
+    //   image_03_2003,
+    //   image_04_2003,
+    //   image_05_2003,
+    //   image_06_2003,
+    //   image_07_2003,
+    //   image_08_2003,
+    //   image_09_2003,
+    //   image_10_2003,
+    //   image_11_2003,
+    //   image_12_2003,
+    // ],
   },
   {
     id: 2002,
@@ -586,3 +634,5 @@ export const ArchiveData = [
     images: [],
   },
 ]
+
+console.log(ArchiveData)

@@ -7,11 +7,12 @@ import { breakpoints } from "../components/layout"
 import Sidebar from "../components/Sidebar/Sidebar"
 import HomepageAnimation from "../components/homepageAnimation"
 import { motion } from "framer-motion"
+import { graphql } from "gatsby"
 
 const banner = {
   initial: {
-    transition:{ staggerChildren: .1
-}  },
+    transition: { staggerChildren: 0.1 },
+  },
   animate: {
     transition: {
       delayChildren: 0.4,
@@ -36,9 +37,7 @@ const letterAnimation = {
   },
 }
 
-
-
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
   const Archive = "ARCHIVE"
   return (
     <Layout>
@@ -62,14 +61,462 @@ const IndexPage = () => {
           Art Matters has been running for more than 20 years now. Thanks to
           community contributions, we have been able to preserve and document
           our history. This website is an ode to the past, a nod to the future,
-          and a reminder that hard work  can leave a lasting mark.
+          and a reminder that hard work can leave a lasting mark.
         </Bio>
-        <Sidebar />
+        <Sidebar data={data} />
         {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
       </MainPage>
     </Layout>
   )
 }
+
+export const pageQuery = graphql`
+  # all the queries for gatsby-plugin-image. commented out years have no data.
+  query {
+    # slideshow2000: allFile(
+    #   filter: { relativeDirectory: { eq: "2000" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    # slideshow2001: allFile(
+    #   filter: { relativeDirectory: { eq: "2001" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    # slideshow2002: allFile(
+    #   filter: { relativeDirectory: { eq: "2002" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    slideshow2003: allFile(
+      filter: { relativeDirectory: { eq: "2003" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    # slideshow2004: allFile(
+    #   filter: { relativeDirectory: { eq: "2004" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    slideshow2005: allFile(
+      filter: { relativeDirectory: { eq: "2005" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2006: allFile(
+      filter: { relativeDirectory: { eq: "2006" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2007: allFile(
+      filter: { relativeDirectory: { eq: "2007" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2008: allFile(
+      filter: { relativeDirectory: { eq: "2008" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2009: allFile(
+      filter: { relativeDirectory: { eq: "2009" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2010: allFile(
+      filter: { relativeDirectory: { eq: "2010" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2011: allFile(
+      filter: { relativeDirectory: { eq: "2011" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2012: allFile(
+      filter: { relativeDirectory: { eq: "2012" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2013: allFile(
+      filter: { relativeDirectory: { eq: "2013" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2014: allFile(
+      filter: { relativeDirectory: { eq: "2014" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2015: allFile(
+      filter: { relativeDirectory: { eq: "2015" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2016: allFile(
+      filter: { relativeDirectory: { eq: "2016" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    slideshow2017: allFile(
+      filter: { relativeDirectory: { eq: "2017" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    # slideshow2018: allFile(
+    #   filter: { relativeDirectory: { eq: "2018" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    slideshow2019: allFile(
+      filter: { relativeDirectory: { eq: "2019" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+    # slideshow2020: allFile(
+    #   filter: { relativeDirectory: { eq: "2020" } }
+    #   sort: { fields: base, order: ASC }
+    # ) {
+    #   edges {
+    #     node {
+    #       id
+    #       base
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           width: 600
+    #           placeholder: BLURRED
+    #           quality: 70
+    #           blurredOptions: { width: 100 }
+    #         )
+    #       }
+    #     }
+    #   }
+    # }
+    slideshow2021: allFile(
+      filter: { relativeDirectory: { eq: "2021" } }
+      sort: { fields: base, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          base
+          childImageSharp {
+            gatsbyImageData(
+              width: 600
+              placeholder: BLURRED
+              quality: 70
+              blurredOptions: { width: 100 }
+            )
+          }
+        }
+      }
+    }
+  }
+`
+
+// export const pageQuery = graphql`
+//   query($archive: String!) {
+//     slideshow: allFile(
+//       filter: { relativeDirectory: { eq: $archive } }
+//       sort: { fields: base, order: ASC }
+//     ) {
+//       edges {
+//         node {
+//           id
+//           base
+//           childImageSharp {
+//             gatsbyImageData(
+//               width: 600
+//               placeholder: BLURRED
+//               quality: 70
+//               blurredOptions: { width: 100 }
+//             )
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 const MainPage = styled.div`
   z-index: 0;
