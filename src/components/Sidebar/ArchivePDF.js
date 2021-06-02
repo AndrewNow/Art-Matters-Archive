@@ -18,7 +18,7 @@ const ArchivePDF = ({ archive }) => {
       opacity: 0.2,
     },
   }
-
+  
   const { width } = useWindowSize()
   const checkWidth = () => {
     if (width < 600) return "300"
@@ -26,13 +26,13 @@ const ArchivePDF = ({ archive }) => {
     if (width < 1600 && width > 901) return "500"
     if (width > 1601) return "600"
   }
-
+  
   // -----react-pdf setup content for the sidebar, -----
   // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [zoomIn, setZoomIn] = useState(false)
-
+  
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
     setPageNumber(1)
@@ -49,8 +49,8 @@ const ArchivePDF = ({ archive }) => {
   const handleClick = () => {
     setZoomIn(!zoomIn)
   }
-
-
+  
+  //worker for react-pdf
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
   
   return (

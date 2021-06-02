@@ -2,7 +2,6 @@ import React from "react"
 import { graphql, StaticQuery } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { archive } from "./Sidebar/Sidebar"
-import { galleryQuery2021 } from "./utils/ArchiveDataGalleryQueries/GalleryQuery2021"
 
 
 import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
@@ -281,7 +280,7 @@ export const ArchiveData = [
     id: 2020,
     team: "Example name",
     // pdf: `${}`,
-    images: "slideshow2020",
+    images: "",
   },
   {
     id: 2019,
@@ -310,96 +309,101 @@ export const ArchiveData = [
     id: 2018,
     team: "Example name number three",
     pdf: `${pdf2018}`,
-    images: [],
+    images: "",
   },
   {
     id: 2017,
     team: "Example name number four ",
     pdf: `${pdf2017}`,
-    images: [
-      image_01_2017,
-      image_02_2017,
-      image_03_2017,
-      image_04_2017,
-      image_05_2017,
-      image_06_2017,
-      image_07_2017,
-      image_08_2017,
-      image_09_2017,
-      image_10_2017,
-      image_11_2017,
-      image_12_2017,
-      image_13_2017,
-      image_14_2017,
-      image_15_2017,
-    ],
+    images: "slideshow2017",
+    //   [
+    //   image_01_2017,
+    //   image_02_2017,
+    //   image_03_2017,
+    //   image_04_2017,
+    //   image_05_2017,
+    //   image_06_2017,
+    //   image_07_2017,
+    //   image_08_2017,
+    //   image_09_2017,
+    //   image_10_2017,
+    //   image_11_2017,
+    //   image_12_2017,
+    //   image_13_2017,
+    //   image_14_2017,
+    //   image_15_2017,
+    // ],
   },
   {
     id: 2016,
     pdf: `${pdf2016}`,
-    images: [
-      image_01_2016,
-      image_02_2016,
-      image_03_2016,
-      image_04_2016,
-      image_05_2016,
-      image_06_2016,
-      image_07_2016,
-      image_08_2016,
-      image_09_2016,
-      image_10_2016,
-      image_11_2016,
-      image_12_2016,
-      image_13_2016,
-      image_14_2016,
-      image_15_2016,
-      image_16_2016,
-    ],
+    images: "slideshow2016",
+    //   [
+    //   image_01_2016,
+    //   image_02_2016,
+    //   image_03_2016,
+    //   image_04_2016,
+    //   image_05_2016,
+    //   image_06_2016,
+    //   image_07_2016,
+    //   image_08_2016,
+    //   image_09_2016,
+    //   image_10_2016,
+    //   image_11_2016,
+    //   image_12_2016,
+    //   image_13_2016,
+    //   image_14_2016,
+    //   image_15_2016,
+    //   image_16_2016,
+    // ],
   },
   {
     id: 2015,
     pdf: `${pdf2015}`,
-    images: [
-      image_01_2015,
-      image_02_2015,
-      image_03_2015,
-      image_04_2015,
-      image_05_2015,
-      image_06_2015,
-      image_07_2015,
-      image_08_2015,
-      image_09_2015,
-      image_10_2015,
-      image_11_2015,
-      image_12_2015,
-      image_13_2015,
-      image_14_2015,
-      image_15_2015,
-    ],
+    images: "slideshow2015",
+    // [
+    //   image_01_2015,
+    //   image_02_2015,
+    //   image_03_2015,
+    //   image_04_2015,
+    //   image_05_2015,
+    //   image_06_2015,
+    //   image_07_2015,
+    //   image_08_2015,
+    //   image_09_2015,
+    //   image_10_2015,
+    //   image_11_2015,
+    //   image_12_2015,
+    //   image_13_2015,
+    //   image_14_2015,
+    //   image_15_2015,
+    // ],
   },
   {
     id: 2014,
-    images: [
-      image_01_2014,
-      image_02_2014,
-      image_03_2014,
-      image_04_2014,
-      image_05_2014,
-      image_06_2014,
-      image_07_2014,
-      image_08_2014,
-      image_09_2014,
-      image_10_2014,
-      image_11_2014,
-      image_12_2014,
-      image_13_2014,
-      image_14_2014,
-    ],
+    images: "slideshow2014",
+    //   [
+    //   image_01_2014,
+    //   image_02_2014,
+    //   image_03_2014,
+    //   image_04_2014,
+    //   image_05_2014,
+    //   image_06_2014,
+    //   image_07_2014,
+    //   image_08_2014,
+    //   image_09_2014,
+    //   image_10_2014,
+    //   image_11_2014,
+    //   image_12_2014,
+    //   image_13_2014,
+    //   image_14_2014,
+    // ],
     // pdf: `${pdf2014}`,
   },
   {
     id: 2013,
-    images: [
+    images: "slideshow2013",
+      // [
       // image_01_2013,
       // image_02_2013,
       // image_03_2013,
@@ -411,143 +415,150 @@ export const ArchiveData = [
       // image_09_2013,
       // image_10_2013,
       // image_11_2013,
-    ],
+    // ],
     // pdf: `${pdf2013}`,
   },
   {
     id: 2012,
     pdf: `${pdf2012}`,
-    images: [
-      image_01_2012,
-      image_02_2012,
-      image_03_2012,
-      image_04_2012,
-      image_05_2012,
-      image_06_2012,
-      image_07_2012,
-      image_08_2012,
-      image_09_2012,
-      image_10_2012,
-      image_11_2012,
-    ],
+    images: "slideshow2012",
+    //   [
+    //   image_01_2012,
+    //   image_02_2012,
+    //   image_03_2012,
+    //   image_04_2012,
+    //   image_05_2012,
+    //   image_06_2012,
+    //   image_07_2012,
+    //   image_08_2012,
+    //   image_09_2012,
+    //   image_10_2012,
+    //   image_11_2012,
+    // ],
   },
   {
     id: 2011,
     pdf: `${pdf2011}`,
-    images: [
-      image_01_2011,
-      image_02_2011,
-      image_03_2011,
-      image_04_2011,
-      image_05_2011,
-      image_06_2011,
-      image_07_2011,
-      image_08_2011,
-    ],
+    images: "slideshow2011"
+    //   [
+    //   image_01_2011,
+    //   image_02_2011,
+    //   image_03_2011,
+    //   image_04_2011,
+    //   image_05_2011,
+    //   image_06_2011,
+    //   image_07_2011,
+    //   image_08_2011,
+    // ],
   },
   {
     id: 2010,
     pdf: `${pdf2010}`,
-    images: [
-      image_01_2010,
-      image_02_2010,
-      image_03_2010,
-      image_04_2010,
-      image_05_2010,
-      image_06_2010,
-      image_07_2010,
-      image_08_2010,
-    ],
+    images: "slideshow2010",
+    //   [
+    //   image_01_2010,
+    //   image_02_2010,
+    //   image_03_2010,
+    //   image_04_2010,
+    //   image_05_2010,
+    //   image_06_2010,
+    //   image_07_2010,
+    //   image_08_2010,
+    // ],
   },
   {
     id: 2009,
     pdf: `${pdf2009}`,
-    images: [
-      image_01_2009,
-      image_02_2009,
-      image_03_2009,
-      image_04_2009,
-      image_05_2009,
-      image_06_2009,
-      image_07_2009,
-      image_08_2009,
-      image_09_2009,
-      image_10_2009,
-      image_11_2009,
-      image_12_2009,
-      image_13_2009,
-      image_14_2009,
-    ],
+    images: "slideshow2009",
+    //   [
+    //   image_01_2009,
+    //   image_02_2009,
+    //   image_03_2009,
+    //   image_04_2009,
+    //   image_05_2009,
+    //   image_06_2009,
+    //   image_07_2009,
+    //   image_08_2009,
+    //   image_09_2009,
+    //   image_10_2009,
+    //   image_11_2009,
+    //   image_12_2009,
+    //   image_13_2009,
+    //   image_14_2009,
+    // ],
   },
   {
     id: 2008,
     pdf: `${pdf2008}`,
-    images: [
-      image_01_2008,
-      image_02_2008,
-      image_03_2008,
-      image_04_2008,
-      image_05_2008,
-      image_06_2008,
-    ],
+    images: "slideshow2008",
+    //   [
+    //   image_01_2008,
+    //   image_02_2008,
+    //   image_03_2008,
+    //   image_04_2008,
+    //   image_05_2008,
+    //   image_06_2008,
+    // ],
   },
   {
     id: 2007,
     pdf: `${pdf2007}`,
-    images: [
-      image_01_2007,
-      image_02_2007,
-      image_03_2007,
-      image_04_2007,
-      image_05_2007,
-      image_06_2007,
-      image_07_2007,
-      image_08_2007,
-      image_09_2007,
-      image_10_2007,
-      image_11_2007,
-    ],
+    images: "slideshow2007",
+    //   [
+    //   image_01_2007,
+    //   image_02_2007,
+    //   image_03_2007,
+    //   image_04_2007,
+    //   image_05_2007,
+    //   image_06_2007,
+    //   image_07_2007,
+    //   image_08_2007,
+    //   image_09_2007,
+    //   image_10_2007,
+    //   image_11_2007,
+    // ],
   },
   {
     id: 2006,
     pdf: `${pdf2006}`,
-    images: [
-      image_01_2006,
-      image_02_2006,
-      image_03_2006,
-      image_04_2006,
-      image_05_2006,
-      image_06_2006,
-      image_07_2006,
-      image_08_2006,
-      image_09_2006,
-      image_10_2006,
-      image_11_2006,
-      image_12_2006,
-      image_13_2006,
-    ],
+    images: "slideshow2006",
+    //   [
+    //   image_01_2006,
+    //   image_02_2006,
+    //   image_03_2006,
+    //   image_04_2006,
+    //   image_05_2006,
+    //   image_06_2006,
+    //   image_07_2006,
+    //   image_08_2006,
+    //   image_09_2006,
+    //   image_10_2006,
+    //   image_11_2006,
+    //   image_12_2006,
+    //   image_13_2006,
+    // ],
   },
   {
     id: 2005,
     pdf: `${pdf2005}`,
-    images: 
-    [
-      image_01_2005,
-      image_02_2005,
-      image_03_2005,
-      image_04_2005,
-      image_05_2005,
-      image_06_2005,
-      image_07_2005,
-      image_08_2005,
-      image_09_2005,
-      image_10_2005,
-      image_11_2005,
-      image_12_2005,
-      image_13_2005,
-      image_14_2005,
-      image_15_2005,
-    ]
+    images: "slideshow2005",
+    // [
+    //   image_01_2005,
+    //   image_02_2005,
+    //   image_03_2005,
+    //   image_04_2005,
+    //   image_05_2005,
+    //   image_06_2005,
+    //   image_07_2005,
+    //   image_08_2005,
+    //   image_09_2005,
+    //   image_10_2005,
+    //   image_11_2005,
+    //   image_12_2005,
+    //   image_13_2005,
+    //   image_14_2005,
+    //   image_15_2005,
+    // ]
   },
   {
     id: 2004,
@@ -557,54 +568,20 @@ export const ArchiveData = [
   {
     id: 2003,
     pdf: `${pdf2003}`,
-    images: (
-      
-      <StaticQuery
-      query={graphql`
-          query {
-            slideshow2003: allFile(
-              filter: { relativeDirectory: { eq: "2003" } }
-              sort: { fields: base, order: ASC }
-            ) {
-              edges {
-                node {
-                  id
-                  base
-                  childImageSharp {
-                    gatsbyImageData(
-                      width: 600
-                      placeholder: BLURRED
-                      quality: 70
-                      blurredOptions: { width: 100 }
-                    )
-                  }
-                }
-              }
-            }
-          }
-        `}
-        render={data =>
-          data.slideshow2003.edges.map(({ node }) => (
-            <GatsbyImage
-            image={node.childImageSharp.gatsbyImageData}
-            alt={node.base}
-            key={node.id}
-            />
-            ))
-          }
-          />
-          ),
-          // `${
-          //   data.slideshow2003.edges.map(({ node }) => (
-          //     <GatsbyImage
-          //       image={node.childImageSharp.gatsbyImageData}
-          //       alt={node.base}
-          //       key={node.id}
-          //     />
-          //   ))
-          // }`
-          
-          // [
+    images: "slideshow2003",
+
+    // `${
+    //   data.slideshow2003.edges.map(({ node }) => (
+    //     <GatsbyImage
+    //       image={node.childImageSharp.gatsbyImageData}
+    //       alt={node.base}
+    //       key={node.id}
+    //     />
+    //   ))
+    // }`
+    
+
+    // [
     //   image_01_2003,
     //   image_02_2003,
     //   image_03_2003,
@@ -622,16 +599,16 @@ export const ArchiveData = [
   {
     id: 2002,
     pdf: `${pdf2002}`,
-    images: [],
+    images: "",
   },
   {
     id: 2001,
     pdf: `${pdf2001}`,
-    images: [],
+    images: "",
   },
   {
     id: 2000,
-    images: [],
+    images: "",
   },
 ]
 

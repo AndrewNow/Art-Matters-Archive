@@ -9,7 +9,6 @@ import { wrap } from "@popmotion/popcorn"
 import styled from "styled-components"
 import { useInView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
-
 import { breakpoints } from "../layout"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
 import useWindowSize from "../utils/useWindowSize"
@@ -20,11 +19,8 @@ import NextArrowSVG from "../utils/nextArrowSVG"
 import PrevArrowSVG from "../utils/prevArrowSVG"
 import ArchivePDF from "./ArchivePDF"
 import { ArchiveData } from "../ArchiveData"
-
 import { GatsbyImage } from "gatsby-plugin-image"
-import { graphql } from "gatsby"
 
-import {galleryQuery2021} from '../utils/ArchiveDataGalleryQueries/GalleryQuery2021'
 
 const Sidebar = ({ data }) => {
   // functions to make sure that the side bar animation changes depending on DOM width
@@ -305,6 +301,8 @@ const Sidebar = ({ data }) => {
               Team
             </Title>
 
+            
+            
             {data[archive.images].edges.map(({ node }) => (
               <GatsbyImage
                 image={node.childImageSharp.gatsbyImageData}
@@ -372,33 +370,6 @@ const Sidebar = ({ data }) => {
     </>
   )
 }
-
-// export const pageQuery = graphql`
-//   query($archive: String!) {
-//     slideshow: allFile(
-//       filter: { relativeDirectory: { eq: $archive } }
-//       sort: { fields: base, order: ASC }
-//     ) {
-//       edges {
-//         node {
-//           id
-//           base
-//           childImageSharp {
-//             gatsbyImageData(
-//               width: 600
-//               placeholder: BLURRED
-//               quality: 70
-//               blurredOptions: { width: 100 }
-//             )
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
-
-
-
 
 const BannerButton = styled.button`
   border: none;
