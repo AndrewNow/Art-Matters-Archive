@@ -1,9 +1,8 @@
-import React, { useState, useLayoutEffect } from "react"
+import React, { useState, useLayoutEffect, useCallback } from "react"
 import {
   motion,
   AnimateSharedLayout,
   useAnimation,
-  AnimatePresence,
 } from "framer-motion"
 import { wrap } from "@popmotion/popcorn"
 import styled from "styled-components"
@@ -15,12 +14,11 @@ import useWindowSize from "../utils/useWindowSize"
 import CloseSVG from "../utils/closeSVG"
 import PrevLongArrowSVG from "../utils/prevLongArrowSVG"
 import NextLongArrowSVG from "../utils/nextLongArrowSVG"
-import NextArrowSVG from "../utils/nextArrowSVG"
-import PrevArrowSVG from "../utils/prevArrowSVG"
 import ArchivePDF from "./ArchivePDF"
 import { ArchiveData } from "../ArchiveData"
 import { GatsbyImage } from "gatsby-plugin-image"
-
+import { useEmblaCarousel } from "embla-carousel/react"
+import { NextArrowSVG, PrevArrowSVG } from "../utils/emblaArrowSVG"
 
 const Sidebar = ({ data }) => {
   // functions to make sure that the side bar animation changes depending on DOM width
@@ -175,7 +173,7 @@ const Sidebar = ({ data }) => {
     }
   }
 
-  // handler for the increment/decrement counters, which also trigger a Framer opacity animation
+  // handler for the increment/decrement counters which  trigger a Framer opacity animation
   // useAnimation() & "controls" are from Framer, this allows us to animate whenever the handler functions are clicked
   // more info here: https://www.framer.com/api/motion/animation/#starting-an-animation
   const controls = useAnimation()
@@ -208,7 +206,17 @@ const Sidebar = ({ data }) => {
     setPage([page + newDirection, newDirection])
   }
 
-  console.log(archive)
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+  })
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
 
   return (
     <>
@@ -300,60 +308,45 @@ const Sidebar = ({ data }) => {
             <Title layout animate={controls}>
               Team
             </Title>
-
-            
-            
-            {data[archive.images].edges.map(({ node }) => (
-              <GatsbyImage
-                image={node.childImageSharp.gatsbyImageData}
-                alt={node.base}
-                key={node.id}
-              />
-            ))}
-
-            
-
             {archive ? <p>{archive.team}</p> : null}
             <br />
             <br />
             <Title layout animate={controls}>
               Gallery
             </Title>
+
             {archive ? (
-              <AnimatePresence initial={false} custom={direction}>
-                <GalleryContainer>
-                  <GallerySlide>
-                    <GalleryButton
-                      whileHover={{ color: "#5200ff", opacity: 1 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => paginate(-1)}
-                    >
-                      <PrevArrowSVG />
-                      <p>Prev</p>
-                    </GalleryButton>
-                    <motion.img
-                      src={archive.images[imageIndex]}
-                      key={page}
-                      custom={direction}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{
-                        opacity: { duration: 0.2 },
-                      }}
-                    />
-                    <GalleryButton
-                      whileHover={{ color: "#5200ff", opacity: 1 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => paginate(1)}
-                    >
-                      <p>Next</p>
-                      <NextArrowSVG />
-                    </GalleryButton>
-                  </GallerySlide>
-                </GalleryContainer>
-              </AnimatePresence>
+              <>
+                <Embla>
+                  <GalleryButton onClick={scrollPrev}>
+                    <PrevArrowSVG />
+                    <p>Prev</p>
+                  </GalleryButton>
+
+                  <EmblaViewport ref={emblaRef}>
+                    <EmblaContainer>
+                      {data[archive.images].edges.map(({ node }) => (
+                        <EmblaSlide>
+                          <GatsbyDropShadowWrapper>
+                            <GatsbyImage
+                              image={node.childImageSharp.gatsbyImageData}
+                              alt={node.base}
+                              key={node.id}
+                            />
+                          </GatsbyDropShadowWrapper>
+                        </EmblaSlide>
+                      ))}
+                    </EmblaContainer>
+                  </EmblaViewport>
+
+                  <GalleryButton onClick={scrollNext}>
+                    <NextArrowSVG />
+                    <p>Next</p>
+                  </GalleryButton>
+                </Embla>
+              </>
             ) : null}
+
             <br />
             <br />
           </MainContent>
@@ -656,48 +649,9 @@ const MobileArchiveNavButtons = styled.div`
   }
 `
 
-// const Gallery = styled(motion.div)`
-//   border: 1px solid red;
-//   margin: 0 auto;
-// `
-
-const GalleryContainer = styled(motion.div)`
-  position: relative;
-  display: inline-flex;
-  width: 100%;
-  min-height: 600px;
-  padding: 2rem 0;
-
-  @media (max-width: ${breakpoints.m}px) {
-    /* min-height: 300px; */
-    padding: 1rem 0;
-    min-height: 450px;
-  }
-`
-const GallerySlide = styled(motion.div)`
-  width: 100%;
-  display: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & img {
-    @media (max-width: ${breakpoints.m}px) {
-      min-width: 300px;
-      max-height: 500px;
-    }
-  }
-
-  & img {
-    box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
-    object-fit: cover;
-    max-height: 600px;
-  }
-`
-
 const GalleryButton = styled(motion.button)`
   z-index: 100;
-  width: 140px;
+  min-width: 140px;
   height: 40px;
   background-color: white;
   border: 1px solid black;
@@ -711,16 +665,63 @@ const GalleryButton = styled(motion.button)`
     background-color: transparent;
     border: none;
     height: 200px;
-    width: 50px;
+    min-width: 30px;
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     & p {
       display: none;
     }
   }
+`
+
+const Embla = styled.div`
+  position: relative;
+  /* background-color: #f7f7f7; */
+  /* padding: 20px; */
+  min-width: 100%;
+  /* min-width: 670px; */
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  align-items: center;
+`
+
+const EmblaViewport = styled.div`
+  overflow: hidden;
+  height: auto;
+  margin: 0 auto;
+  /* border: 1px solid red; */
+`
+
+const EmblaContainer = styled.div`
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  margin-left: -10px;
+  margin-right: -10px;
+  align-items: center;
+  margin: 0 auto;
+`
+const EmblaSlide = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-left: 10px;
+  /* min-width: 100%; */
+  max-height: 700px;
+  flex: 0 0 100%;
+  padding-top: 2.1rem;
+  padding-bottom: 2.1rem;
+`
+
+const GatsbyDropShadowWrapper = styled.div`
+  box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
 `
 
 export default Sidebar

@@ -6,8 +6,7 @@ import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
 import useWindowSize from "../utils/useWindowSize"
-import NextArrowSVG from "../utils/nextArrowSVG"
-import PrevArrowSVG from "../utils/prevArrowSVG"
+import {NextArrowSVG, PrevArrowSVG} from "../utils/emblaArrowSVG"
 
 const ArchivePDF = ({ archive }) => {
   const fadeButtons = {
