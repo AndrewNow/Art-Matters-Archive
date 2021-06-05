@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
-import { motion, AnimateSharedLayout, useAnimation } from "framer-motion"
+import {
+  motion,
+  AnimateSharedLayout,
+  useAnimation,
+  useTransform,
+  useViewportScroll,
+  useSpring,
+} from "framer-motion"
 import styled from "styled-components"
 import { useInView, InView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
@@ -70,16 +77,18 @@ const Sidebar = ({ data }) => {
 
   const animateInView = {
     visible: {
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 1,
-        delay: .25,
+        duration: 1.75,
+        delay: 0.25,
         staggerChildren: 0.06,
         delayChildren: 0.4,
         staggerDirection: -0.5,
       },
     },
     hidden: {
+      y: 100,
       opacity: 0,
     },
   }
@@ -220,14 +229,13 @@ const Sidebar = ({ data }) => {
     if (emblaApi) emblaApi.scrollTo(0)
   }
 
-  // ---------- PARRALLAX SCROLL LOGIC ----------
-  const [offsetY, setOffsetY] = useState(0)
-  const handleScroll = () => setOffsetY(window.pageYOffset)
+  // ---------- PARRALLAX SCROLL LOGIC USING FRAMER ----------
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const { scrollYProgress } = useViewportScroll()
+  const y = useTransform(
+    scrollYProgress,
+    scrollYProgress => scrollYProgress * 250
+  )
 
   return (
     <>
@@ -241,17 +249,12 @@ const Sidebar = ({ data }) => {
           variants={animateInView}
           animate={inView ? "visible" : "hidden"}
         >
-          <PastEditionBgTitle
-            style={{
-              transform: `translate3D(0, ${offsetY * 0.15}px, 0)`,
-            }}
-          >
+          <PastEditionBgTitle style={{ y: y }}>
             Past <br /> Editions
           </PastEditionBgTitle>
           <YearGrid
             ref={ref}
             initial="hidden"
-            variants={animateInView}
             animate={inView ? "visible" : "hidden"}
           >
             {allYears}
@@ -389,36 +392,17 @@ const BannerButton = styled.button`
   border: none;
 `
 
-// const ArchiveYearList = styled(motion.div)`
-//   width: 100%;
-//   text-align: center;
-//   margin-top: 15rem;
-//   padding: 10rem 0;
-//   border-top: 1px solid black;
-//   border-bottom: 1px solid black;
-//   background: radial-gradient(
-//     50% 50% at 50% 50%,
-//     rgba(234, 231, 231, 0) 78.19%,
-//     rgba(255, 255, 255, 0.95) 100%
-//   );
-
-//   & h2 {
-//     margin-bottom: 3rem;
-//   }
-
-//   @media (max-width: ${breakpoints.m}px) {
-//     margin-top: 5rem;
-//   }
-// `
 const ArchiveYearList = styled(motion.div)`
-  width: 100%;
+  width: 85%;
+  margin: 0 auto;
   text-align: center;
   /* margin-top: 15rem; */
   /* padding-top: .5rem; */
   padding-bottom: 5rem;
 
   @media (max-width: ${breakpoints.m}px) {
-    margin-top: 5rem;
+    width: 100%;
+    /* margin-top: 5rem; */
   }
 `
 
@@ -428,31 +412,31 @@ const PastEditionBgTitle = styled(motion.h2)`
   -webkit-text-stroke: 1px solid rgba(255, 255, 255, 0.56);
   text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ece9e3, -10px -3px 26px #fff;
   text-transform: uppercase;
-  font-size: 14.5vw;
+  font-size: 16.5vw;
   margin-bottom: 3rem;
   line-height: 96%;
 
   z-index: 999;
   /* transform: translateY(20rem); */
-`
-// const YearGrid = styled(motion.div)`
-//   width: 40%;
-//   margin: 0 auto;
-//   display: grid;
-//   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-//   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-//   /* grid-template-rows: 1fr auto; */
-//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-//   grid-auto-flow: row;
-//   /* grid-auto-flow: row; */
 
-//   @media (max-width: ${breakpoints.m}px) {
-//     width: 90%;
-//     grid-auto-flow: row;
-//     grid-template-columns: 1fr 1fr 1fr;
-//     grid-template-rows: 1fr auto;
-//   }
-// `
+  /* animation: glow 2s infinite alternate;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+
+  @keyframes glow {
+    from {
+      text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ece9e3, -10px -3px 26px #fff;
+    }
+    to {
+      text-shadow: 10px 10px 20px whitesmoke, 0px 2px 0 #ece9e3,
+        20px 13px 20px #fff;
+    }
+  } */
+
+  @media (max-width: ${breakpoints.m}px) {
+    font-size: 17vw;
+    filter: blur(2px);
+  }
+`
 
 const YearGrid = styled(motion.div)`
   width: 90%;
@@ -474,7 +458,7 @@ const YearGrid = styled(motion.div)`
 `
 const Year = styled(motion.input)`
   cursor: pointer;
-  padding: 1rem;
+  padding: 2rem 1rem;
   color: #636363;
   font-size: 64px;
   position: relative;
@@ -489,20 +473,6 @@ const Year = styled(motion.input)`
     font-size: 18px;
   }
 `
-// const Year = styled(motion.input)`
-//   cursor: pointer;
-//   padding: 1rem;
-//   color: #636363;
-//   font-size: 20px;
-//   font-family: "Space Mono", monospace;
-
-//   border: none;
-//   background-color: transparent;
-
-//   @media (max-width: ${breakpoints.m}px) {
-//     font-size: 18px;
-//   }
-// `
 
 const SidebarDiv = styled(motion.div)`
   z-index: 2000;
@@ -728,34 +698,6 @@ const MobileArchiveNavButtons = styled.div`
       border: none;
       background-color: transparent;
       cursor: pointer;
-    }
-  }
-`
-
-const GalleryButton = styled(motion.button)`
-  z-index: 100;
-  min-width: 140px;
-  height: 40px;
-  background-color: white;
-  border: 1px solid black;
-  cursor: pointer;
-
-  & p {
-    color: #3a3a3a !important;
-  }
-
-  @media (max-width: ${breakpoints.m}px) {
-    background-color: transparent;
-    border: none;
-    height: 200px;
-    min-width: 30px;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    & p {
-      display: none;
     }
   }
 `

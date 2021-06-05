@@ -21,16 +21,22 @@ const NewEditionBanner = () => {
     scrollYProgress => scrollYProgress * -1000
   )
 
-  const scrollRight = useSpring(xRightRange, { stiffness: 150, damping: 50 })
-  const scrollLeft = useSpring(xLeftRange, { stiffness: 150, damping: 50 })
+  const scrollRight = useSpring(xRightRange, {
+    stiffness: 150,
+    damping: 50,
+  })
+  const scrollLeft = useSpring(xLeftRange, {
+    stiffness: 150,
+    damping: 50,
+  })
 
   return (
     <NewEdtionBanner>
-      <NewEditionBannerContent style={{ x: scrollRight }}>
+      <NewEditionBannerContent style={{ x: scrollLeft, rotation: 0.02 }}>
         <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
       </NewEditionBannerContent>
       <br />
-      <NewEditionBannerContent style={{ x: scrollLeft }}>
+      <NewEditionBannerContent style={{ x: scrollRight, rotation: 0.02 }}>
         <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
       </NewEditionBannerContent>
     </NewEdtionBanner>
@@ -52,7 +58,6 @@ const NewEdtionBanner = styled(motion.div)`
   transition: 0.3s text-shadow ease;
   & :hover {
     text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.8);
-    /* background-color: #33333302; */
   }
 
   @media (max-width: ${breakpoints.m}px) {
