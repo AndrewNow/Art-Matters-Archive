@@ -12,7 +12,7 @@ const HomepageAnimation = () => {
       setModalOpen(!modalOpen)
     }, 3800)
     return () => clearTimeout(timer)
-  }, [])
+  }, [modalOpen])
 
   const useLockBodyScroll = () => {
     useLayoutEffect(() => {

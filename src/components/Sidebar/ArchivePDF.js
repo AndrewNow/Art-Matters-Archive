@@ -6,7 +6,7 @@ import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack"
 
 import LoadingSpinner from "./LoadingSpinner"
 import useWindowSize from "../utils/useWindowSize"
-import {NextArrowSVG, PrevArrowSVG} from "../utils/emblaArrowSVG"
+import { NextArrowSVG, PrevArrowSVG } from "../utils/emblaArrowSVG"
 
 const ArchivePDF = ({ archive }) => {
   const fadeButtons = {
@@ -17,7 +17,7 @@ const ArchivePDF = ({ archive }) => {
       opacity: 0.2,
     },
   }
-  
+
   const { width } = useWindowSize()
   const checkWidth = () => {
     if (width < 600) return "300"
@@ -25,13 +25,13 @@ const ArchivePDF = ({ archive }) => {
     if (width < 1600 && width > 901) return "500"
     if (width > 1601) return "600"
   }
-  
+
   // -----react-pdf setup content for the sidebar, -----
   // ----- taken from here: https://github.com/wojtekmaj/react-pdf/wiki/Recipes
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [zoomIn, setZoomIn] = useState(false)
-  
+
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
     setPageNumber(1)
@@ -48,25 +48,27 @@ const ArchivePDF = ({ archive }) => {
   const handleClick = () => {
     setZoomIn(!zoomIn)
   }
-  
+
   //worker for react-pdf
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
-  
+
   return (
     <>
       <PDFContainer>
-        <PDFPrevButton
-          type="button"
-          disabled={pageNumber <= 1}
-          onClick={previousPage}
-          whileHover={{ color: "#5200ff", opacity: 1 }}
-          whileTap={{ scale: 0.95 }}
-          animate={zoomIn ? "faded" : "opaque"}
-          variants={fadeButtons}
-        >
-          <PrevArrowSVG />
-          <p>Prev</p>
-        </PDFPrevButton>
+        {archive.pdf ? (
+          <PDFPrevButton
+            type="button"
+            disabled={pageNumber <= 1}
+            onClick={previousPage}
+            whileHover={{ color: "#5200ff", opacity: 1 }}
+            whileTap={{ scale: 0.95 }}
+            animate={zoomIn ? "faded" : "opaque"}
+            variants={fadeButtons}
+          >
+            <PrevArrowSVG />
+            <p>Prev</p>
+          </PDFPrevButton>
+        ) : null}
         {/* PDFDocument and PDFPage components below are from the react-pdf library */}
         <PDFDocument
           file={archive.pdf}
@@ -84,23 +86,26 @@ const ArchivePDF = ({ archive }) => {
             width={checkWidth()}
           />
         </PDFDocument>
-
-        <PDFNextButton
-          type="button"
-          disabled={pageNumber >= numPages}
-          onClick={nextPage}
-          whileHover={{ color: "#5200ff", opacity: 1 }}
-          whileTap={{ scale: 0.95 }}
-          animate={zoomIn ? "faded" : "opaque"}
-          variants={fadeButtons}
-        >
-          <p>Next</p>
-          <NextArrowSVG />
-        </PDFNextButton>
+        {archive.pdf ? (
+          <PDFNextButton
+            type="button"
+            disabled={pageNumber >= numPages}
+            onClick={nextPage}
+            whileHover={{ color: "#5200ff", opacity: 1 }}
+            whileTap={{ scale: 0.95 }}
+            animate={zoomIn ? "faded" : "opaque"}
+            variants={fadeButtons}
+          >
+            <p>Next</p>
+            <NextArrowSVG />
+          </PDFNextButton>
+        ) : null}
       </PDFContainer>
-      <PDFPageNumber noData={<div>Potato</div>}>
-        {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
-      </PDFPageNumber>
+      {archive.pdf ? (
+        <PDFPageNumber noData={<div>Error</div>}>
+          {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
+        </PDFPageNumber>
+      ) : null}
     </>
   )
 }
@@ -171,7 +176,7 @@ const PDFNextButton = styled(motion.button)`
   float: right;
 
   & p {
-    color: #3a3a3a!important;
+    color: #3a3a3a !important;
   }
 
   @media (max-width: ${breakpoints.m}px) {
@@ -200,6 +205,7 @@ const PDFPageNumber = styled.p`
   text-align: center;
 `
 const PDFNoData = styled.div`
+  width: 450px;
   height: 600px;
   padding: 2rem;
   color: white;

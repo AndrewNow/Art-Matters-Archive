@@ -18,14 +18,19 @@ import pdf2003 from "../components/pdfs/2003_Catalog.pdf"
 import pdf2002 from "../components/pdfs/2002_Catalog.pdf"
 import pdf2001 from "../components/pdfs/2001_Catalog.pdf"
 
+// notes for future coders:
+
+// each year has its own object within the ArchiveData array. just duplicate the object and add the respective information.
+// images should always have "slideshow____" whereby ____ represents the year, for example slideshow2028.
+// years with no image data should always have empty quotes following the the "image:" field, otherwise the archive will crash when selecting that year.
+
 export const ArchiveData = [
   {
     id: 2021,
     team:
       "HELEN ADILIA ARCEYUT-FRIXIONE, STEPHANIE LAOUN, SEAN YENDRYS, STEPHANIE BOKENFOHR, MATTHEW JAMES, TARA DUPUIS, ELGIN-SKYE MCLAREN, GILLIAN MCDONALD, ZOE KOKE,SARAH-EVE TOUSIGNANT, MARIE-CATHERINE BUJOLD, STEFAN SPEC, JULIE JOHNSTON",
     // pdf: `${}`,
-    images: "slideshow2021"
-
+    images: "slideshow2021",
   },
   {
     id: 2020,
@@ -78,7 +83,7 @@ export const ArchiveData = [
   {
     id: 2011,
     pdf: `${pdf2011}`,
-    images: "slideshow2011"
+    images: "slideshow2011",
   },
   {
     id: 2010,
@@ -113,7 +118,7 @@ export const ArchiveData = [
   {
     id: 2004,
     pdf: `${pdf2004}`,
-    images: [],
+    images: "",
   },
   {
     id: 2003,

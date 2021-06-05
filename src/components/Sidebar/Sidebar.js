@@ -1,10 +1,5 @@
-import React, { useState, useLayoutEffect, useCallback } from "react"
-import {
-  motion,
-  AnimateSharedLayout,
-  useAnimation,
-} from "framer-motion"
-import { wrap } from "@popmotion/popcorn"
+import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
+import { motion, AnimateSharedLayout, useAnimation } from "framer-motion"
 import styled from "styled-components"
 import { useInView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
@@ -179,6 +174,7 @@ const Sidebar = ({ data }) => {
   const controls = useAnimation()
 
   const handleDecrement = () => {
+    resetEmblaIndex()
     decrementArchiveCount()
     controls.start({
       opacity: [1, 0.2, 1],
@@ -189,6 +185,7 @@ const Sidebar = ({ data }) => {
   }
 
   const handleIncrement = () => {
+    resetEmblaIndex()
     incrementArchiveCount()
     controls.start({
       opacity: [1, 0.2, 1],
@@ -198,15 +195,7 @@ const Sidebar = ({ data }) => {
     })
   }
 
-  // content for the image carousels
-  const [[page, direction], setPage] = useState([0, 0])
-  const imageIndex = wrap(0, archive.images.length, page)
-
-  const paginate = newDirection => {
-    setPage([page + newDirection, newDirection])
-  }
-
-
+  // content for the image carousel
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
   })
@@ -217,6 +206,19 @@ const Sidebar = ({ data }) => {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
+
+  // useEffect(() => {
+  //   emblaApi.scrollTo(0)
+  // }, [emblaApi])
+
+  // const resetEmblaIndex = useCallback(
+  //   emblaApi.scrollTo(0)
+  // )
+
+  const resetEmblaIndex = () => {
+    if (emblaApi) emblaApi.scrollTo(0)
+  }
+
 
   return (
     <>
@@ -293,6 +295,7 @@ const Sidebar = ({ data }) => {
                 </motion.button>
               </MobileArchiveNavButtons>
             </Header>
+
             {/* 
               finally, the contents of each archive taken from {archive} below
             */}
@@ -314,38 +317,39 @@ const Sidebar = ({ data }) => {
             <Title layout animate={controls}>
               Gallery
             </Title>
-
-            {archive ? (
+            {archive.images ? (
               <>
                 <Embla>
-                  <GalleryButton onClick={scrollPrev}>
+                  <EmblaGalleryButtonPrev onClick={scrollPrev}>
                     <PrevArrowSVG />
                     <p>Prev</p>
-                  </GalleryButton>
-
+                  </EmblaGalleryButtonPrev>
                   <EmblaViewport ref={emblaRef}>
                     <EmblaContainer>
-                      {data[archive.images].edges.map(({ node }) => (
+                      {data[archive.images].edges.map(({ node }, index) => (
                         <EmblaSlide>
                           <GatsbyDropShadowWrapper>
                             <GatsbyImage
                               image={node.childImageSharp.gatsbyImageData}
                               alt={node.base}
-                              key={node.id}
+                              key={index}
                             />
                           </GatsbyDropShadowWrapper>
                         </EmblaSlide>
                       ))}
                     </EmblaContainer>
                   </EmblaViewport>
-
-                  <GalleryButton onClick={scrollNext}>
+                  <EmblaGalleryButtonNext onClick={scrollNext}>
                     <NextArrowSVG />
                     <p>Next</p>
-                  </GalleryButton>
+                  </EmblaGalleryButtonNext>
                 </Embla>
               </>
-            ) : null}
+            ) : (
+              <EmblaNoData>
+                No images archived for this year, sorry! ⛏
+              </EmblaNoData>
+            )}
 
             <br />
             <br />
@@ -670,7 +674,7 @@ const GalleryButton = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     & p {
       display: none;
     }
@@ -718,10 +722,96 @@ const EmblaSlide = styled.div`
   flex: 0 0 100%;
   padding-top: 2.1rem;
   padding-bottom: 2.1rem;
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 0 1rem;
+  }
 `
 
 const GatsbyDropShadowWrapper = styled.div`
   box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
+
+  @media (max-width: ${breakpoints.m}px) {
+    box-shadow: 0px 0px 35px 1px rgba(255, 255, 255, 0.48);
+  }
+`
+
+const EmblaNoData = styled.div`
+  margin: 0 auto;
+  width: 450px;
+  height: 600px;
+  padding: 2rem;
+  color: white;
+  border: 1px solid white;
+  font-family: "Space Mono", monospace;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
+
+  @media (max-width: ${breakpoints.m}px) {
+    height: 300px;
+  }
+`
+
+const EmblaGalleryButtonPrev = styled(motion.button)`
+  z-index: 100;
+  min-width: 140px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+
+  & p {
+    color: #3a3a3a !important;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    position: absolute;
+    left: 0;
+
+    background-color: transparent;
+    border: none;
+    height: 200px;
+    min-width: 30px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & p {
+      display: none;
+    }
+  }
+`
+const EmblaGalleryButtonNext = styled(motion.button)`
+  z-index: 100;
+  min-width: 140px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+
+  & p {
+    color: #3a3a3a !important;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    position: absolute;
+    right: 0;
+
+    background-color: transparent;
+    border: none;
+    height: 200px;
+    min-width: 30px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & p {
+      display: none;
+    }
+  }
 `
 
 export default Sidebar
