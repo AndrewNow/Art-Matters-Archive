@@ -217,6 +217,9 @@ const PDFNoData = styled.div`
 
   @media (max-width: ${breakpoints.m}px) {
     height: 300px;
+    max-width: 300px;
+    padding: 1rem;
+    /* text-align: center; */
   }
 `
 

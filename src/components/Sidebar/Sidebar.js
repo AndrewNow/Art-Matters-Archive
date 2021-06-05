@@ -144,7 +144,7 @@ const Sidebar = ({ data }) => {
     />
   ))
 
-  let archive = ArchiveData.find(({ id }) => id === yearId)
+  const archive = ArchiveData.find(({ id }) => id === yearId)
   // All data needed for the sidebar is now contained in const {archive}
   // When the <Year /> component on the homepage is clicked, render the content from that specific year in the sidebar.
   // yearId's state holds the value of whichever year was clicked, so we find the object in the array which matches the clicked <Year/> value to select only that year's data in the sidebar.
@@ -219,7 +219,6 @@ const Sidebar = ({ data }) => {
     if (emblaApi) emblaApi.scrollTo(0)
   }
 
-
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -231,7 +230,9 @@ const Sidebar = ({ data }) => {
         variants={animateInView}
         animate={inView ? "visible" : "hidden"}
       >
-        <h2>Past Editions</h2>
+        <PastEditionBgTitle>
+          Past <br /> Editions
+        </PastEditionBgTitle>
         <YearGrid
           ref={ref}
           initial="hidden"
@@ -327,12 +328,12 @@ const Sidebar = ({ data }) => {
                   <EmblaViewport ref={emblaRef}>
                     <EmblaContainer>
                       {data[archive.images].edges.map(({ node }, index) => (
-                        <EmblaSlide>
+                        <EmblaSlide key={index}>
                           <GatsbyDropShadowWrapper>
                             <GatsbyImage
                               image={node.childImageSharp.gatsbyImageData}
                               alt={node.base}
-                              key={index}
+                              key={index + 1}
                             />
                           </GatsbyDropShadowWrapper>
                         </EmblaSlide>
@@ -371,29 +372,74 @@ const Sidebar = ({ data }) => {
 const BannerButton = styled.button`
   border: none;
 `
+
+// const ArchiveYearList = styled(motion.div)`
+//   width: 100%;
+//   text-align: center;
+//   margin-top: 15rem;
+//   padding: 10rem 0;
+//   border-top: 1px solid black;
+//   border-bottom: 1px solid black;
+//   background: radial-gradient(
+//     50% 50% at 50% 50%,
+//     rgba(234, 231, 231, 0) 78.19%,
+//     rgba(255, 255, 255, 0.95) 100%
+//   );
+
+//   & h2 {
+//     margin-bottom: 3rem;
+//   }
+
+//   @media (max-width: ${breakpoints.m}px) {
+//     margin-top: 5rem;
+//   }
+// `
 const ArchiveYearList = styled(motion.div)`
   width: 100%;
   text-align: center;
-  margin-top: 15rem;
-  padding: 10rem 0;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(234, 231, 231, 0) 78.19%,
-    rgba(255, 255, 255, 0.95) 100%
-  );
-
-  & h2 {
-    margin-bottom: 3rem;
-  }
+  /* margin-top: 15rem; */
+  padding-top: 1rem;
+  padding-bottom: 5rem;
 
   @media (max-width: ${breakpoints.m}px) {
     margin-top: 5rem;
   }
 `
+
+const PastEditionBgTitle = styled(motion.h2)`
+  color: #ffffff;
+  filter: blur(3px);
+  -webkit-text-stroke: 1px solid rgba(255, 255, 255, 0.56);
+  text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ECE9E3, -10px -3px 26px #fff;
+  text-transform: uppercase;
+  font-size: 14vw;
+  margin-bottom: 3rem;
+  line-height: 96%;
+
+  z-index: 999;
+  transform: translateY(15rem);
+`
+// const YearGrid = styled(motion.div)`
+//   width: 40%;
+//   margin: 0 auto;
+//   display: grid;
+//   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+//   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+//   /* grid-template-rows: 1fr auto; */
+//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+//   grid-auto-flow: row;
+//   /* grid-auto-flow: row; */
+
+//   @media (max-width: ${breakpoints.m}px) {
+//     width: 90%;
+//     grid-auto-flow: row;
+//     grid-template-columns: 1fr 1fr 1fr;
+//     grid-template-rows: 1fr auto;
+//   }
+// `
+
 const YearGrid = styled(motion.div)`
-  width: 40%;
+  width: 90%;
   margin: 0 auto;
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
@@ -414,16 +460,33 @@ const Year = styled(motion.input)`
   cursor: pointer;
   padding: 1rem;
   color: #636363;
-  font-size: 20px;
-  font-family: "Space Mono", monospace;
+  font-size: 64px;
+  position: relative;
+  z-index: 1000;
 
   border: none;
   background-color: transparent;
+
+  filter: drop-shadow(0px 0px 14px #b1b1b1);
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 18px;
   }
 `
+// const Year = styled(motion.input)`
+//   cursor: pointer;
+//   padding: 1rem;
+//   color: #636363;
+//   font-size: 20px;
+//   font-family: "Space Mono", monospace;
+
+//   border: none;
+//   background-color: transparent;
+
+//   @media (max-width: ${breakpoints.m}px) {
+//     font-size: 18px;
+//   }
+// `
 
 const SidebarDiv = styled(motion.div)`
   z-index: 2000;
@@ -750,6 +813,9 @@ const EmblaNoData = styled.div`
 
   @media (max-width: ${breakpoints.m}px) {
     height: 300px;
+    max-width: 300px;
+    padding: 1rem;
+    text-align: center;
   }
 `
 

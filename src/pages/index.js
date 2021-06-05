@@ -89,7 +89,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -108,7 +108,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -127,7 +127,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -146,7 +146,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -165,7 +165,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -184,7 +184,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -203,7 +203,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -222,7 +222,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -241,7 +241,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -260,7 +260,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -279,7 +279,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -298,7 +298,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -317,7 +317,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -336,7 +336,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -355,7 +355,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -374,7 +374,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -393,7 +393,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -412,7 +412,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -431,7 +431,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -450,7 +450,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -469,7 +469,7 @@ export const pageQuery = graphql`
     #           width: 600
     #           placeholder: BLURRED
     #           quality: 90
-    #           blurredOptions: { width: 50 }
+    #           blurredOptions: { width: 80 }
     #         )
     #       }
     #     }
@@ -488,7 +488,7 @@ export const pageQuery = graphql`
               width: 600
               placeholder: BLURRED
               quality: 90
-              blurredOptions: { width: 50 }
+              blurredOptions: { width: 80 }
             )
           }
         }
@@ -512,7 +512,7 @@ export const pageQuery = graphql`
 //               width: 600
 //               placeholder: BLURRED
 //               quality: 90
-//               blurredOptions: { width: 50 }
+//               blurredOptions: { width: 80 }
 //             )
 //           }
 //         }
@@ -531,7 +531,7 @@ const MainPage = styled.div`
   top: 0;
   right: 0;
   width: 92.5%;
-  height: 300vh;
+  height: 310vh;
   background-color: #ece9e3;
   border-left: 1px solid black;
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
