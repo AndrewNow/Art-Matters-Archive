@@ -1,24 +1,18 @@
-import React, { useState, useEffect, useLayoutEffect } from "react"
+import React, { useLayoutEffect } from "react"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { breakpoints } from "../components/layout"
 
 
 const HomepageAnimation = () => {
-  const [modalOpen, setModalOpen] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setModalOpen(!modalOpen)
-    }, 3800)
-    return () => clearTimeout(timer)
-  }, [])
 
   const useLockBodyScroll = () => {
     useLayoutEffect(() => {
       const originalStyle = window.getComputedStyle(document.body).overflow
       document.body.style.overflow = "hidden"
-      return () => (document.body.style.overflow = originalStyle)
+      setTimeout(() => {
+        document.body.style.overflow = originalStyle
+      }, 3800)
     }, [])
   }
 
@@ -66,7 +60,7 @@ const HomepageAnimation = () => {
           ))}
         </SpanWrapper>
       </AnimationWipe>
-      {modalOpen && <Modal />}
+      <Modal />
     </>
   )
 }

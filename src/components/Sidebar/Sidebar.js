@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
 import { motion, AnimateSharedLayout, useAnimation } from "framer-motion"
 import styled from "styled-components"
-import { useInView } from "react-intersection-observer"
+import { useInView, InView } from "react-intersection-observer"
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi"
 import { breakpoints } from "../layout"
 import NewEditionBanner from "../Marquee/NewEditionBanner"
@@ -73,6 +73,7 @@ const Sidebar = ({ data }) => {
       opacity: 1,
       transition: {
         duration: 1,
+        delay: .25,
         staggerChildren: 0.06,
         delayChildren: 0.4,
         staggerDirection: -0.5,
@@ -219,29 +220,44 @@ const Sidebar = ({ data }) => {
     if (emblaApi) emblaApi.scrollTo(0)
   }
 
+  // ---------- PARRALLAX SCROLL LOGIC ----------
+  const [offsetY, setOffsetY] = useState(0)
+  const handleScroll = () => setOffsetY(window.pageYOffset)
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <>
       <BannerButton onClick={handleClickOut}>
         <NewEditionBanner />
       </BannerButton>
-      <ArchiveYearList
-        ref={ref}
-        initial="hidden"
-        variants={animateInView}
-        animate={inView ? "visible" : "hidden"}
-      >
-        <PastEditionBgTitle>
-          Past <br /> Editions
-        </PastEditionBgTitle>
-        <YearGrid
+      <InView threshold={1}>
+        <ArchiveYearList
           ref={ref}
           initial="hidden"
           variants={animateInView}
           animate={inView ? "visible" : "hidden"}
         >
-          {allYears}
-        </YearGrid>
-      </ArchiveYearList>
+          <PastEditionBgTitle
+            style={{
+              transform: `translate3D(0, ${offsetY * 0.15}px, 0)`,
+            }}
+          >
+            Past <br /> Editions
+          </PastEditionBgTitle>
+          <YearGrid
+            ref={ref}
+            initial="hidden"
+            variants={animateInView}
+            animate={inView ? "visible" : "hidden"}
+          >
+            {allYears}
+          </YearGrid>
+        </ArchiveYearList>
+      </InView>
       {/* 
     <BannerButton> and <ArchiveYearList> are on the homepage.
     the rest of the content below is for the sidebar
@@ -398,7 +414,7 @@ const ArchiveYearList = styled(motion.div)`
   width: 100%;
   text-align: center;
   /* margin-top: 15rem; */
-  padding-top: 1rem;
+  /* padding-top: .5rem; */
   padding-bottom: 5rem;
 
   @media (max-width: ${breakpoints.m}px) {
@@ -410,14 +426,14 @@ const PastEditionBgTitle = styled(motion.h2)`
   color: #ffffff;
   filter: blur(3px);
   -webkit-text-stroke: 1px solid rgba(255, 255, 255, 0.56);
-  text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ECE9E3, -10px -3px 26px #fff;
+  text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ece9e3, -10px -3px 26px #fff;
   text-transform: uppercase;
-  font-size: 14vw;
+  font-size: 14.5vw;
   margin-bottom: 3rem;
   line-height: 96%;
 
   z-index: 999;
-  transform: translateY(15rem);
+  /* transform: translateY(20rem); */
 `
 // const YearGrid = styled(motion.div)`
 //   width: 40%;
