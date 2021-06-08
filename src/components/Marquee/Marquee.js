@@ -6,7 +6,7 @@ import {
   useViewportScroll,
   useSpring,
 } from "framer-motion"
-import {breakpoints} from '../../components/layout'
+import { breakpoints } from '../../components/layout'
 
 const Marquee = () => {
   
@@ -43,8 +43,8 @@ const MarqueeContainer = styled(motion.div)`
 `
 
 const MarqueeContent = styled(motion.div)`
-  height: 300vh;
-  //this works bc the body doc is 200vh tall
+  height: 373vh;
+  //this works bc the body doc is 360vh tall
 
   position: relative;
   display: block;

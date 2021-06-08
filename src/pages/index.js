@@ -8,6 +8,8 @@ import Sidebar from "../components/Sidebar/Sidebar"
 import HomepageAnimation from "../components/homepageAnimation"
 import { motion } from "framer-motion"
 import { graphql } from "gatsby"
+import { RiArrowRightUpLine, RiInstagramFill } from "react-icons/ri"
+import { FaPhoneAlt, FaFacebook } from "react-icons/fa"
 
 const banner = {
   initial: {
@@ -65,6 +67,47 @@ const IndexPage = ({ data }) => {
         </Bio>
         <Sidebar data={data} />
         {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
+        <Footer>
+          <SeeMore>
+            <h2>Want to see more?</h2>
+            <WebsiteLink
+              href="https://www.artmattersfestival.org/"
+              target="blank"
+            >
+              <p>Visit our website</p>
+              <RiArrowRightUpLine style={{ fontSize: "1.75em" }} />
+            </WebsiteLink>
+            <WebsiteLinkOverlay></WebsiteLinkOverlay>
+          </SeeMore>
+          <ContactUs>
+            <h2>Contact us</h2>
+            <a href="https://goo.gl/maps/wbZsK4UeWQ9Kyi35A" target="blank">
+              VA-038, Concordia University <br />
+              1395 René Levesque Blvd. W. <br />
+              Montréal, QC <br />
+              +1.514.848.2424 x 5011
+              <br />
+            </a>
+
+            <SocialMediaLinks>
+              <a
+                href="https://www.instagram.com/artmattersfestival/"
+                target="blank"
+              >
+                <RiInstagramFill style={{ fontSize: "2em" }} />
+              </a>
+              <a
+                href="https://www.facebook.com/artmattersfestival/"
+                target="blank"
+              >
+                <FaFacebook style={{ fontSize: "1.75em" }} />
+              </a>
+              <a href="tel:514-848-2424" target="blank">
+                <FaPhoneAlt style={{ fontSize: "1.75em" }} />
+              </a>
+            </SocialMediaLinks>
+          </ContactUs>
+        </Footer>
       </MainPage>
     </Layout>
   )
@@ -497,30 +540,6 @@ export const pageQuery = graphql`
   }
 `
 
-// export const pageQuery = graphql`
-//   query($archive: String!) {
-//     slideshow: allFile(
-//       filter: { relativeDirectory: { eq: $archive } }
-//       sort: { fields: base, order: ASC }
-//     ) {
-//       edges {
-//         node {
-//           id
-//           base
-//           childImageSharp {
-//             gatsbyImageData(
-//               width: 600
-//               placeholder: BLURRED
-//               quality: 90
-//               blurredOptions: { width: 80 }
-//             )
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
-
 const MainPage = styled.div`
   z-index: 0;
   position: absolute;
@@ -531,7 +550,8 @@ const MainPage = styled.div`
   top: 0;
   right: 0;
   width: 92.5%;
-  height: 310vh;
+  /* height: 360vh; */
+  /* when editing the height, make sure you also edit MarqueeContent's VH in /Marquee.js */
   background-color: #ece9e3;
   border-left: 1px solid black;
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
@@ -586,6 +606,7 @@ const ArchiveTitle = styled(motion.span)`
 `
 
 const Bio = styled(motion.h2)`
+  color: #202020;
   font-size: 64px;
   width: 90%;
   margin: 0 auto;
@@ -595,6 +616,153 @@ const Bio = styled(motion.h2)`
     font-size: 28px;
     padding-bottom: 5rem;
     padding-top: 1rem;
+  }
+`
+
+const Footer = styled.div`
+  width: 100%;
+  height: 400px;
+  border-top: 1px black solid;
+  display: flex;
+  padding: 5rem;
+  padding-bottom: 0;
+  background: linear-gradient(
+    83.94deg,
+    #ffffff 0.87%,
+    rgba(255, 255, 255, 0) 49.87%
+  );
+
+  @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column;
+    padding: 1rem;
+    height: 500px;
+    width: 90%;
+  }
+`
+
+const SeeMore = styled.div`
+  padding: 2rem 4rem;
+
+  & h2 {
+    color: #202020;
+    font-size: 64px;
+    padding-bottom: 2rem;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 1rem;
+    padding-top: 3rem;
+    & h2 {
+      font-size: 32px;
+    }
+  }
+`
+
+const WebsiteLink = styled.a`
+  color: #202020;
+  border: 1px solid black;
+  width: 425px;
+  height: 60px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  transition: 0.5s ease;
+
+  & p {
+    align-self: center;
+    padding-left: 1rem;
+  }
+
+  & :hover {
+    -webkit-box-shadow: 0px 0px 27px 5px rgba(82, 0, 255, 0.52);
+    box-shadow: 0px 0px 27px 5px rgba(82, 0, 255, 0.52);
+  }
+
+  & :hover {
+    & svg {
+      color: #202020;
+    }
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 250px;
+    height: 50px;
+
+    & p {
+      font-size: 16px;
+    }
+  }
+`
+
+const WebsiteLinkOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #008cba;
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: 0.5s ease;
+
+  & :hover {
+    width: 100%;
+  }
+`
+
+const ContactUs = styled.div`
+  padding: 2rem 4rem;
+  padding-left: 10rem;
+  color: #202020;
+
+  & h2 {
+    font-size: 64px;
+    padding-bottom: 1.6rem;
+  }
+
+  & a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #202020;
+    transition: 0.2s all ease-in-out;
+
+    & :hover {
+      color: #5200ff;
+      text-shadow: 0px 0px 3px rgba(82, 0, 255, 0.4);
+    }
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding: 1rem;
+    padding-top: 3rem;
+    & h2 {
+      font-size: 32px;
+    }
+
+    & a {
+      font-size: 16px;
+    }
+  }
+`
+
+const SocialMediaLinks = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  width: 150px;
+
+  & svg {
+    padding: 0.25rem;
+    color: #3a3a3a;
+    transition: 0.2s all ease-in-out;
+
+    & :hover {
+      color: #5200ff;
+    }
   }
 `
 

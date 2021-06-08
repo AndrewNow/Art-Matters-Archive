@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
+import React, { useState, useLayoutEffect, useCallback } from "react"
 import {
   motion,
   AnimateSharedLayout,
   useAnimation,
   useTransform,
   useViewportScroll,
-  useSpring,
 } from "framer-motion"
 import styled from "styled-components"
 import { useInView, InView } from "react-intersection-observer"
@@ -208,6 +207,7 @@ const Sidebar = ({ data }) => {
   // content for the image carousel
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
+    inViewThreshold: 0.1,
   })
 
   const scrollPrev = useCallback(() => {
@@ -234,7 +234,7 @@ const Sidebar = ({ data }) => {
   const { scrollYProgress } = useViewportScroll()
   const y = useTransform(
     scrollYProgress,
-    scrollYProgress => scrollYProgress * 250
+    scrollYProgress => scrollYProgress * 400
   )
 
   return (
@@ -448,6 +448,7 @@ const YearGrid = styled(motion.div)`
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-flow: row;
   /* grid-auto-flow: row; */
+  padding-bottom: 10rem;
 
   @media (max-width: ${breakpoints.m}px) {
     width: 90%;
