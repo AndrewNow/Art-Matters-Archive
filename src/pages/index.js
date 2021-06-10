@@ -11,6 +11,7 @@ import { graphql } from "gatsby"
 import { RiArrowRightUpLine, RiInstagramFill } from "react-icons/ri"
 import { FaPhoneAlt, FaFacebook } from "react-icons/fa"
 
+
 const banner = {
   initial: {
     transition: { staggerChildren: 0.1 },
@@ -67,6 +68,7 @@ const IndexPage = ({ data }) => {
         </Bio>
         <Sidebar data={data} />
         {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
+        {/* <Footer /> */}
         <Footer>
           <SeeMore>
             <h2>Want to see more?</h2>
@@ -550,16 +552,13 @@ const MainPage = styled.div`
   top: 0;
   right: 0;
   width: 92.5%;
-  /* height: 360vh; */
+  height: 373vh;
   /* when editing the height, make sure you also edit MarqueeContent's VH in /Marquee.js */
   background-color: #ece9e3;
   border-left: 1px solid black;
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
-
-  @media (max-width: ${breakpoints.m}px) {
-    /* right: auto; */
-  }
 `
+
 const ArchiveTitleWrapper = styled(motion.div)`
   /* margin: 0 auto; */
   display: flex;
@@ -612,8 +611,11 @@ const Bio = styled(motion.h2)`
   margin: 0 auto;
   padding-bottom: 10rem;
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.l}px) {
     font-size: 28px;
+    padding-bottom: 7rem;
+  }
+  @media (max-width: ${breakpoints.m}px) {
     padding-bottom: 5rem;
     padding-top: 1rem;
   }
@@ -632,11 +634,18 @@ const Footer = styled.div`
     rgba(255, 255, 255, 0) 49.87%
   );
 
-  @media (max-width: ${breakpoints.m}px) {
-    flex-direction: column;
+  @media (max-width: ${breakpoints.xl}px) {
     padding: 1rem;
+  }
+  
+
+  @media (max-width: ${breakpoints.l}px) {
+    flex-direction: column;
+    height: 800px;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
     height: 500px;
-    width: 90%;
   }
 `
 
@@ -649,8 +658,17 @@ const SeeMore = styled.div`
     padding-bottom: 2rem;
   }
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.xl}px) {
+    & h2 {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
     padding: 1rem;
+    padding-top: 3rem;
+  }
+  @media (max-width: ${breakpoints.m}px) {
     padding-top: 3rem;
     & h2 {
       font-size: 32px;
@@ -735,13 +753,24 @@ const ContactUs = styled.div`
     }
   }
 
+  @media (max-width: ${breakpoints.xl}px) {
+    padding-left: 1rem;
+
+    & h2 {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
+    padding: 1rem;
+  }
+
   @media (max-width: ${breakpoints.m}px) {
     padding: 1rem;
     padding-top: 3rem;
     & h2 {
       font-size: 32px;
     }
-
     & a {
       font-size: 16px;
     }
@@ -765,5 +794,6 @@ const SocialMediaLinks = styled.div`
     }
   }
 `
+
 
 export default IndexPage

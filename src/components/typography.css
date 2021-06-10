@@ -59,6 +59,7 @@ h6 {
 
 ::selection {
   background: rgba(208, 255, 0, 0.959);
+  color: #3a3a3a;
 }
 
 strong {

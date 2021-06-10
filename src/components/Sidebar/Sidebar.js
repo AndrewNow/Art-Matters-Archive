@@ -329,9 +329,26 @@ const Sidebar = ({ data }) => {
             <br />
             <br />
             <Title layout animate={controls}>
-              Team
+              Participants
             </Title>
-            {archive ? <p>{archive.team}</p> : null}
+
+            <TeamWrapper>
+              <TeamSectionLeft>
+                <TeamTitle>Team</TeamTitle>
+                {archive ? <p>{archive.team}</p> : null}
+              </TeamSectionLeft>
+
+              <TeamSectionRight>
+                <TeamTitle>Artists</TeamTitle>
+                <TeamArtists>
+                  {archive ? <p>{archive.team}</p> : null}
+                </TeamArtists>
+
+                <TeamTitle>Other helping hands</TeamTitle>
+                <TeamOther>{archive ? <p>{archive.team}</p> : null}</TeamOther>
+              </TeamSectionRight>
+            </TeamWrapper>
+
             <br />
             <br />
             <Title layout animate={controls}>
@@ -450,7 +467,14 @@ const YearGrid = styled(motion.div)`
   /* grid-auto-flow: row; */
   padding-bottom: 10rem;
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 100%;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  @media (max-width: ${breakpoints.l}px) {
     width: 90%;
     grid-auto-flow: row;
     grid-template-columns: 1fr 1fr 1fr;
@@ -469,6 +493,10 @@ const Year = styled(motion.input)`
   background-color: transparent;
 
   filter: drop-shadow(0px 0px 14px #b1b1b1);
+
+  @media (max-width: ${breakpoints.l}px) {
+    font-size: 48px;
+  }
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 18px;
@@ -511,7 +539,7 @@ const MainContent = styled.div`
 
   @media (max-width: ${breakpoints.l}px) {
     width: 90%;
-    padding-right: 1rem;
+    padding-right: 0;
   }
 
   @media (max-width: 600px) {
@@ -522,7 +550,7 @@ const MainContent = styled.div`
 const WipeAnimation = styled(motion.div)``
 
 const Header = styled(motion.div)`
-  margin-top: 2rem;
+  padding-top: 2rem;
   margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
@@ -703,6 +731,57 @@ const MobileArchiveNavButtons = styled.div`
   }
 `
 
+const TeamWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & p {
+    font-family: "Space Mono", monospace;
+    letter-spacing: 0.03em;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    flex-direction: column;
+  }
+
+`
+
+const TeamSectionLeft = styled.div`
+  width: 45%;
+  padding-bottom: 3rem;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+  }
+`
+
+const TeamTitle = styled.p`
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  border-bottom: 1px solid white;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+`
+
+const TeamSectionRight = styled.div`
+  width: 45%;
+
+  @media (max-width: ${breakpoints.m}px) {
+    width: 100%;
+  }
+`
+
+const TeamArtists = styled.div`
+  padding-bottom: 3rem;
+`
+
+const TeamOther = styled.div``
+
 const Embla = styled.div`
   position: relative;
   /* background-color: #f7f7f7; */
@@ -719,7 +798,6 @@ const Embla = styled.div`
 const EmblaViewport = styled.div`
   overflow: hidden;
   height: auto;
-  margin: 0 auto;
   /* border: 1px solid red; */
 `
 
@@ -734,6 +812,7 @@ const EmblaContainer = styled.div`
   align-items: center;
   margin: 0 auto;
 `
+
 const EmblaSlide = styled.div`
   position: relative;
   display: flex;

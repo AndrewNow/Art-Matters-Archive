@@ -60,6 +60,9 @@ const NewEdtionBanner = styled(motion.div)`
     text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.8);
   }
 
+  @media (max-width: ${breakpoints.l}px) {
+    height: 310px;
+  }
   @media (max-width: ${breakpoints.m}px) {
     height: 270px;
   }
@@ -72,6 +75,9 @@ const NewEditionBannerContent = styled(motion.div)`
   color: white;
   font-size: 210px;
 
+  @media (max-width: ${breakpoints.l}px) {
+    font-size: 120px;
+  }
   @media (max-width: ${breakpoints.m}px) {
     font-size: 100px;
   }
