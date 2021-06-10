@@ -799,6 +799,10 @@ const EmblaViewport = styled.div`
   overflow: hidden;
   height: auto;
   /* border: 1px solid red; */
+
+  @media (max-width: ${breakpoints.s}px) {
+    padding-bottom: 5rem;
+  }
 `
 
 const EmblaContainer = styled.div`

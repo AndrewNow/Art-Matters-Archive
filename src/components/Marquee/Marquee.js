@@ -6,15 +6,14 @@ import {
   useViewportScroll,
   useSpring,
 } from "framer-motion"
-import { breakpoints } from '../../components/layout'
+import { breakpoints } from "../../components/layout"
 
 const Marquee = () => {
-  
-  // ---------- PARALLAX SCROLL LOGIC USING FRAMER ----------
+  let _ = require("lodash")
   const { scrollYProgress } = useViewportScroll()
   const yRange = useTransform(
     scrollYProgress,
-    scrollYProgress => scrollYProgress * -400
+    _.throttle(scrollYProgress => scrollYProgress * -400)
   )
   const y = useSpring(yRange, { stiffness: 125, damping: 50 })
   return (
@@ -24,7 +23,7 @@ const Marquee = () => {
       </MarqueeContent>
     </MarqueeContainer>
   )
-} 
+}
 
 const MarqueeContainer = styled(motion.div)`
   z-index: -1;

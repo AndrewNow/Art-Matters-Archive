@@ -10,15 +10,16 @@ import { breakpoints } from "../../components/layout"
 
 const NewEditionBanner = () => {
   // ---------- ANIMATE ON SCROLL LOGIC ----------
+  let _ = require("lodash")
   const { scrollYProgress } = useViewportScroll()
 
   const xRightRange = useTransform(
     scrollYProgress,
-    scrollYProgress => scrollYProgress * 1000
+     _.throttle(scrollYProgress => scrollYProgress * 1000)
   )
   const xLeftRange = useTransform(
     scrollYProgress,
-    scrollYProgress => scrollYProgress * -1000
+    _.throttle(scrollYProgress => scrollYProgress * -1000)
   )
 
   const scrollRight = useSpring(xRightRange, {
