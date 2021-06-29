@@ -35,7 +35,7 @@ const letterAnimation = {
     transition: {
       ease: [0.6, 0.01, -0.05, 0.95],
       duration: 2.5,
-      delay: 2,
+      delay: 0,
     },
   },
 }
@@ -47,7 +47,7 @@ const IndexPage = ({ data }) => {
       <SEO title="Archive" />
       <Marquee />
       <MainPage>
-        <HomepageAnimation />
+        {/* <HomepageAnimation /> */}
         <ArchiveTitleWrapper
           variants={banner}
           initial="initial"
@@ -59,7 +59,6 @@ const IndexPage = ({ data }) => {
             </ArchiveTitle>
           ))}
         </ArchiveTitleWrapper>
-        {/* <ArchiveTitle>ARCHIVE</ArchiveTitle> */}
         <Bio variants={letterAnimation} initial="initial" animate="animate">
           Art Matters has been running for more than 20 years now. Thanks to
           community contributions, we have been able to preserve and document
@@ -68,7 +67,6 @@ const IndexPage = ({ data }) => {
         </Bio>
         <Sidebar data={data} />
         {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
-        {/* <Footer /> */}
         <Footer>
           <SeeMore>
             <h2>Want to see more?</h2>
@@ -133,7 +131,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -152,7 +150,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -171,7 +169,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -190,7 +188,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -209,7 +207,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -228,7 +226,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -247,7 +245,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -266,7 +264,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -285,7 +283,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -304,7 +302,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -323,7 +321,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -342,7 +340,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -361,7 +359,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -380,7 +378,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -399,7 +397,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -418,7 +416,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -437,7 +435,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -456,7 +454,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -475,7 +473,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -494,7 +492,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }
@@ -513,7 +511,7 @@ export const pageQuery = graphql`
     #         gatsbyImageData(
     #           width: 600
     #           placeholder: BLURRED
-    #           quality: 90
+    #           quality: 80
     #           blurredOptions: { width: 80 }
     #         )
     #       }
@@ -532,7 +530,7 @@ export const pageQuery = graphql`
             gatsbyImageData(
               width: 600
               placeholder: BLURRED
-              quality: 90
+              quality: 80
               blurredOptions: { width: 80 }
             )
           }

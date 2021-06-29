@@ -11,7 +11,7 @@ import { breakpoints } from "../../components/layout"
 const NewEditionBanner = () => {
   // ---------- ANIMATE ON SCROLL LOGIC ----------
   let _ = require("lodash")
-  const { scrollYProgress } = useViewportScroll()
+  const { scrollYProgress } = useViewportScroll({ passive: true })
 
   const xRightRange = useTransform(
     scrollYProgress,

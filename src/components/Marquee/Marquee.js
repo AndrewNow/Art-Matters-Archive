@@ -10,7 +10,7 @@ import { breakpoints } from "../../components/layout"
 
 const Marquee = () => {
   let _ = require("lodash")
-  const { scrollYProgress } = useViewportScroll()
+  const { scrollYProgress } = useViewportScroll({ passive: true })
   const yRange = useTransform(
     scrollYProgress,
     _.throttle(scrollYProgress => scrollYProgress * -400)

@@ -25,7 +25,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
 * {
-  font-family: "NeueMontreal";
+  font-family: "NeueMontreal", sans-serif;;
   font-weight: normal;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -46,15 +46,15 @@ button {
 }
 
 h1 {
-  font-family: "at_surt_regular";
+  font-family: "at_surt_regular", sans-serif;
 }
 
 h2 {
-  font-family: "NeueMontreal";
+  font-family: "NeueMontreal", sans-serif;
 }
 
 h6 {
-  font-family: "TimesNowItalic"
+  font-family: "TimesNowItalic", serif;
 }
 
 ::selection {

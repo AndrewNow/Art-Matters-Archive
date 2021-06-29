@@ -105,7 +105,7 @@ const Sidebar = ({ data }) => {
     },
   }
 
-  const { ref, inView } = useInView()
+  const { ref, inView } = useInView({ triggerOnce: true })
 
   // Logic for opening the archive sidebar
   const [modalOpen, setModalOpen] = useState(false)
@@ -217,26 +217,19 @@ const Sidebar = ({ data }) => {
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
 
-  // useEffect(() => {
-  //   emblaApi.scrollTo(0)
-  // }, [emblaApi])
-
-  // const resetEmblaIndex = useCallback(
-  //   emblaApi.scrollTo(0)
-  // )
-
   const resetEmblaIndex = () => {
     if (emblaApi) emblaApi.scrollTo(0)
   }
 
-  // ---------- PARRALLAX SCROLL LOGIC USING FRAMER ----------
 
-  const { scrollYProgress } = useViewportScroll()
+  // ---------- PARRALLAX SCROLL LOGIC USING FRAMER ----------
+  const { scrollYProgress } = useViewportScroll({ passive: true })
   const y = useTransform(
     scrollYProgress,
     scrollYProgress => scrollYProgress * 400
   )
 
+  
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -249,7 +242,9 @@ const Sidebar = ({ data }) => {
           variants={animateInView}
           animate={inView ? "visible" : "hidden"}
         >
-          <PastEditionBgTitle style={{ y: y }}>
+          <PastEditionBgTitle
+            style={{ y: y }}
+          >
             Past <br /> Editions
           </PastEditionBgTitle>
           <YearGrid
@@ -348,7 +343,6 @@ const Sidebar = ({ data }) => {
                 <TeamOther>{archive ? <p>{archive.team}</p> : null}</TeamOther>
               </TeamSectionRight>
             </TeamWrapper>
-
             <br />
             <br />
             <Title layout animate={controls}>
@@ -432,22 +426,7 @@ const PastEditionBgTitle = styled(motion.h2)`
   font-size: 16.5vw;
   margin-bottom: 3rem;
   line-height: 96%;
-
   z-index: 999;
-  /* transform: translateY(20rem); */
-
-  /* animation: glow 2s infinite alternate;
-  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
-
-  @keyframes glow {
-    from {
-      text-shadow: 10px 3px 16px #ece9e3, 0 2px 0 #ece9e3, -10px -3px 26px #fff;
-    }
-    to {
-      text-shadow: 10px 10px 20px whitesmoke, 0px 2px 0 #ece9e3,
-        20px 13px 20px #fff;
-    }
-  } */
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 17vw;

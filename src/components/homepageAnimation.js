@@ -12,7 +12,7 @@ const HomepageAnimation = () => {
       document.body.style.overflow = "hidden"
       setTimeout(() => {
         document.body.style.overflow = originalStyle
-      }, 3800)
+      }, 2300)
     }, [])
   }
 
@@ -23,9 +23,13 @@ const HomepageAnimation = () => {
   }
 
   const banner = {
+    initial: {
+      opacity: 0,
+    },
     animate: {
+      opacity: 1,
       transition: {
-        delayChildren: 0.3,
+        delayChildren: 0.1,
         staggerChildren: 0.1,
       },
     },
@@ -33,15 +37,15 @@ const HomepageAnimation = () => {
 
   const letterAnimation = {
     initial: {
-      top: 400,
       opacity: 0,
+      y: 40,
     },
     animate: {
-      top: 0,
+      y: 0,
       opacity: 1,
       transition: {
         ease: [0.6, 0.01, -0.05, 0.95],
-        duration: 1,
+        duration: .5,
       },
     },
   }
@@ -52,7 +56,7 @@ const HomepageAnimation = () => {
     <>
       <AnimationWipe
         initial={{ y: 0 }}
-        animate={{ y: -2000, transition: { duration: 1, delay: 2.1 } }}
+        animate={{ y: -2000, transition: { duration: 1, delay: 1.25 } }}
       >
         <SpanWrapper variants={banner} initial="initial" animate="animate">
           {[...text].map((letters, index) => (
