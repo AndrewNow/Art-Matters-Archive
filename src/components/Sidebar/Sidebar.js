@@ -242,9 +242,7 @@ const Sidebar = ({ data }) => {
           variants={animateInView}
           animate={inView ? "visible" : "hidden"}
         >
-          <PastEditionBgTitle
-            style={{ y: y }}
-          >
+          <PastEditionBgTitle style={{ y: y }}>
             Past <br /> Editions
           </PastEditionBgTitle>
           <YearGrid
@@ -277,11 +275,19 @@ const Sidebar = ({ data }) => {
               mobile "close sidebar" button above ^ 
             */}
             <Header>
-              <PrevButton onClick={handleDecrement}>
+              <PrevButton
+                aria-label="Previous edition button"
+                onClick={handleDecrement}
+              >
                 <BiLeftArrowAlt />
               </PrevButton>
               <h2>EDITION {yearId}</h2>
-              <NextButton onClick={handleIncrement} layout animate={controls}>
+              <NextButton
+                aria-label="Next edition button"
+                onClick={handleIncrement}
+                layout
+                animate={controls}
+              >
                 <BiRightArrowAlt />
               </NextButton>
               {/* 
@@ -649,7 +655,7 @@ const NextButton = styled(motion.button)`
     display: none;
   }
 `
-const Title = styled(motion.h6)`
+const Title = styled(motion.h1)`
   color: white;
   font-size: 20px;
   letter-spacing: 0.03em;
