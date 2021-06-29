@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Art Matters Archive`,
+    description: `An archive featuring over 20 years of exhibitions in Montreal, Canada.`,
+    author: `@andrewnowacki_`,
+    image: `https://i.imgur.com/PD4bSAb.png`,
   },
   plugins: [
     `gatsby-plugin-image`,
