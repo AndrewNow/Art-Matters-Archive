@@ -641,10 +641,6 @@ const Footer = styled.div`
     flex-direction: column;
     height: 800px;
   }
-
-  @media (max-width: ${breakpoints.m}px) {
-    height: 700px;
-  }
 `
 
 const SeeMore = styled.div`
