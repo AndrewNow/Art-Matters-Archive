@@ -643,7 +643,7 @@ const Footer = styled.div`
   }
 
   @media (max-width: ${breakpoints.m}px) {
-    height: 500px;
+    height: 700px;
   }
 `
 

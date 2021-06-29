@@ -465,6 +465,10 @@ const YearGrid = styled(motion.div)`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr auto;
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    padding-bottom: 4rem;
+  }
 `
 const Year = styled(motion.input)`
   cursor: pointer;
