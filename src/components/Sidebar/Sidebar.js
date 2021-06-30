@@ -658,7 +658,7 @@ const NextButton = styled(motion.button)`
     display: none;
   }
 `
-const Title = styled(motion.h1)`
+const Title = styled(motion.h6)`
   color: white;
   font-size: 20px;
   letter-spacing: 0.03em;

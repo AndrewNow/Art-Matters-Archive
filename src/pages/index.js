@@ -557,12 +557,11 @@ const MainPage = styled.div`
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
 
   @media (max-width: ${breakpoints.m}px) {
-    height: 380vh;
+    /* height: 380vh; */
   }
 `
 
 const ArchiveTitleWrapper = styled(motion.div)`
-  /* margin: 0 auto; */
   display: flex;
   justify-content: center;
 `
@@ -572,7 +571,6 @@ const ArchiveTitle = styled(motion.span)`
   letter-spacing: -0.1rem;
   display: inline-block;
   position: relative;
-  /* margin: 0 auto; */
 
   font-size: 16.25vw;
   text-align: center;
