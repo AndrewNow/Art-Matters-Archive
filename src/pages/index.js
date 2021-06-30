@@ -555,6 +555,10 @@ const MainPage = styled.div`
   background-color: #ece9e3;
   border-left: 1px solid black;
   box-shadow: -3px 0px 16px rgba(0, 0, 0, 0.15);
+
+  @media (max-width: ${breakpoints.m}px) {
+    height: 380vh;
+  }
 `
 
 const ArchiveTitleWrapper = styled(motion.div)`

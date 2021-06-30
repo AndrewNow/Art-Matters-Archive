@@ -94,9 +94,8 @@ const Sidebar = ({ data }) => {
 
   const animateYearList = {
     visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
+        opacity: 1,
+        y: 0,
     },
     hidden: {
       opacity: 0,

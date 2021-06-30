@@ -56,9 +56,9 @@ const NewEdtionBanner = styled(motion.div)`
   cursor: pointer;
   text-shadow: 1px 1px 5px rgba(188, 188, 188, 0.48);
 
-  transition: 0.3s text-shadow ease;
+  transition: 0.45s  text-shadow ease;
   & :hover {
-    text-shadow: 1px 1px 7px rgba(188, 188, 188, 0.8);
+    text-shadow: 3px 3px 20px rgba(200, 188, 200, 1);
   }
 
   @media (max-width: ${breakpoints.l}px) {
