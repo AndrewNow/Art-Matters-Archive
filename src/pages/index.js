@@ -14,18 +14,6 @@ import { FaPhoneAlt, FaFacebook } from "react-icons/fa"
 
 const banner = {
   initial: {
-    transition: { staggerChildren: 0.1 },
-  },
-  animate: {
-    transition: {
-      delayChildren: 0.4,
-      staggerChildren: 1.1,
-    },
-  },
-}
-
-const letterAnimation = {
-  initial: {
     y: 100,
     opacity: 0,
   },
@@ -33,10 +21,28 @@ const letterAnimation = {
     y: 0,
     opacity: 1,
     transition: {
+      // delayChildren: 0.9,
+      // staggerChildren: 0.1,
       ease: [0.6, 0.01, -0.05, 0.95],
       duration: 2.5,
       delay: 0,
     },
+  },
+}
+
+
+const letterAnimation = {
+  initial: {
+    // scale: 1.5,
+    // x: -100,
+    textShadow: "10px 3px 106px #cacbeb, 0 0 0 #fff, -10px -3px 106px #cacbeb",
+    filter: "blur(10px)",
+  },
+  animate: {
+    // x: 0,
+    // scale: 1,
+    filter: "blur(0px)",
+    textShadow: " 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 26px #fff",
   },
 }
 
@@ -59,7 +65,7 @@ const IndexPage = ({ data }) => {
             </ArchiveTitle>
           ))}
         </ArchiveTitleWrapper>
-        <Bio variants={letterAnimation} initial="initial" animate="animate">
+        <Bio variants={banner} initial="initial" animate="animate">
           Art Matters has been running for more than 20 years now. Thanks to
           community contributions, we have been able to preserve and document
           our history. This website is an ode to the past, a nod to the future,
@@ -564,6 +570,10 @@ const MainPage = styled.div`
 const ArchiveTitleWrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
+
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+  }
 `
 
 const ArchiveTitle = styled(motion.span)`
@@ -577,30 +587,26 @@ const ArchiveTitle = styled(motion.span)`
 
   color: #ffffff95;
   -webkit-text-stroke: 1px solid rgba(255, 255, 255, 0.56);
-  text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 26px #fff;
+  /* text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 26px #fff; */
 
-  /* alt color below */
-  /* text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff; */
   /* filter: blur(.5px); */
 
   @media (max-width: ${breakpoints.l}px) {
     padding-top: 1rem;
     font-size: 14vw;
-    text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff;
+    /* text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff; */
   }
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 80px;
-    text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff;
+    /* text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff; */
   }
   @media (max-width: ${breakpoints.s}px) {
-    /* margin: 0 auto; */
-    /* text-align: left; */
-    /* width: 90%; */
     padding-top: 2rem;
     font-size: 62px;
+    letter-spacing: -0.3rem;
     color: #ffffff95;
-    text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff;
+    /* text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff; */
   }
 `
 

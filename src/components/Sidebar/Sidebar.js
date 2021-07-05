@@ -83,7 +83,7 @@ const Sidebar = ({ data }) => {
         delay: 0.25,
         staggerChildren: 0.06,
         delayChildren: 1.4,
-        staggerDirection: 0.5,
+        staggerDirection: -1,
       },
     },
     hidden: {
