@@ -82,8 +82,8 @@ const Sidebar = ({ data }) => {
         duration: 1.75,
         delay: 0.25,
         staggerChildren: 0.06,
-        delayChildren: 0.4,
-        staggerDirection: -0.5,
+        delayChildren: 1.4,
+        staggerDirection: 0.5,
       },
     },
     hidden: {
@@ -94,14 +94,21 @@ const Sidebar = ({ data }) => {
 
   const animateYearList = {
     visible: {
-        opacity: 1,
-        y: 0,
+      opacity: 1,
+      y: 0,
+      x: 0,
     },
     hidden: {
       opacity: 0,
       y: 20,
       x: 20,
     },
+    hover: {
+      scale: 1.1, color: "#5200ff"
+    },
+    tap: {
+      scale: 0.9
+    }
   }
 
   const { ref, inView } = useInView({ triggerOnce: true })
@@ -140,15 +147,13 @@ const Sidebar = ({ data }) => {
     // 2. We set <Year /> as an <input /> with a value={} of the associated year.
     // 3. When any <Year /> is clicked, {handleClick} updates the state of yearId
     <Year
-      whileHover="hover"
-      initial="normal"
       type="submit"
       key={archiveYear.id}
       value={archiveYear.id}
       onClick={handleClick}
-      whileHover={{ scale: 1.1, color: "#5200ff" }}
-      whileTap={{ scale: 0.9 }}
       variants={animateYearList}
+      whileHover={{ scale: 1.2, color: "#5200ff" }}
+      whileTap={{ scale: 0.9 }}
     />
   ))
 
@@ -225,7 +230,7 @@ const Sidebar = ({ data }) => {
   const { scrollYProgress } = useViewportScroll({ passive: true })
   const y = useTransform(
     scrollYProgress,
-    scrollYProgress => scrollYProgress * 400
+    scrollYProgress => scrollYProgress * -150
   )
 
   
@@ -239,7 +244,7 @@ const Sidebar = ({ data }) => {
           ref={ref}
           initial="hidden"
           variants={animateInView}
-          animate={inView ? "visible" : "hidden"}
+          animate={inView && "visible"}
         >
           <PastEditionBgTitle style={{ y: y }}>
             Past <br /> Editions
@@ -247,7 +252,8 @@ const Sidebar = ({ data }) => {
           <YearGrid
             ref={ref}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
+            animate={inView && "visible"}
+            variants={animateInView}
           >
             {allYears}
           </YearGrid>
@@ -480,14 +486,14 @@ const Year = styled(motion.input)`
   border: none;
   background-color: transparent;
 
-  filter: drop-shadow(0px 0px 14px #b1b1b1);
+  filter: drop-shadow(0px 0px 10px #b1b1b1);
 
   @media (max-width: ${breakpoints.l}px) {
     font-size: 48px;
   }
 
   @media (max-width: ${breakpoints.m}px) {
-    font-size: 18px;
+    font-size: 20px;
   }
 `
 

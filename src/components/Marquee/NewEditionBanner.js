@@ -15,19 +15,19 @@ const NewEditionBanner = () => {
 
   const xRightRange = useTransform(
     scrollYProgress,
-     _.throttle(scrollYProgress => scrollYProgress * 1000)
+     _.throttle(scrollYProgress => scrollYProgress * 500)
   )
   const xLeftRange = useTransform(
     scrollYProgress,
-    _.throttle(scrollYProgress => scrollYProgress * -1000)
+    _.throttle(scrollYProgress => scrollYProgress * -500)
   )
 
   const scrollRight = useSpring(xRightRange, {
-    stiffness: 150,
+    stiffness: 125,
     damping: 50,
   })
   const scrollLeft = useSpring(xLeftRange, {
-    stiffness: 150,
+    stiffness: 125,
     damping: 50,
   })
 
@@ -45,9 +45,10 @@ const NewEditionBanner = () => {
 }
 
 const NewEdtionBanner = styled(motion.div)`
+  /* position: relative; */
   position: relative;
   overflow: hidden;
-  display: block;
+  display: inline-block;
   width: 100%;
   height: 550px;
   border-top: 1px solid black;

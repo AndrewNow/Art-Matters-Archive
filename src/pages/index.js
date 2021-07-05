@@ -5,7 +5,7 @@ import styled from "styled-components"
 import Marquee from "../components/Marquee/Marquee"
 import { breakpoints } from "../components/layout"
 import Sidebar from "../components/Sidebar/Sidebar"
-import HomepageAnimation from "../components/homepageAnimation"
+// import HomepageAnimation from "../components/homepageAnimation"
 import { motion } from "framer-motion"
 import { graphql } from "gatsby"
 import { RiArrowRightUpLine, RiInstagramFill } from "react-icons/ri"
@@ -550,7 +550,7 @@ const MainPage = styled.div`
   top: 0;
   right: 0;
   width: 92.5%;
-  height: 373vh;
+  /* height: 373vh; */
   /* when editing the height, make sure you also edit MarqueeContent's VH in /Marquee.js */
   background-color: #ece9e3;
   border-left: 1px solid black;
@@ -641,7 +641,8 @@ const Footer = styled.div`
 
   @media (max-width: ${breakpoints.l}px) {
     flex-direction: column;
-    height: 800px;
+    padding-bottom: 2rem;
+    height: auto;
   }
 `
 

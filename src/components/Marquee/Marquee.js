@@ -13,7 +13,7 @@ const Marquee = () => {
   const { scrollYProgress } = useViewportScroll({ passive: true })
   const yRange = useTransform(
     scrollYProgress,
-    _.throttle(scrollYProgress => scrollYProgress * -400)
+    _.throttle(scrollYProgress => scrollYProgress * 400)
   )
   const y = useSpring(yRange, { stiffness: 125, damping: 50 })
   return (
@@ -27,7 +27,8 @@ const Marquee = () => {
 
 const MarqueeContainer = styled(motion.div)`
   z-index: -1;
-  position: relative;
+  /* position: relative; */
+  position: fixed;
   overflow: hidden;
   display: block;
   /* max-height: 100%; */
@@ -42,7 +43,7 @@ const MarqueeContainer = styled(motion.div)`
 `
 
 const MarqueeContent = styled(motion.div)`
-  height: 373vh;
+  /* height: 373vh; */
   //this works bc the body doc is 360vh tall
 
   position: relative;
