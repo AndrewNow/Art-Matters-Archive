@@ -104,11 +104,12 @@ const Sidebar = ({ data }) => {
       x: 20,
     },
     hover: {
-      scale: 1.1, color: "#5200ff"
+      scale: 1.1,
+      color: "#5200ff",
     },
     tap: {
-      scale: 0.9
-    }
+      scale: 0.9,
+    },
   }
 
   const { ref, inView } = useInView({ triggerOnce: true })
@@ -225,7 +226,6 @@ const Sidebar = ({ data }) => {
     if (emblaApi) emblaApi.scrollTo(0)
   }
 
-
   // ---------- PARRALLAX SCROLL LOGIC USING FRAMER ----------
   const { scrollYProgress } = useViewportScroll({ passive: true })
   const y = useTransform(
@@ -233,7 +233,6 @@ const Sidebar = ({ data }) => {
     scrollYProgress => scrollYProgress * -150
   )
 
-  
   return (
     <>
       <BannerButton onClick={handleClickOut}>
@@ -341,17 +340,46 @@ const Sidebar = ({ data }) => {
             <TeamWrapper>
               <TeamSectionLeft>
                 <TeamTitle>Team</TeamTitle>
-                {archive ? <p>{archive.team}</p> : null}
+                <TeamEntry>
+                  {archive.participants.curator ? (
+                    <>
+                      <p>Curator:</p>
+                      <p>{archive.participants.curator}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry>
+                  {archive.participants.design ? (
+                    <>
+                      <p>design:</p>
+                      <p>{archive.participants.design}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry>
+                  {archive.participants.web ? (
+                    <>
+                      <p>Web programmer:</p>
+                      <p>{archive.participants.web}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
               </TeamSectionLeft>
 
               <TeamSectionRight>
                 <TeamTitle>Artists</TeamTitle>
                 <TeamArtists>
-                  {archive ? <p>{archive.team}</p> : null}
+                  {archive.participants.artists ? (
+                    <p>{archive.participants.artists}</p>
+                  ) : null}
                 </TeamArtists>
 
                 <TeamTitle>Other helping hands</TeamTitle>
-                <TeamOther>{archive ? <p>{archive.team}</p> : null}</TeamOther>
+                <TeamOther>
+                  {archive.participants.other ? (
+                    <p>{archive.participants.other}</p>
+                  ) : null}
+                </TeamOther>
               </TeamSectionRight>
             </TeamWrapper>
             <br />
@@ -362,7 +390,10 @@ const Sidebar = ({ data }) => {
             {archive.images ? (
               <>
                 <Embla>
-                  <EmblaGalleryButtonPrev onClick={scrollPrev}>
+                  <EmblaGalleryButtonPrev
+                    onClick={scrollPrev}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <PrevArrowSVG />
                     <p>Prev</p>
                   </EmblaGalleryButtonPrev>
@@ -381,7 +412,10 @@ const Sidebar = ({ data }) => {
                       ))}
                     </EmblaContainer>
                   </EmblaViewport>
-                  <EmblaGalleryButtonNext onClick={scrollNext}>
+                  <EmblaGalleryButtonNext
+                    onClick={scrollNext}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <NextArrowSVG />
                     <p>Next</p>
                   </EmblaGalleryButtonNext>
@@ -740,7 +774,6 @@ const TeamWrapper = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     flex-direction: column;
   }
-
 `
 
 const TeamSectionLeft = styled.div`
@@ -762,6 +795,18 @@ const TeamTitle = styled.p`
   padding-bottom: 0.75rem;
 `
 
+const TeamEntry = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & p {
+    text-transform: uppercase;
+    /* text-align: right; */
+    max-width: 50%;
+    padding-bottom: 1rem;
+  }
+`
+
 const TeamSectionRight = styled.div`
   width: 45%;
 
@@ -772,9 +817,12 @@ const TeamSectionRight = styled.div`
 
 const TeamArtists = styled.div`
   padding-bottom: 3rem;
+  text-transform: uppercase;
 `
 
-const TeamOther = styled.div``
+const TeamOther = styled.div`
+  text-transform: uppercase;
+`
 
 const Embla = styled.div`
   position: relative;

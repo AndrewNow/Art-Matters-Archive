@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Art Matters Archive`,
+    title: `Art Matters`,
     description: `An archive featuring over 20 years of exhibitions in Montreal, Canada.`,
     author: `@andrewnowacki_`,
     image: `https://i.imgur.com/6d0cgaR.jpg`,

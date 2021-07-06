@@ -1,9 +1,8 @@
 import React, { useState } from "react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { breakpoints } from "../../components/layout"
 import styled from "styled-components"
 import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack"
-
 import LoadingSpinner from "./LoadingSpinner"
 import useWindowSize from "../utils/useWindowSize"
 import { NextArrowSVG, PrevArrowSVG } from "../utils/emblaArrowSVG"
@@ -40,14 +39,24 @@ const ArchivePDF = ({ archive }) => {
     setPageNumber(prevPageNumber => prevPageNumber + offset)
   }
   const previousPage = () => {
-    changePage(-1)
+    if (pageNumber === 1) {
+      setPageNumber(numPages)
+    } else {
+      changePage(-1)
+    }
   }
   const nextPage = () => {
-    changePage(1)
+    if (pageNumber === numPages) {
+      setPageNumber(1)
+    } else {
+      changePage(1)
+    }
   }
   const handleClick = () => {
     setZoomIn(!zoomIn)
   }
+
+  console.log(numPages)
 
   //worker for react-pdf
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
@@ -58,9 +67,8 @@ const ArchivePDF = ({ archive }) => {
         {archive.pdf ? (
           <PDFPrevButton
             type="button"
-            disabled={pageNumber <= 1}
+            // disabled={pageNumber <= 1}
             onClick={previousPage}
-            whileHover={{ color: "#5200ff", opacity: 1 }}
             whileTap={{ scale: 0.95 }}
             animate={zoomIn ? "faded" : "opaque"}
             variants={fadeButtons}
@@ -79,19 +87,26 @@ const ArchivePDF = ({ archive }) => {
           }
           onLoadSuccess={onDocumentLoadSuccess}
         >
-          <PDFPage
-            pageNumber={pageNumber}
-            scale={zoomIn ? 1.2 : 1}
-            onClick={handleClick}
-            width={checkWidth()}
-          />
+          <AnimatePresence>
+            <PDFPagewrapper
+              initial={{ opacity: 0 }}
+              animate={{opacity: 1}}
+              exit={{opacity: 0}}>
+            <PDFPage
+              pageNumber={pageNumber}
+              scale={zoomIn ? 1.2 : 1}
+              onClick={handleClick}
+              width={checkWidth()}
+              loading={null}
+              />
+              </PDFPagewrapper>
+          </AnimatePresence>
         </PDFDocument>
         {archive.pdf ? (
           <PDFNextButton
             type="button"
-            disabled={pageNumber >= numPages}
+            // disabled={pageNumber >= numPages}
             onClick={nextPage}
-            whileHover={{ color: "#5200ff", opacity: 1 }}
             whileTap={{ scale: 0.95 }}
             animate={zoomIn ? "faded" : "opaque"}
             variants={fadeButtons}
@@ -135,6 +150,8 @@ const PDFDocument = styled(Document)`
 const PDFPage = styled(Page)`
   box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
 `
+
+const PDFPagewrapper = styled(motion.div)``
 
 const PDFPrevButton = styled(motion.button)`
   z-index: 100;
