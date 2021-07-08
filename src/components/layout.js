@@ -8,6 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 // import { useStaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
 
 import "./layout.css"
 import "./typography.css"
@@ -21,23 +22,27 @@ export const breakpoints = {
   xxl: 1400,
 }
 
-const Layout = ({ children }) => {
-  // const data = useStaticQuery(graphql`
-  //   query SiteTitleQuery {
-  //     site {
-  //       siteMetadata {
-  //         title
-  //       }
-  //     }
-  //   }
-  // `)
-
-  return (
-    <>
-      <main>{children}</main>
-    </>
-  )
-}
+const Layout = ({ children }) => (
+  <StaticQuery
+    query={graphql`
+      query SiteTitleQuery {
+        site {
+          siteMetadata {
+            title
+            image
+          }
+        }
+      }
+    `}
+    render={data => (
+      <>
+        {/* <Navbar siteTitle={data.site.siteMetadata.title} /> */}
+        <head siteTitle={data.site.siteMetadata.title} image={data.site.siteMetadata.image}/>
+        <main>{children}</main>
+      </>
+    )}
+  />
+)
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

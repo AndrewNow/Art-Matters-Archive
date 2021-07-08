@@ -3,7 +3,7 @@ module.exports = {
     title: `Art Matters`,
     description: `An archive featuring over 20 years of exhibitions in Montreal, Canada.`,
     author: `@andrewnowacki_`,
-    image: `https://i.imgur.com/6d0cgaR.jpg`,
+    image: `https://i.imgur.com/3qe9P9I.png`,
   },
   plugins: [
     `gatsby-plugin-image`,
