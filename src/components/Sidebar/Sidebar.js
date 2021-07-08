@@ -340,27 +340,115 @@ const Sidebar = ({ data }) => {
             <TeamWrapper>
               <TeamSectionLeft>
                 <TeamTitle>Team</TeamTitle>
-                <TeamEntry>
+                <TeamEntry layout animate={controls}>
                   {archive.participants.curator ? (
                     <>
-                      <p>Curator:</p>
+                      <h6>Curator:</h6>
                       <p>{archive.participants.curator}</p>
                     </>
                   ) : null}
                 </TeamEntry>
-                <TeamEntry>
+                <TeamEntry layout animate={controls}>
                   {archive.participants.design ? (
                     <>
-                      <p>design:</p>
+                      <h6>Design:</h6>
                       <p>{archive.participants.design}</p>
                     </>
                   ) : null}
                 </TeamEntry>
-                <TeamEntry>
+                <TeamEntry layout animate={controls}>
                   {archive.participants.web ? (
                     <>
-                      <p>Web programmer:</p>
+                      <h6>Web programmer:</h6>
                       <p>{archive.participants.web}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.exhibitionscoordinator ? (
+                    <>
+                      <h6>Exhibitions Coordinator:</h6>
+                      <p>{archive.participants.exhibitionscoordinator}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.boardofdirectors ? (
+                    <>
+                      <h6>Board:</h6>
+                      <p>{archive.participants.boardofdirectors}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.administrativecoordinator ? (
+                    <>
+                      <h6>Administrative Coordinator:</h6>
+                      <p>{archive.participants.administrativecoordinator}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.financialcoordinator ? (
+                    <>
+                      <h6>Financial Coordinator:</h6>
+                      <p>{archive.participants.financialcoordinator}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.translator ? (
+                    <>
+                      <h6>Translator:</h6>
+                      <p>{archive.participants.translator}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.archivist ? (
+                    <>
+                      <h6>Archivist:</h6>
+                      <p>{archive.participants.archivist}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.communications ? (
+                    <>
+                      <h6>Communications:</h6>
+                      <p>{archive.participants.communications}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.technician ? (
+                    <>
+                      <h6>Technical Coordinator:</h6>
+                      <p>{archive.participants.technician}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.photography ? (
+                    <>
+                      <h6>Photography:</h6>
+                      <p>{archive.participants.photography}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.media ? (
+                    <>
+                      <h6>Media:</h6>
+                      <p>{archive.participants.media}</p>
+                    </>
+                  ) : null}
+                </TeamEntry>
+                <TeamEntry layout animate={controls}>
+                  {archive.participants.humanresources ? (
+                    <>
+                      <h6>Human Resources:</h6>
+                      <p>{archive.participants.humanresources}</p>
                     </>
                   ) : null}
                 </TeamEntry>
@@ -368,14 +456,14 @@ const Sidebar = ({ data }) => {
 
               <TeamSectionRight>
                 <TeamTitle>Artists</TeamTitle>
-                <TeamArtists>
+                <TeamArtists layout animate={controls}>
                   {archive.participants.artists ? (
                     <p>{archive.participants.artists}</p>
                   ) : null}
                 </TeamArtists>
 
                 <TeamTitle>Other helping hands</TeamTitle>
-                <TeamOther>
+                <TeamOther layout animate={controls}>
                   {archive.participants.other ? (
                     <p>{archive.participants.other}</p>
                   ) : null}
@@ -795,15 +883,27 @@ const TeamTitle = styled.p`
   padding-bottom: 0.75rem;
 `
 
-const TeamEntry = styled.div`
+const TeamEntry = styled(motion.div)`
   display: flex;
   justify-content: space-between;
 
   & p {
     text-transform: uppercase;
-    /* text-align: right; */
+    width: 50%;
+    padding-bottom: 1rem;
+    line-height: 20px;
+  }
+  
+  & h6 {
+    line-height: 20px;
+    text-transform: uppercase;
+    text-align: left;
     max-width: 50%;
     padding-bottom: 1rem;
+    font-family: "Space Mono", monospace;
+    color: white;
+    font-size: 16px;
+    width: 50%;
   }
 `
 
@@ -815,12 +915,12 @@ const TeamSectionRight = styled.div`
   }
 `
 
-const TeamArtists = styled.div`
+const TeamArtists = styled(motion.div)`
   padding-bottom: 3rem;
   text-transform: uppercase;
 `
 
-const TeamOther = styled.div`
+const TeamOther = styled(motion.div)`
   text-transform: uppercase;
 `
 
