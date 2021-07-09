@@ -27,7 +27,7 @@ const Sidebar = ({ data }) => {
 
   const checkWidthOpen = () => {
     if (width < 600) return "-7.5vw"
-    if (width < 800 && width > 601) return "0vw"
+    if (width < 800 && width > 601) return "13vw"
     if (width < 1280 && width > 801) return "13vw"
     if (width > 1281) return "20vw"
   }
@@ -35,7 +35,7 @@ const Sidebar = ({ data }) => {
   const checkWidthHidden = () => {
     if (width < 600) return "100vw"
     if (width < 800 && width > 601) return "96vw"
-    if (width < 1280 && width > 801) return "99vw"
+    if (width < 1280 && width > 801) return "96vw"
     if (width > 1281) return "96vw"
   }
 
@@ -571,12 +571,9 @@ const YearGrid = styled(motion.div)`
   width: 90%;
   margin: 0 auto;
   display: grid;
-  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  /* grid-template-rows: 1fr auto; */
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-flow: row;
-  /* grid-auto-flow: row; */
   padding-bottom: 10rem;
 
   @media (max-width: ${breakpoints.xl}px) {
@@ -610,11 +607,18 @@ const Year = styled(motion.input)`
 
   filter: drop-shadow(0px 0px 10px #b1b1b1);
 
+  @media (max-width: ${breakpoints.xl}px) {
+    font-size: 52px;
+  }
+
   @media (max-width: ${breakpoints.l}px) {
     font-size: 48px;
   }
 
   @media (max-width: ${breakpoints.m}px) {
+    font-size: 35px;
+  }
+  @media (max-width: ${breakpoints.s}px) {
     font-size: 20px;
   }
 `
@@ -633,6 +637,13 @@ const SidebarDiv = styled(motion.div)`
   -webkit-box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
   -moz-box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
   box-shadow: -58px 0px 50px 58px rgba(81, 0, 255, 1);
+
+  @media (max-width: ${breakpoints.xl}px) {
+    -webkit-box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
+    -moz-box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
+    box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
+
+  }
 
   @media (max-width: ${breakpoints.m}px) {
     -webkit-box-shadow: -20px 0px 30px 10px rgba(81, 0, 255, 1);
@@ -859,7 +870,7 @@ const TeamWrapper = styled.div`
     line-height: 20px;
   }
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.l}px) {
     flex-direction: column;
   }
 `
@@ -868,7 +879,7 @@ const TeamSectionLeft = styled.div`
   width: 45%;
   padding-bottom: 3rem;
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.l}px) {
     width: 100%;
   }
 `
@@ -905,12 +916,23 @@ const TeamEntry = styled(motion.div)`
     font-size: 16px;
     width: 50%;
   }
+
+  @media (max-width: ${breakpoints.m}px) {
+    & p, h6{
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    & p, h6{
+      font-size: 12px;
+    }
+  }
 `
 
 const TeamSectionRight = styled.div`
   width: 45%;
 
-  @media (max-width: ${breakpoints.m}px) {
+  @media (max-width: ${breakpoints.l}px) {
     width: 100%;
   }
 `
@@ -922,6 +944,19 @@ const TeamArtists = styled(motion.div)`
 
 const TeamOther = styled(motion.div)`
   text-transform: uppercase;
+  
+  @media (max-width: ${breakpoints.m}px) {
+    & p,
+    h6 {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    & p,
+    h6 {
+      font-size: 12px;
+    }
+  }
 `
 
 const Embla = styled.div`

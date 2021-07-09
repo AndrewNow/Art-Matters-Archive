@@ -594,19 +594,19 @@ const ArchiveTitle = styled(motion.span)`
   @media (max-width: ${breakpoints.l}px) {
     padding-top: 1rem;
     font-size: 14vw;
-    /* text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff; */
+    text-shadow: 10px 3px 16px #ece9e3, 0 0 0 #fff, -10px -3px 16px #fff;
   }
 
   @media (max-width: ${breakpoints.m}px) {
     font-size: 80px;
-    /* text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff; */
+    text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff;
   }
   @media (max-width: ${breakpoints.s}px) {
     padding-top: 2rem;
     font-size: 62px;
     letter-spacing: -0.3rem;
     color: #ffffff95;
-    /* text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff; */
+    text-shadow: 2px 3px 10px #ece9e3, 0 0 0 #fff, -5px -1px 4px #fff;
   }
 `
 
@@ -617,6 +617,10 @@ const Bio = styled(motion.h2)`
   margin: 0 auto;
   padding-bottom: 10rem;
 
+  @media (max-width: ${breakpoints.xl}px) {
+    font-size: 45px;
+    padding-bottom: 7rem;
+  }
   @media (max-width: ${breakpoints.l}px) {
     font-size: 28px;
     padding-bottom: 7rem;
