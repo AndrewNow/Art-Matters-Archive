@@ -598,7 +598,7 @@ const Year = styled(motion.input)`
   cursor: pointer;
   padding: 2rem 1rem;
   color: #636363;
-  font-size: 64px;
+  font-size: 3.33vw;
   position: relative;
   z-index: 1000;
 
@@ -675,7 +675,7 @@ const MainContent = styled.div`
   @media (max-width: ${breakpoints.m}px) {
     width: 75%;
     padding-right: 0;
-    margin-left: 0;
+    margin-left: 1rem;
   }
   @media (max-width: ${breakpoints.s}px) {
     width: 90%;

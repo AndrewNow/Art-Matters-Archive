@@ -618,7 +618,7 @@ const Bio = styled(motion.h2)`
   padding-bottom: 10rem;
 
   @media (max-width: ${breakpoints.xl}px) {
-    font-size: 45px;
+    font-size: 40px;
     padding-bottom: 7rem;
   }
   @media (max-width: ${breakpoints.l}px) {
