@@ -664,8 +664,22 @@ const MainContent = styled.div`
     color: white;
   }
 
+  @media (max-width: ${breakpoints.xl}px) {
+    width: 90%;
+    padding-right: 0;
+  }
   @media (max-width: ${breakpoints.l}px) {
     width: 90%;
+    padding-right: 0;
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    width: 75%;
+    padding-right: 0;
+    margin-left: 0;
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    width: 90%;
+    margin: 0 auto;
     padding-right: 0;
   }
 
@@ -704,7 +718,6 @@ const Header = styled(motion.div)`
     margin-bottom: 2rem;
 
     & h2 {
-      /* padding-top: 1rem; */
       font-size: 60px;
     }
   }
@@ -845,6 +858,8 @@ const MobileArchiveNavButtons = styled.div`
     justify-content: space-between;
     padding-bottom: 0.25rem;
 
+    padding-top: 1rem;
+
     & button {
       display: flex;
       justify-content: space-between;
@@ -940,6 +955,19 @@ const TeamSectionRight = styled.div`
 const TeamArtists = styled(motion.div)`
   padding-bottom: 3rem;
   text-transform: uppercase;
+
+  @media (max-width: ${breakpoints.m}px) {
+    & p,
+    h6 {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    & p,
+    h6 {
+      font-size: 12px;
+    }
+  }
 `
 
 const TeamOther = styled(motion.div)`

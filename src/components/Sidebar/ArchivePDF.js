@@ -53,11 +53,10 @@ const ArchivePDF = ({ archive }) => {
     }
   }
   const handleClick = () => {
-    setZoomIn(!zoomIn)
+    if (width > 900) {
+      setZoomIn(!zoomIn)
+    }
   }
-
-  console.log(numPages)
-
   //worker for react-pdf
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
@@ -236,7 +235,7 @@ const PDFNoData = styled.div`
     height: 300px;
     max-width: 300px;
     padding: 1rem;
-    /* text-align: center; */
+    text-align: center;
   }
 `
 
