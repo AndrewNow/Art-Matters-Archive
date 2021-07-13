@@ -166,7 +166,7 @@ const Sidebar = ({ data }) => {
   // functions for the next and previous navigation buttons within the sidebar
   const decrementArchiveCount = () => {
     // If year is smaller than 2000, go back to the most recent year archive
-    if (yearId === 2000) {
+    if (yearId === 2001) {
       setYearId(2021)
     } else {
       setYearId(prevYear => prevYear - 1)
@@ -176,7 +176,7 @@ const Sidebar = ({ data }) => {
   const incrementArchiveCount = () => {
     // If year is greater than 2021, go back to the oldest year archive
     if (yearId === 2021) {
-      setYearId(2000)
+      setYearId(2001)
     } else {
       setYearId(prevYear => prevYear + 1)
     }
