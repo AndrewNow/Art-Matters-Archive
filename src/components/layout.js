@@ -37,7 +37,7 @@ const Layout = ({ children }) => (
     render={data => (
       <>
         {/* <Navbar siteTitle={data.site.siteMetadata.title} /> */}
-        <head siteTitle={data.site.siteMetadata.title} image={data.site.siteMetadata.image}/>
+        {/* <head image={data.site.siteMetadata.image}/> */}
         <main>{children}</main>
       </>
     )}
