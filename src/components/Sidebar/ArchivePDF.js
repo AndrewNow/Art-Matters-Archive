@@ -87,9 +87,7 @@ const ArchivePDF = ({ archive }) => {
           file={ArchivePdf}
           loading={<LoadingSpinner />}
           // renderMode={"svg"}
-          noData={
-            <PDFNoData>No catalogue archived for this year, sorry! ⛏</PDFNoData>
-          }
+          noData={<PDFNoData>No catalogue archived for this year! ⛏</PDFNoData>}
           onLoadSuccess={onDocumentLoadSuccess}
         >
           <AnimatePresence>
@@ -122,7 +120,7 @@ const ArchivePDF = ({ archive }) => {
           </PDFNextButton>
         ) : null}
       </PDFContainer>
-      {archive.pdf ? (
+      {ArchivePdf ? (
         <PDFPageNumber noData={<div>Error</div>}>
           {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
         </PDFPageNumber>
