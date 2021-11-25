@@ -209,7 +209,7 @@ const Sidebar = ({ data }) => {
     })
   }
 
-  // content for the image carousel
+  // Image carousel logic (Embla carousel initialization & config)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     inViewThreshold: 0.1,
@@ -235,7 +235,10 @@ const Sidebar = ({ data }) => {
 
   return (
     <>
-      <BannerButton onClick={handleClickOut}>
+      <BannerButton
+        onClick={handleClickOut}
+        aria-label="Open newest archive edition."
+      >
         <NewEditionBanner />
       </BannerButton>
       <InView threshold={1}>
@@ -258,10 +261,8 @@ const Sidebar = ({ data }) => {
           </YearGrid>
         </ArchiveYearList>
       </InView>
-      {/* 
-    <BannerButton> and <ArchiveYearList> are on the homepage.
-    the rest of the content below is for the sidebar
-    */}
+      {/* <BannerButton> and <ArchiveYearList> are on the homepage.
+    the rest of the content below is for the sidebar */}
       {modalOpen && <Modal />}
       <AnimateSharedLayout>
         <SidebarDiv
@@ -320,23 +321,37 @@ const Sidebar = ({ data }) => {
                 </motion.button>
               </MobileArchiveNavButtons>
             </Header>
-
-            {/* 
-              finally, the contents of each archive taken from {archive} below
-            */}
-            <Title layout animate={controls}>
-              Catalogue
-            </Title>
-            {/* Check to see if {archive} exists, if it does, render the component data */}
-            {archive ? (
-              <ArchivePDF archive={archive} layout animate={controls} />
-            ) : null}
+            {/* finally, the contents of each archive taken from {archive} below */}
+            {archive.pdf && !archive.publication ? (
+              <>
+                <Title layout animate={controls}>
+                  Catalogue
+                </Title>
+                {archive ? (
+                  <ArchivePDF archive={archive} layout animate={controls} />
+                ) : null}
+              </>
+            ) : (
+              <>
+                {archive.publication ? (
+                  <>
+                    <Title layout animate={controls}>
+                      Publication
+                    </Title>
+                    {archive.publication.text ? (
+                      <PublicationText>
+                        <p>{archive.publication.text}</p>
+                      </PublicationText>
+                    ) : null}
+                  </>
+                ) : null}
+              </>
+            )}
             <br />
             <br />
             <Title layout animate={controls}>
               Participants
             </Title>
-
             <TeamWrapper>
               <TeamSectionLeft>
                 <TeamTitle>Team</TeamTitle>
@@ -568,7 +583,7 @@ const PastEditionBgTitle = styled(motion.h2)`
 `
 
 const YearGrid = styled(motion.div)`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -577,7 +592,6 @@ const YearGrid = styled(motion.div)`
   padding-bottom: 10rem;
 
   @media (max-width: ${breakpoints.xl}px) {
-    width: 100%;
     grid-auto-flow: row;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr auto;
@@ -642,7 +656,6 @@ const SidebarDiv = styled(motion.div)`
     -webkit-box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
     -moz-box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
     box-shadow: -19px 0px 30px 15px rgba(81, 0, 255, 1);
-
   }
 
   @media (max-width: ${breakpoints.m}px) {
@@ -705,7 +718,7 @@ const Header = styled(motion.div)`
   -moz-box-shadow: 0px 0px 40px 35px rgba(81, 0, 255, 1);
   box-shadow: 0px 0px 40px 35px rgba(81, 0, 255, 1);
 
-  & h2 {
+  h2 {
     text-align: center;
     font-size: 100px;
     letter-spacing: 0.1rem;
@@ -713,11 +726,20 @@ const Header = styled(motion.div)`
     text-shadow: 0px 0px 8px #ffffff;
     flex-basis: 2;
   }
-
+  @media (max-width: 1600px) {
+    h2 {
+      font-size: 90px;
+    }
+  }
+  @media (max-width: ${breakpoints.xxl}px) {
+    h2 {
+      font-size: 80px;
+    }
+  }
   @media (max-width: ${breakpoints.xl}px) {
     margin-bottom: 2rem;
 
-    & h2 {
+    h2 {
       font-size: 60px;
     }
   }
@@ -818,6 +840,10 @@ const Title = styled(motion.h6)`
   border-bottom: 1px solid white;
   padding-bottom: 0.5rem;
   margin-bottom: 2rem;
+
+  :first-child {
+    margin-top: 3rem;
+  }
 `
 
 const ClickOut = styled(motion.div)`
@@ -829,12 +855,12 @@ const ClickOut = styled(motion.div)`
 `
 
 const MobileClickOutButton = styled.div`
-  visibility: hidden;
-
+  display: none;
+  
+  
   @media (max-width: ${breakpoints.m}px) {
-    visibility: visible;
+    display: block;
     position: relative;
-    /* was sticky */
     top: 1rem;
     z-index: 801;
     color: white;
@@ -842,7 +868,7 @@ const MobileClickOutButton = styled.div`
     margin: 0 auto;
     cursor: pointer;
 
-    & svg {
+    svg {
       width: 19px;
       height: 19px;
     }
@@ -913,14 +939,14 @@ const TeamEntry = styled(motion.div)`
   display: flex;
   justify-content: space-between;
 
-  & p {
+  p {
     text-transform: uppercase;
     width: 50%;
     padding-bottom: 1rem;
     line-height: 20px;
   }
-  
-  & h6 {
+
+  h6 {
     line-height: 20px;
     text-transform: uppercase;
     text-align: left;
@@ -932,13 +958,53 @@ const TeamEntry = styled(motion.div)`
     width: 50%;
   }
 
+  @media (max-width: ${breakpoints.xl}px) {
+    p,
+    h6 {
+      font-size: 14px;
+    }
+  }
   @media (max-width: ${breakpoints.m}px) {
-    & p, h6{
+    p,
+    h6 {
       font-size: 14px;
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    & p, h6{
+    p,
+    h6 {
+      font-size: 12px;
+    }
+  }
+`
+const PublicationText = styled(motion.div)`
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 5rem;
+  margin-top: 2rem;
+
+  p {
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    line-height: 20px;
+    font-family: "Space Mono", monospace;
+  }
+  @media (max-width: ${breakpoints.xl}px) {
+    p,
+    h6 {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.m}px) {
+    p,
+    h6 {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.s}px) {
+    p,
+    h6 {
       font-size: 12px;
     }
   }
@@ -955,15 +1021,20 @@ const TeamSectionRight = styled.div`
 const TeamArtists = styled(motion.div)`
   padding-bottom: 3rem;
   text-transform: uppercase;
-
+  @media (max-width: ${breakpoints.xl}px) {
+    p,
+    h6 {
+      font-size: 14px;
+    }
+  }
   @media (max-width: ${breakpoints.m}px) {
-    & p,
+    p,
     h6 {
       font-size: 14px;
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    & p,
+    p,
     h6 {
       font-size: 12px;
     }
@@ -972,15 +1043,22 @@ const TeamArtists = styled(motion.div)`
 
 const TeamOther = styled(motion.div)`
   text-transform: uppercase;
-  
+
+  @media (max-width: ${breakpoints.xl}px) {
+    p,
+    h6 {
+      font-size: 14px;
+    }
+  }
+
   @media (max-width: ${breakpoints.m}px) {
-    & p,
+    p,
     h6 {
       font-size: 14px;
     }
   }
   @media (max-width: ${breakpoints.s}px) {
-    & p,
+    p,
     h6 {
       font-size: 12px;
     }

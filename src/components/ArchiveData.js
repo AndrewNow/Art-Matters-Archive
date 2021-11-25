@@ -3,7 +3,7 @@ import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
 import pdf2018 from "../components/pdfs/2018_Catalog.pdf"
 import pdf2017 from "../components/pdfs/2017_Catalog.pdf"
 import pdf2016 from "../components/pdfs/2016_Catalog.pdf"
-import pdf2015 from "../components/pdfs/2015_Catalog.pdf"
+// import pdf2015 from "../components/pdfs/2015_Catalog.pdf"
 import pdf2014 from "../components/pdfs/2014_Catalog.pdf"
 // import pdf2013 from "../components/pdfs/2013_Catalog.pdf"
 import pdf2012 from "../components/pdfs/2012_Catalog.pdf"
@@ -21,36 +21,57 @@ import pdf2001 from "../components/pdfs/2001_Catalog.pdf"
 
 // notes for future coders:
 
-// each year has its own object within the ArchiveData array. just duplicate the object and add the respective information.
+// each year is added as its own object within the ArchiveData array below. just duplicate the most recent object and add the respective information.
 // images should always have "slideshow{__yearnumber__}" whereby {__yearnumber__} represents the year, for example slideshow2028.
 // years with no image data should always have empty quotes following the the "image:" field, otherwise the archive will crash when selecting that year.
+
+// you can view Sidebar.js to view all possible role entries - e.g.: archivist, curator, design etc. 
+// (<TeamWrapper /> contains all possible entries.when adding a new role, add a ternary there as well.)
 
 export const ArchiveData = [
   {
     id: 2021,
     participants: {
       exhibitionscoordinator: "Joyce Joumaa",
-      boardofdirectors: "Alicia Turgeon & Emily Blair",
+      boardofdirectors:
+        "licia Turgeon, Emily Blair, Tyra Maria Trono, Laura Bartlett, Chelsea Harada, Dorian Bell and Tran Huyen.",
       administrativecoordinator: "Julie Poulin",
       design: "Hyacinth Wourms",
       web: "Andrew Nowacki",
       translator: "Sayaka Araniva-Yanez",
       archivist: "Sam Bordeleau",
+      artists:
+        "1000 Amour (Mila Figuet), Stephanie Bourgault, Anissa Boukili, Darius Long Yeung, Fiona Nguyen, Kimberly Orjuela, Meredith Parent Delgadillo, Kassandra Walters, Quang Hai Nguyen, Aja Palmer, Le Lin, Jay Krakower, Océane Buxton, Ana Maria Marcu, Odile Myrtil, Emile Phaneuf, Jennifer Lee, Aaliyah Crawford, Em Laferrière, David Nadeau, Nadia Mariyan, Helen Park, Jennifer Lee, Roxanne Boyle, Claudia Goulet-Blais, Alex Dozois, Carolina Larrosa, Spencer Magnan, and Lou Neveux-Pardijon",
+      curators:
+        "Matthew Sanderson, Samara Prupas, Wendy Vancol, Stephanie Leon, Alfred Muszynski, María Andreína Escalona, and Mallory Lowe Mpoka",
+      other:
+        "Anthony Napoli , Eli Kerr, Videographer: Calvin Cashen, English Copy Editor: Alexandra Chalier, French Copy Editor: Maxime Brown, Volunteer Coordinator: Aaliyah Crawford, Poster Pal: Sophia Viridis, Technicians: Isabel Gelfand, Angela Kaba, Merlin Lev, Margot Drukker. Exhibition Facilitator Jury: Eunice Belidor, Nadia Myre, Joyce Joumaa, Alicia Turgeon.",
+      photography: "Jade Wulfraat",
     },
+
     // pdf: `${}`,
     images: "slideshow2021",
+    publication: {
+      text: "As a response to the 2020 pandemic, Art Matters decided to adapt and create for the first time a printed project as an alternative venue for an exhibition. Printed in July 2021, the publication had a first edition of 350 copies and a second edition of 30 copies which were distributed at no cost via mail, pickup points, a vernissage, and a finissage. Thanks to Anteism Books, La Centrale galerie Powerhouse, Parc Offsite, Librarie Centre Clark, La Fonderie Darling, Pierre-François Ouellette art contemporain, and the Concordia Fine Arts Reading Room for their support. The physical publication can be consulted in the Special Collections Reading Room at the Vanier Library and in the Fine Arts Reading Room on the 2nd Floor of Concordia’s Engineering and Visual Arts Building. ",
+    }
   },
   {
     id: 2020,
     participants: {
       exhibitionscoordinator: "Sophie Heyen-dubé",
       administrativecoordinator: "Joel Young",
-      boardofdirectors: "Alana Devito & Alessandra Tom",
+      boardofdirectors:
+        "Alessandra Tom, Alana Devito, Emily Blair, Joyce Joumaa, Alicia Turgeon, Jacqui Beaumont",
       design: "Lou Fozin",
       communications: "Jonathan Stern",
       translator: "Laurie Sévigny-couture",
       web: "Charles Gao",
+      photography: "Teodora Stefan",
+      curators:
+        "Vanessa Lazare, Jackson Thouret, Jennifer Jack, Lorenza Mezzapelle, Olivier Du Ruisseau, Charlotte Lehoux, Rameez Karim, Malte Leander, Adia Parris and Laurie Weinstein, Mackenzie Aker, Masha Bashmakova, Merlin Heintzman Hope, Tyra Maria Trono, Amelle Margaron, Oceana Van Hagen, Becca McKay",
       archivist: "Sam Bordeleau",
+      artists:
+        "Spencer Magnan, Matthew Alquisada-Mondoori, Matthew Ribuffo, Jay Krakower, Emma Vogt, Isabel Gelfand, Tatianna Diamantoupoulou, Justine Bellefeuille, William Normand-Robichaud, Laurène Smith, Nickle Peace-Williams, Alice Reiter, Christine Laliberté, Alice Cloutier-Lachance, Melisa Haydaroglu, Rachel Mudrosky, Sam Montalbetti, Siam Obregón, Simon Bouthillier, Summer Emerald, Adalia Pemberton-Smith, Isaac Smeele, Emily Macpherson & Nikita Eaton-Lusignan, Aidan Cottreau & Madison Phyper, Alison Robertson & Maritza Thorne, Amy Jessica Pilette, Christian Brun Del Re, Jonah Bild-Lowrie & Benjamin Muñoz, Émile Phaneuf, Marie-Clara Jeannotte, Andrea Cristal Azul, Julia Warren & André Abat-Roy, Maxime Gordon, Nada Moharam, Heather Ragnars, Xdzunúm Danae Trejo-Boles & Amy Xu, Zoe Bailly-Stetson, Arturo Hidalgo, Connor Cook, Elinore Blanche, Heather Subrose, Jonah Bild-Lowrie, Mérédith Parent-Delgadillo, Neusha Taherian, Armando Rivas, Dexter Barker-Glenn, Gabrielle Auclair, Gemma Stevens, Lily Bennett-Scharf, Marie-Andrée Macameau, Swarm, Tiana Atherton, Véronique Morin & Cristobal Perez-Boudon, Christopher Forsyth, Hannah Blair, Julia Autumn Savoy, Kassandra Walters, Levana Katz, Mackenna Johnston, Maggie McCutcheon, Paulina Bereza, Pedro J Barbáchano, Clara Michaud, Susan Georgette, Piper Curtis, Sonia Reboul, Camille Emmanuelle Legault, Carlo Polidoro López, Issac Smeele, Maude Lauzière-Dumas, Safoura Kassnejad, Sine Kundargi-Girard, Somaye Farhan, Thomas Bourgeois & Amelia Jacobs, Alfred Muszynski, Alice Zerini-Le Reste, Camille Lapointe & Cheyenne Schaub, Eliza McFarlane, Louis-Félix D'Amours & Burdock Jenkins-Crumb, Émile Phaneuf, Julie-Claude Vezeau-Croteau, Miaree Cater-Smith, Peniel Hong, Anahi M.Arciniega, Fatine-Violette Sabiri, Felix Mux Wah, flora fauna, Irela AC, Isabelle Bredt, Jose Garcia, Allan Pichardo, Asazi, Guillaume Saur, Hazel Thexton, Océane Buxton, Steven Sych, Xavier Bélanger Dorval, Zoé Fauvel, Carolina Larossa, Hannah Louisy, Leah Watts, Luigi Lagulli, Luna Restrepo, Sonya Kertesz, Max Poelzer & Jacqueline Addison, Camille Huang, Magali Alanis Rodriguez-Beaudoin, Joshua Jensen, Michelle Caron-Pawlowsky, Elisabeth Perrault, Colin Courtney, Tristan Lajarrige, David Durham, Abigail Stushnoff, Anni Jefferson, Emily Spooner, Enok Ripley, Nathalie Blanche Cloutier, Salem Preusser, Scarlet Fountain",
     },
     pdf: `${pdf2020}`,
     images: "",
@@ -170,7 +191,8 @@ export const ArchiveData = [
       curators:
         "Aaliyeh Afshar, Anna Patterson, Anne Bertrand, Annika Steimle, Claire Maclsaac, Florencia Sosa Rey, John Shukin, Julie Tremblay, Jérémie Cyr, Laurence Beaudoin-Morin, Laurie-Anne Bergeron, Luisina Sosa Rey, Luna Dykstra-Santos, Maria Paula Cano Bueno, Max Taeuschel, Naakita Feldman-Kiss, Nina Patterson, Noémie Avidar, Rihab Essayh & Tiffany Le",
     },
-    pdf: `${pdf2015}`,
+    // pdf: `${pdf2015}`,
+    // 2015's pdf was corrupt
     images: "slideshow2015",
   },
   {
@@ -402,7 +424,8 @@ export const ArchiveData = [
       other: "Melissa Gruber",
       artists:
         "Aaron Reaume, Adair MacGregor, Adrew Turner, Alanna Lynch, Alex Contreras, Alex Megelas, Ali Emadzadeh, Ali Shaker, Alison Chisholm, Alison Cordner, Allen McEachren, Alli Blakely, Alli Star, Allison Moore, Allysha Larsen, Amy Drover, Amy Loder, Amy Schwartz, Andrew Watson, Anna Fahr, Angela Paez Ruiz, Angie Cheng, Annabelle D’Artois, Annabelle Savard, April Ford, Arianna Garcia-Fialquis, Audrey Lavallee, Ben Lancaster, Ben Read, Benjamin Rodger, Bjanka Murgel, Brendan Reed, Catherine LeBlanc, Chantal Picard, Chiggy, Chloe Fortin, Chris Hayes, Christiane Bourget, Christine Davis, Christine Gwahi, Claude Fortin, DJ B. Carriere, DJ Goser, DJ Mat Legrind, Dana DeKuyper, Dana Michel, Danielle Anisef, Danny Coleman, David Jurasek, David Mitchell, David Pyler, Design Art Student Association, Elizabeth Emberely, Elizabeth Hazell, Elsianne Caplette, Emilie Caron, Emily Stoney, Emma Curtis, Eric Lawrence, Erica Shapiro, Felix Lachance, Francois Carignan, Galit Mastai, Geoff Appelbaum,  Genesis P. Orrige, Goldenboy, Heather Cameron, Iranian Students Society, Isabelle Lemaire, Jason Corbett, Jason Wasserman, Jean-Yves Hamel, Jeff Cowan, Jen Anisef, Jennifer Annis, Jenny Lee Craig, Jessica Chang, Jessica Tremblay, Jessie Kotler, Jim Morris, Johanna Autin, Joe Paceco, John Stewart, Julie Anne Cote, Kaitlin Clipsham, Kajin Goh, Karine Fournier, Karissa Cove, Katarzyna Ignatowska, Kate Richardson, Kelly Best, Kerry Thompson, Kevin D’Abramo, Kimberly Fuller, Kimnven Maciej, Krista Bursey, Kristen Holinsky, Kristen Parker, Kyle Fostner, Lael Stelick, Larry R. Lamont, Laura Moore, Lauren Gould, Lauren Maclean, Lee Reid, Lisa Sookraj, Louis Plourde, Luka Fantagrassi, Luna Allison, Lynn Janigan, Maery Morrison, Marcelo Coehlo, Marianne Desjardins, Mark Evin, Melissa Faguy, Melissa Weigel, Myles Broscoe, Myra Shuster, Namchi Bazar, Natalie Reis, Nick Brazao, Oliver Adou, Owain Lawson, Painting and Drawing Association, Paul Johnston, Perrin Martin, Rachel Robertson, Rob Nowacki, Roberto Santaguida, Rosemary Gagne, Roxy Massey, Sarah Earle, Seamus Cowan, Sebastian Gauthier, Serene Daoud, Shawn Mackniak, Simon Reader, Stephane Sotto, Stephen Allin, Stephen Helsing, Steven Clark, Suzanna Smith, Sylvain Leclerc, Sylvia Wilson, Taila Weisz, Tariza Bowyer, Teoma Naccarato, Think Twice, Tiffany Main, Timothy Rodrigues, Trevor Kiemander, Tyler Shaw, Vahe and Danathe belly dancer, Valerie Buddle, Wes Hatch & Zoe Letendre",
-      curators: "Allen Mceachern, Allison Moore, Corey Mcfadden, Heather Richards, Lauren Bunker, Maddalena Fuller, Melissa Gruber, Natalie Reiss, Sacha Geciova, Shahrzad Abidi & Shawn Mack",
+      curators:
+        "Allen Mceachern, Allison Moore, Corey Mcfadden, Heather Richards, Lauren Bunker, Maddalena Fuller, Melissa Gruber, Natalie Reiss, Sacha Geciova, Shahrzad Abidi & Shawn Mack",
     },
     pdf: `${pdf2003}`,
     images: "slideshow2003",
@@ -411,9 +434,7 @@ export const ArchiveData = [
     id: 2002,
     pdf: `${pdf2002}`,
     images: "",
-    participants: {
-      
-    }
+    participants: {},
   },
   {
     id: 2001,

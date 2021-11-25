@@ -60,10 +60,16 @@ const ArchivePDF = ({ archive }) => {
   //worker for react-pdf
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
+  // I was told that future editions would EITHER have a publication, OR an archive catalogue PDF.
+  // It seems like going forward there will only be publications, so this code checks if a catalogue exists.
+  // If a catalogue exists, this component will render that catalogue's PDF. If a publication exists (which means no catalogue exists), it will render that publication
+  
+  const ArchivePdf = archive.pdf ? archive.pdf : archive.publication?.pdf
+
   return (
     <>
       <PDFContainer>
-        {archive.pdf ? (
+        {ArchivePdf ? (
           <PDFPrevButton
             type="button"
             // disabled={pageNumber <= 1}
@@ -78,7 +84,7 @@ const ArchivePDF = ({ archive }) => {
         ) : null}
         {/* PDFDocument and PDFPage components below are from the react-pdf library */}
         <PDFDocument
-          file={archive.pdf}
+          file={ArchivePdf}
           loading={<LoadingSpinner />}
           // renderMode={"svg"}
           noData={
@@ -89,16 +95,17 @@ const ArchivePDF = ({ archive }) => {
           <AnimatePresence>
             <PDFPagewrapper
               initial={{ opacity: 0 }}
-              animate={{opacity: 1}}
-              exit={{opacity: 0}}>
-            <PDFPage
-              pageNumber={pageNumber}
-              scale={zoomIn ? 1.2 : 1}
-              onClick={handleClick}
-              width={checkWidth()}
-              loading={null}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <PDFPage
+                pageNumber={pageNumber}
+                scale={zoomIn ? 1.2 : 1}
+                onClick={handleClick}
+                width={checkWidth()}
+                loading={null}
               />
-              </PDFPagewrapper>
+            </PDFPagewrapper>
           </AnimatePresence>
         </PDFDocument>
         {archive.pdf ? (

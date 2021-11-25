@@ -19,7 +19,7 @@ export const breakpoints = {
   m: 768,
   l: 992,
   xl: 1290,
-  xxl: 1400,
+  xxl: 1420,
 }
 
 const Layout = ({ children }) => (

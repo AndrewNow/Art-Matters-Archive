@@ -15,7 +15,7 @@ const NewEditionBanner = () => {
 
   const xRightRange = useTransform(
     scrollYProgress,
-     _.throttle(scrollYProgress => scrollYProgress * 500)
+    _.throttle(scrollYProgress => scrollYProgress * 500)
   )
   const xLeftRange = useTransform(
     scrollYProgress,
@@ -34,11 +34,11 @@ const NewEditionBanner = () => {
   return (
     <NewEdtionBanner>
       <NewEditionBannerContent style={{ x: scrollLeft, rotation: 0.02 }}>
-        <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
+        <p>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </p>
       </NewEditionBannerContent>
       <br />
       <NewEditionBannerContent style={{ x: scrollRight, rotation: 0.02 }}>
-        <a>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </a>
+        <p>EDITION 2021 EDITION 2021 EDITION 2021 EDITION 2021 EDITION </p>
       </NewEditionBannerContent>
     </NewEdtionBanner>
   )
@@ -48,18 +48,27 @@ const NewEdtionBanner = styled(motion.div)`
   /* position: relative; */
   position: relative;
   overflow: hidden;
-  display: inline-block;
+  /* display: inline-block; */
   width: 100%;
   height: 550px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: white;
   cursor: pointer;
-  text-shadow: 1px 1px 5px rgba(188, 188, 188, 0.48);
 
-  transition: 0.45s  text-shadow ease;
-  & :hover {
+  p {
+    color: white;
+  }
+  
+  text-shadow: 1px 1px 5px rgba(188, 188, 188, 0.48);
+  transition: 0.45s text-shadow ease;
+
+  :hover {
     text-shadow: 3px 3px 20px rgba(200, 188, 200, 1);
+  }
+
+  @media (max-width: ${breakpoints.xxl}px) {
+    height: 410px;
   }
 
   @media (max-width: ${breakpoints.xl}px) {
@@ -80,6 +89,9 @@ const NewEditionBannerContent = styled(motion.div)`
   color: white;
   font-size: 210px;
 
+  @media (max-width: ${breakpoints.xxl}px) {
+    font-size: 165px;
+  }
   @media (max-width: ${breakpoints.xl}px) {
     font-size: 150px;
   }

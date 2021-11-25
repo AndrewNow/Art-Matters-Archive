@@ -1,16 +1,14 @@
 import React from "react"
-import Layout from "../components/layout"
+import Layout, { breakpoints } from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
 import Marquee from "../components/Marquee/Marquee"
-import { breakpoints } from "../components/layout"
 import Sidebar from "../components/Sidebar/Sidebar"
 // import HomepageAnimation from "../components/homepageAnimation"
 import { motion } from "framer-motion"
 import { graphql } from "gatsby"
 import { RiArrowRightUpLine, RiInstagramFill } from "react-icons/ri"
 import { FaPhoneAlt, FaFacebook } from "react-icons/fa"
-
 
 const banner = {
   initial: {
@@ -29,7 +27,6 @@ const banner = {
     },
   },
 }
-
 
 const letterAnimation = {
   initial: {
@@ -71,8 +68,15 @@ const IndexPage = ({ data }) => {
           our history. This website is an ode to the past, a nod to the future,
           and a reminder that hard work can leave a lasting mark.
         </Bio>
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
+        {/* note:
+         Sidebar component includes the NewEditionBanner from components/Marquee */}
         <Sidebar data={data} />
-        {/* Sidebar component includes the NewEditionBanner from components/Marquee */}
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
+        {/* MAIN ARCHIVE CONTENT SIDEBAR HERE */}
         <Footer>
           <SeeMore>
             <h2>Want to see more?</h2>
@@ -83,7 +87,7 @@ const IndexPage = ({ data }) => {
               <p>Visit our website</p>
               <RiArrowRightUpLine style={{ fontSize: "1.75em" }} />
             </WebsiteLink>
-            <WebsiteLinkOverlay></WebsiteLinkOverlay>
+            <WebsiteLinkOverlay />
           </SeeMore>
           <ContactUs>
             <h2>Contact us</h2>
@@ -612,11 +616,17 @@ const ArchiveTitle = styled(motion.span)`
 
 const Bio = styled(motion.h2)`
   color: #202020;
-  font-size: 64px;
+  font-size: 3.3333vw;
+  line-height: 120%;
   width: 90%;
   margin: 0 auto;
   padding-bottom: 10rem;
-
+  @media (max-width: ${breakpoints.xxl}px) {
+    h2 {
+      padding-right: 5rem;
+      width: 85%;
+    }
+  }
   @media (max-width: ${breakpoints.xl}px) {
     font-size: 40px;
     padding-bottom: 7rem;
@@ -644,10 +654,9 @@ const Footer = styled.div`
     rgba(255, 255, 255, 0) 49.87%
   );
 
-  @media (max-width: ${breakpoints.xl}px) {
+  @media (max-width: ${breakpoints.xxl}px) {
     padding: 1rem;
   }
-  
 
   @media (max-width: ${breakpoints.l}px) {
     flex-direction: column;
@@ -665,7 +674,7 @@ const SeeMore = styled.div`
     padding-bottom: 2rem;
   }
 
-  @media (max-width: ${breakpoints.xl}px) {
+  @media (max-width: ${breakpoints.xxl}px) {
     & h2 {
       font-size: 40px;
     }
@@ -760,7 +769,7 @@ const ContactUs = styled.div`
     }
   }
 
-  @media (max-width: ${breakpoints.xl}px) {
+  @media (max-width: ${breakpoints.xxl}px) {
     padding-left: 1rem;
 
     & h2 {
@@ -801,6 +810,5 @@ const SocialMediaLinks = styled.div`
     }
   }
 `
-
 
 export default IndexPage
