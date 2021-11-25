@@ -1,3 +1,4 @@
+import pdf2021 from "../components/pdfs/2021_Catalog.pdf"
 import pdf2020 from "../components/pdfs/2020_Catalog.pdf"
 import pdf2019 from "../components/pdfs/2019_Catalog.pdf"
 import pdf2018 from "../components/pdfs/2018_Catalog.pdf"
@@ -53,6 +54,7 @@ export const ArchiveData = [
     images: "slideshow2021",
     publication: {
       text: "As a response to the 2020 pandemic, Art Matters decided to adapt and create for the first time a printed project as an alternative venue for an exhibition. Printed in July 2021, the publication had a first edition of 350 copies and a second edition of 30 copies which were distributed at no cost via mail, pickup points, a vernissage, and a finissage. Thanks to Anteism Books, La Centrale galerie Powerhouse, Parc Offsite, Librarie Centre Clark, La Fonderie Darling, Pierre-François Ouellette art contemporain, and the Concordia Fine Arts Reading Room for their support. The physical publication can be consulted in the Special Collections Reading Room at the Vanier Library and in the Fine Arts Reading Room on the 2nd Floor of Concordia’s Engineering and Visual Arts Building. ",
+      pdf: `${pdf2021}`
     }
   },
   {

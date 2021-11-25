@@ -63,7 +63,7 @@ const ArchivePDF = ({ archive }) => {
   // I was told that future editions would EITHER have a publication, OR an archive catalogue PDF.
   // It seems like going forward there will only be publications, so this code checks if a catalogue exists.
   // If a catalogue exists, this component will render that catalogue's PDF. If a publication exists (which means no catalogue exists), it will render that publication
-  
+
   const ArchivePdf = archive.pdf ? archive.pdf : archive.publication?.pdf
 
   return (
@@ -108,7 +108,7 @@ const ArchivePDF = ({ archive }) => {
             </PDFPagewrapper>
           </AnimatePresence>
         </PDFDocument>
-        {archive.pdf ? (
+        {ArchivePdf ? (
           <PDFNextButton
             type="button"
             // disabled={pageNumber >= numPages}

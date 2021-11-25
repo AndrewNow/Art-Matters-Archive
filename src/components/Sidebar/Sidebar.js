@@ -18,7 +18,7 @@ import NextLongArrowSVG from "../utils/nextLongArrowSVG"
 import ArchivePDF from "./ArchivePDF"
 import { ArchiveData } from "../ArchiveData"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { useEmblaCarousel } from "embla-carousel/react"
+import useEmblaCarousel from "embla-carousel-react"
 import { NextArrowSVG, PrevArrowSVG } from "../utils/emblaArrowSVG"
 
 const Sidebar = ({ data }) => {
@@ -339,9 +339,18 @@ const Sidebar = ({ data }) => {
                       Publication
                     </Title>
                     {archive.publication.text ? (
-                      <PublicationText>
-                        <p>{archive.publication.text}</p>
-                      </PublicationText>
+                      <>
+                        <PublicationText>
+                          <p>{archive.publication.text}</p>
+                        </PublicationText>
+                        {archive ? (
+                          <ArchivePDF
+                            archive={archive}
+                            layout
+                            animate={controls}
+                          />
+                        ) : null}
+                      </>
                     ) : null}
                   </>
                 ) : null}
@@ -856,8 +865,7 @@ const ClickOut = styled(motion.div)`
 
 const MobileClickOutButton = styled.div`
   display: none;
-  
-  
+
   @media (max-width: ${breakpoints.m}px) {
     display: block;
     position: relative;
