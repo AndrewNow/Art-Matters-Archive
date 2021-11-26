@@ -331,31 +331,7 @@ const Sidebar = ({ data }) => {
                   <ArchivePDF archive={archive} layout animate={controls} />
                 ) : null}
               </>
-            ) : (
-              <>
-                {archive.publication ? (
-                  <>
-                    <Title layout animate={controls}>
-                      Publication
-                    </Title>
-                    {archive.publication.text ? (
-                      <>
-                        <PublicationText>
-                          <p>{archive.publication.text}</p>
-                        </PublicationText>
-                        {archive ? (
-                          <ArchivePDF
-                            archive={archive}
-                            layout
-                            animate={controls}
-                          />
-                        ) : null}
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
-              </>
-            )}
+            ) : null}
             <br />
             <br />
             <Title layout animate={controls}>
@@ -541,6 +517,23 @@ const Sidebar = ({ data }) => {
 
             <br />
             <br />
+            {archive.publication ? (
+              <>
+                <Title layout animate={controls}>
+                  Publication
+                </Title>
+                {archive.publication.text ? (
+                  <>
+                    <PublicationText>
+                      <p>{archive.publication.text}</p>
+                    </PublicationText>
+                    {archive ? (
+                      <ArchivePDF archive={archive} layout animate={controls} />
+                    ) : null}
+                  </>
+                ) : null}
+              </>
+            ) : null}
           </MainContent>
         </SidebarDiv>
         {/* ----- empty background div to close the sidebar menu -----  */}
