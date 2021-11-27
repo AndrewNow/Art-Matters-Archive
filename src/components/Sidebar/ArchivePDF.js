@@ -83,29 +83,22 @@ const ArchivePDF = ({ archive }) => {
           </PDFPrevButton>
         ) : null}
         {/* PDFDocument and PDFPage components below are from the react-pdf library */}
-        <PDFDocument
-          file={ArchivePdf}
-          loading={<LoadingSpinner />}
-          // renderMode={"svg"}
-          noData={<PDFNoData>No catalogue archived for this year! ⛏</PDFNoData>}
-          onLoadSuccess={onDocumentLoadSuccess}
-        >
-          <AnimatePresence>
-            <PDFPagewrapper
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <PDFPage
-                pageNumber={pageNumber}
-                scale={zoomIn ? 1.2 : 1}
-                onClick={handleClick}
-                width={checkWidth()}
-                loading={null}
-              />
-            </PDFPagewrapper>
-          </AnimatePresence>
-        </PDFDocument>
+          <PDFDocument
+            file={ArchivePdf}
+            loading={<LoadingSpinner />}
+            noData={
+              <PDFNoData>No catalogue archived for this year! ⛏</PDFNoData>
+            }
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            <PDFPage
+              pageNumber={pageNumber}
+              scale={zoomIn ? 1.3 : 1}
+              onClick={handleClick}
+              width={checkWidth()}
+              loading={null}
+            />
+          </PDFDocument>
         {ArchivePdf ? (
           <PDFNextButton
             type="button"
@@ -133,29 +126,53 @@ const PDFContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 600px;
 
-  @media (max-width: ${breakpoints.m}px) {
+
+  /* height: 750px; */
+  /* min-height: 600px;
+  height: 600px; */
+  
+  /* max-width: 800px; */
+  position: relative;
+  width: 100%;
+  height: 750px;
+  margin: 0 auto;
+
+  @media (max-width: ${breakpoints.s}px) {
     min-height: 300px;
     max-height: 500px;
   }
 `
 
 const PDFDocument = styled(Document)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 630px;
+  overflow: hidden;
+  position: relative;
+  /* max-height: 100%; */
   margin: 0 auto;
   cursor: zoom-in;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48); */
 `
 
 const PDFPage = styled(Page)`
-  box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48);
-`
+  overflow: hidden;
+  canvas {
+    object-fit: contain;
+  }
 
-const PDFPagewrapper = styled(motion.div)``
+  width: auto;
+  height: 100%;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0px 0px 35px 11px rgba(255, 255, 255, 0.48); */
+`
 
 const PDFPrevButton = styled(motion.button)`
   z-index: 100;
@@ -166,7 +183,7 @@ const PDFPrevButton = styled(motion.button)`
   cursor: pointer;
   float: left;
 
-  & p {
+  p {
     color: #3a3a3a !important;
   }
 
@@ -196,7 +213,7 @@ const PDFNextButton = styled(motion.button)`
   cursor: pointer;
   float: right;
 
-  & p {
+  p {
     color: #3a3a3a !important;
   }
 
@@ -224,6 +241,8 @@ const PDFPageNumber = styled.p`
   padding-top: 1rem;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 100;
 `
 const PDFNoData = styled.div`
   width: 450px;

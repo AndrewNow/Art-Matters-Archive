@@ -453,7 +453,6 @@ const Sidebar = ({ data }) => {
                   ) : null}
                 </TeamEntry>
               </TeamSectionLeft>
-
               <TeamSectionRight>
                 <TeamTitle>Artists</TeamTitle>
                 <TeamArtists layout animate={controls}>
@@ -523,17 +522,19 @@ const Sidebar = ({ data }) => {
                   Publication
                 </Title>
                 {archive.publication.text ? (
-                  <>
+                  <PublicationBlock>
                     <PublicationText>
                       <p>{archive.publication.text}</p>
                     </PublicationText>
                     {archive ? (
                       <ArchivePDF archive={archive} layout animate={controls} />
                     ) : null}
-                  </>
+                  </PublicationBlock>
                 ) : null}
               </>
             ) : null}
+            <br />
+            <br />
           </MainContent>
         </SidebarDiv>
         {/* ----- empty background div to close the sidebar menu -----  */}
@@ -1009,6 +1010,10 @@ const PublicationText = styled(motion.div)`
       font-size: 12px;
     }
   }
+`
+
+const PublicationBlock = styled.div`
+
 `
 
 const TeamSectionRight = styled.div`

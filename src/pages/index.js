@@ -616,7 +616,7 @@ const ArchiveTitle = styled(motion.span)`
 
 const Bio = styled(motion.h2)`
   color: #202020;
-  font-size: 3.3333vw;
+  font-size: 3.3vw;
   line-height: 120%;
   width: 90%;
   margin: 0 auto;
