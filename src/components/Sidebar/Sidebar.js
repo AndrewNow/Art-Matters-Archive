@@ -341,10 +341,10 @@ const Sidebar = ({ data }) => {
               <TeamSectionLeft>
                 <TeamTitle>Team</TeamTitle>
                 <TeamEntry layout animate={controls}>
-                  {archive.participants.curator ? (
+                  {archive.participants.facilitators ? (
                     <>
-                      <h6>Curator:</h6>
-                      <p>{archive.participants.curator}</p>
+                      <h6>Facilitators:</h6>
+                      <p>{archive.participants.facilitators}</p>
                     </>
                   ) : null}
                 </TeamEntry>
@@ -359,7 +359,7 @@ const Sidebar = ({ data }) => {
                 <TeamEntry layout animate={controls}>
                   {archive.participants.web ? (
                     <>
-                      <h6>Web programmer:</h6>
+                      <h6>Web developer:</h6>
                       <p>{archive.participants.web}</p>
                     </>
                   ) : null}
